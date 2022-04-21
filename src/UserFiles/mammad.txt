@@ -13,7 +13,7 @@
   "email": "zia.mohammadreza.mz@gmail.com",
   "lessons": [
     "Riazi2",
-    "Physic2"
+    "Physic1"
   ],
   "departmentName": "Mathematica",
   "nationalCode": "1273897315",
