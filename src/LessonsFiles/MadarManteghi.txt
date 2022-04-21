@@ -1,0 +1,13 @@
+{
+  "name": "MadarManteghi",
+  "numberOfLesson": 1091,
+  "numberOfUnitsOfLesson": 3,
+  "departmentName": "ComputerEngineering",
+  "levelOfEducation": "PHD",
+  "teacherName" : "felfi",
+    "departmentName" : "f;f",
+    "classDay" : "monday",
+    "classTime" : "12:40",
+    "examDate" : "gsj",
+    "examTime" : "grs"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "MechanicalEngineering",
+  "haveAnEducationalAssistant": false,
+  "lessons": [
+    "Sayalat",
+    "Thermodynamics"
+  ]
+}

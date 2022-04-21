@@ -1,0 +1,8 @@
+{
+  "name": "Physics",
+  "haveAnEducationalAssistant": false,
+  "lessons": [
+    "Physic1",
+    "AzPhysic1"
+  ]
+}

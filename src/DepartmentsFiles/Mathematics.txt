@@ -1,0 +1,8 @@
+{
+  "name": "Mathematics",
+  "haveAnEducationalAssistant": false,
+  "lessons": [
+    "AP",
+    "Riazi2"
+  ]
+}

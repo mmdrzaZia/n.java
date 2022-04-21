@@ -1,0 +1,13 @@
+{
+  "name": "Thermodynamic",
+  "numberOfLesson": 1097,
+  "numberOfUnitsOfLesson": 3,
+  "departmentName": "MechanicalEngineering",
+  "levelOfEducation": "MASTER",
+  "teacherName" : "felfi",
+    "departmentName" : "f;f",
+    "classDay" : "monday",
+    "classTime" : "12:40",
+    "examDate" : "gsj",
+    "examTime" : "grs"
+}

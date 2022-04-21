@@ -1,0 +1,13 @@
+{
+  "name": "SignalsAndSystems",
+  "numberOfLesson": 1096,
+  "numberOfUnitsOfLesson": 3,
+  "departmentName": "ElectricalEngineering",
+  "levelOfEducation": "PHD",
+  "teacherName" : "felfi",
+    "departmentName" : "f;f",
+    "classDay" : "monday",
+    "classTime" : "12:40",
+    "examDate" : "gsj",
+    "examTime" : "grs"
+}

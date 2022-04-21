@@ -1,0 +1,13 @@
+{
+  "name": "Sayalat",
+  "numberOfLesson": 1095,
+  "numberOfUnitsOfLesson": 3,
+  "departmentName": "MechanicalEngineering",
+  "levelOfEducation": "MSC",
+  "teacherName" : "felfi",
+    "departmentName" : "f;f",
+    "classDay" : "monday",
+    "classTime" : "12:40",
+    "examDate" : "gsj",
+    "examTime" : "grs"
+}

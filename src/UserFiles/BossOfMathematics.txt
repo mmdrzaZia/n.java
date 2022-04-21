@@ -1,0 +1,17 @@
+{
+  "roomNumber": 3333,
+  "username": "BossOfMthematics",
+  "password": "3333",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "mammadzia",
+  "email": "vio",
+  "lessons": [
+    "SakhtemanGosaste"
+  ],
+  "departmentName": "Mathematics",
+    "nationalCode": "123460440",
+    "phoneNumber": "0913924829",
+    "universityName": "Sharif",
+    "teacherPosition": "ASSISTANT_PROFESSOR",
+    "teacherNumber": "132453"
+}

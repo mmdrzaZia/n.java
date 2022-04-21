@@ -1,0 +1,13 @@
+{
+  "name": "AP",
+  "numberOfLesson": 1088,
+  "numberOfUnitsOfLesson": 4,
+  "departmentName": "Mathematics",
+  "levelOfEducation": "MASTER",
+  "teacherName" : "felfi",
+  "departmentName" : "f;f",
+  "classDay" : "monday",
+  "classTime" : "12:40",
+  "examDate" : "gsj",
+  "examTime" : "grs"
+}

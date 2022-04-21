@@ -1,0 +1,8 @@
+{
+  "name": "ElectricalEngineering",
+  "haveAnEducationalAssistant": false,
+  "lessons": [
+    "MadarElectrici",
+    "SignalsAndSystems"
+  ]
+}

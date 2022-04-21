@@ -1,0 +1,5 @@
+package logic;
+
+public enum positions {
+    MASTER,MSC,PHD,PROFESSOR,BOSS_OF_DEPARTMENT,EDUCATIONAL_ASSISTANT
+}
