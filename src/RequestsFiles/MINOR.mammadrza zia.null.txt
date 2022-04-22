@@ -1,0 +1,12 @@
+{
+  "minorRequestResult": "REJECTED",
+  "educationalAssistantOfOriginDepartment": "-",
+  "educationalAssistantOfDestinationDepartment": "-",
+  "originSituation": 0,
+  "destinationSituation": 0,
+  "hasBeenAnswered": true,
+  "studentName": "mammadrza zia",
+  "typeOfRequest": "MINOR",
+  "responseText": "REJECTED",
+  "studentPosition": "MASTER"
+}

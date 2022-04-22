@@ -1,0 +1,7 @@
+{
+  "hasBeenAnswered": false,
+  "studentName": "mammadrza zia",
+  "typeOfRequest": "WITHDRAWAL_FROM_EDUCATION",
+  "responseText": "Your request has not been answered yet!",
+  "studentPosition": "MASTER"
+}

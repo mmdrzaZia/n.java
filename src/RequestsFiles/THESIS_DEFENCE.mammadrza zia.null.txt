@@ -1,0 +1,7 @@
+{
+  "hasBeenAnswered": false,
+  "studentName": "mammadrza zia",
+  "typeOfRequest": "THESIS_DEFENCE",
+  "responseText": "Your request has not been answered yet!",
+  "studentPosition": "PHD"
+}
