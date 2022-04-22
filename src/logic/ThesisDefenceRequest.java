@@ -10,6 +10,7 @@ public class ThesisDefenceRequest extends Requests{
         this.studentPosition = student.position;
         this.typeOfRequest = typeOfRequest;
         this.teacherName = teacherName;
+        responseText = "Your request has not been answered yet!";
     }
 
     static void giveADate (String educationalAssistantUsername,String studentName,TypeOfRequest typeOfRequest,String date) {

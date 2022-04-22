@@ -8,33 +8,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserMainPage extends GeneralFormOfPag{
-    static JLabel studyingCondition = new JLabel();
-    static JLabel supervisorName = new JLabel();
-    static JLabel registrationLicense = new JLabel();
-    static JLabel registrationTime = new JLabel();
-    static JMenu registrationMatters = new JMenu("Registration matters");
-    static JMenu educationalServices = new JMenu("Educational services");
-    static JMenu recordAffairs = new JMenu("Record affairs");
-    static JMenu profile = new JMenu("Profile");
-    static JMenuItem lessonsList = new JMenuItem("List of lessons");
-    static JMenuItem teachersList = new JMenuItem("List of teachers");
-    static JMenuItem weeklySchedule = new JMenuItem("Weekly schedule");
-    static JMenuItem examsList = new JMenuItem("List of exams");
-    static JMenu requests = new JMenu("Requests");
-    static JMenuItem temporaryScores = new JMenuItem("Temporary scores");
-    static JMenuItem educationalStatus = new JMenuItem("Educational status");
-    static JMenuItem recommendationRequest = new JMenuItem("Recommendation request");
-    static JMenuItem certificateStudentRequest = new JMenuItem("Certificate student request");
-    static JMenuItem minorRequest = new JMenuItem("Minor request");
-    static JMenuItem withdrawalFromEducationRequest = new JMenuItem("Withdrawal from education request");
-    static JMenuItem dormRequest = new JMenuItem("Dorm request");
-    static JMenuItem thesisDefenceRequest = new JMenuItem("Thesis defence request");
+    static JLabel studyingCondition;
+    static JLabel supervisorName;
+    static JLabel registrationLicense;
+    static JLabel registrationTime;
+    static JMenu registrationMatters;
+    static JMenu educationalServices;
+    static JMenu recordAffairs;
+    static JMenu profile;
+    static JMenuItem lessonsList;
+    static JMenuItem teachersList;
+    static JMenuItem weeklySchedule;
+    static JMenuItem examsList;
+    static JMenu requests;
+    static JMenuItem temporaryScores;
+    static JMenuItem educationalStatus;
+    static JMenuItem recommendationRequest;
+    static JMenuItem certificateStudentRequest;
+    static JMenuItem minorRequest;
+    static JMenuItem withdrawalFromEducationRequest;
+    static JMenuItem dormRequest;
+    static JMenuItem thesisDefenceRequest;
 
     public UserMainPage(String userUsername, String userPassword) {
         super(userUsername, userPassword);
     }
 
     static void fillMainPage () {
+        studyingCondition = new JLabel();
+        supervisorName = new JLabel();
+        registrationLicense = new JLabel();
+        registrationTime = new JLabel();
+        registrationMatters = new JMenu("Registration matters");
+        educationalServices = new JMenu("Educational services");
+        recordAffairs = new JMenu("Record affairs");
+        lessonsList = new JMenuItem("List of lessons");
+        profile = new JMenu("Profile");
+        lessonsList = new JMenuItem("List of lessons");
+        teachersList = new JMenuItem("List of teachers");
+        weeklySchedule = new JMenuItem("Weekly schedule");
+        examsList = new JMenuItem("List of exams");
+        requests = new JMenu("Requests");
+        temporaryScores = new JMenuItem("Temporary scores");
+        educationalStatus = new JMenuItem("Educational status");
+        recommendationRequest = new JMenuItem("Recommendation request");
+        certificateStudentRequest = new JMenuItem("Certificate student request");
+        minorRequest = new JMenuItem("Minor request");
+        withdrawalFromEducationRequest = new JMenuItem("Withdrawal from education request");
+        dormRequest = new JMenuItem("Dorm request");
+        thesisDefenceRequest = new JMenuItem("Thesis defence request");
         if (UserController.determineTheTypeOfUser() == 1) {
             setLabelsFeatures(username);
             masterStudentMenu();
@@ -133,6 +155,55 @@ public class UserMainPage extends GeneralFormOfPag{
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
                 SeeWeeklyAndExamsSchedule seeWeeklyAndExamsSchedule = new SeeWeeklyAndExamsSchedule(true,true,username,password);
+            }
+        });
+        recommendationRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(1,true,username,password);
+            }
+        });
+        certificateStudentRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(2,true,username,password);
+            }
+        });
+        minorRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(3,true,username,password);
+            }
+        });
+        withdrawalFromEducationRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(4,true,username,password);
+            }
+        });
+        dormRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(5,true,username,password);
+            }
+        });
+        thesisDefenceRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                RequestsPages requestsPages = new RequestsPages(6,true,username,password);
+            }
+        });
+        educationalStatus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                StudentEducationalStatus studentEducationalStatus = new StudentEducationalStatus(true,username,password);
             }
         });
     }

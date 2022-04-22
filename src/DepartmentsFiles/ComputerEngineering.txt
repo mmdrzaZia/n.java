@@ -1,6 +1,5 @@
 {
-  "name": "ComputerEngineering",
-  "bossOfDepartmentName": ""
+  "name": "Computer Engineering",
   "haveAnEducationalAssistant": false,
   "lessons": [
     "SakhtemanGosaste",

@@ -29,6 +29,7 @@ public class Main {
         //System.out.println(TypeOfRequest.CERTIFICATE_STUDENT.toString());
         //Students student = FilesAndGsonBuilderMethods.convertFileToStudent("mammad");
         //System.out.println(student.username);
+        System.out.println("Sa" + "\n" + "dk");
 
     }
 }

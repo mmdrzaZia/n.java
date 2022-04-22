@@ -2,7 +2,6 @@ package logic;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Teachers extends Users {
     TeacherPosition teacherPosition;
@@ -29,14 +28,14 @@ public class Teachers extends Users {
         return teachersInformation;
     }
 
-    static ArrayList<Teachers> seeTeachers (String name) {
+    static ArrayList<Teachers> seeTeachers (String filter) {
         ArrayList<Teachers> teachersInformation = new ArrayList<>();
         File[] teachers = new File("src/UserFiles").listFiles();
         for (int i = 0; i < teachers.length; i++) {
             String teacherJson = FilesAndGsonBuilderMethods.getStringJson(teachers[i]);
             Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(teacherJson,Teachers.class);
             if (teacher.position.equals(positions.PROFESSOR) | teacher.position.equals(positions.EDUCATIONAL_ASSISTANT) | teacher.position.equals(positions.BOSS_OF_DEPARTMENT)) {
-                if (teacher.completeName.equalsIgnoreCase(name) | teacher.departmentName.equalsIgnoreCase(name) | teacher.teacherPosition.toString().equalsIgnoreCase(name)) {
+                if (teacher.completeName.equalsIgnoreCase(filter) | teacher.departmentName.equalsIgnoreCase(filter) | teacher.teacherPosition.toString().equalsIgnoreCase(filter)) {
                     teachersInformation.add(teacher);
                 }
             }
@@ -66,12 +65,15 @@ public class Teachers extends Users {
     }
 
     static Teachers findTeacherFromCompleteName (String name) {
-        File[] teacherFiles = new File("UserFiles").listFiles();
+        File[] teacherFiles = new File("src/UserFiles").listFiles();
         for (int i = 0; i < teacherFiles.length; i++) {
             String information = FilesAndGsonBuilderMethods.getStringJson(teacherFiles[i]);
-            Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Teachers.class);
-            if (teacher.completeName.equals(name)) {
-                return teacher;
+            Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
+            if (user.position.equals(positions.PROFESSOR) | user.position.equals(positions.EDUCATIONAL_ASSISTANT) | user.position.equals(positions.BOSS_OF_DEPARTMENT)) {
+                if (user.completeName.equals(name)) {
+                    Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, Teachers.class);
+                    return teacher;
+                }
             }
         }
         return null;

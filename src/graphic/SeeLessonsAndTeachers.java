@@ -11,24 +11,29 @@ import java.awt.event.ActionListener;
 public class SeeLessonsAndTeachers implements ActionListener {
     static String username;
     static String password;
-    static JFrame list;
+    static JFrame listFrame;
     static JTable information;
-    static JPanel topOfPageInformation = new JPanel();
-    static JPanel panelOfTable = new JPanel();
+    static JPanel topOfPageInformation;
+    static JPanel panelOfTable;
     static JScrollPane scrollPane;
-    static JTextField consideredFilter = new JTextField();
-    static JButton filterButton = new JButton("Filter");
+    static JTextField consideredFilter;
+    static JButton filterButton;
     static JComboBox listOfFilters;
     boolean wantListOfLessons;
 
-    public SeeLessonsAndTeachers(String userUsername,String userPassword,boolean wantListOfLessons,boolean isStudent) {
+
+    public SeeLessonsAndTeachers(String userUsername, String userPassword, boolean wantListOfLessons, boolean isStudent) {
         username = userUsername;
         password = userPassword;
-        list = new JFrame();
-        list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        list.setSize(750,750);
-        list.setLayout(new BorderLayout());
-        list.setLocationRelativeTo(null);
+        topOfPageInformation = new JPanel();
+        panelOfTable = new JPanel();
+        consideredFilter = new JTextField();
+        filterButton = new JButton("Filter");
+        listFrame = new JFrame();
+        listFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        listFrame.setSize(750,750);
+        listFrame.setLayout(new BorderLayout());
+        listFrame.setLocationRelativeTo(null);
         this.wantListOfLessons = wantListOfLessons;
         panelOfTable.removeAll();
         setButtonsFeatures();
@@ -43,16 +48,16 @@ public class SeeLessonsAndTeachers implements ActionListener {
         }
         panelOfTable.repaint();
         panelOfTable.revalidate();
-        list.setVisible(true);
-        list.repaint();
-        list.revalidate();
+        listFrame.setVisible(true);
+        listFrame.repaint();
+        listFrame.revalidate();
     }
 
-    private static void seeListOfLessonsByStudent () {
+    private void seeListOfLessonsByStudent () {
         setTableOfLessonsInformation(null);
     }
 
-    private static void seeListOfTeachersByStudent () {
+    private void seeListOfTeachersByStudent () {
         setTableOfTeachersInformation(null);
     }
 
@@ -60,13 +65,13 @@ public class SeeLessonsAndTeachers implements ActionListener {
         topOfPageInformation.setPreferredSize(new Dimension(750,127));
         topOfPageInformation.setLayout(new BorderLayout());
         topOfPageInformation.add(GeneralFormOfPag.topOfPage,BorderLayout.NORTH);
-        list.add(topOfPageInformation,BorderLayout.NORTH);
+        listFrame.add(topOfPageInformation,BorderLayout.NORTH);
 
         panelOfTable.setPreferredSize(new Dimension(750,623));
         panelOfTable.setLayout(null);
     }
 
-    private static void setTableOfLessonsInformation (String filter) {
+    private void setTableOfLessonsInformation (String filter) {
         String[][] data = null;
         if (filter == null) {
             data = LessonController.seeLessonsByStudent();
@@ -83,12 +88,12 @@ public class SeeLessonsAndTeachers implements ActionListener {
         panelOfTable.add(scrollPane);
         panelOfTable.repaint();
         panelOfTable.revalidate();
-        list.add(panelOfTable,BorderLayout.CENTER);
-        list.repaint();
-        list.revalidate();
+        listFrame.add(panelOfTable,BorderLayout.CENTER);
+        listFrame.repaint();
+        listFrame.revalidate();
     }
 
-    private static void setTableOfTeachersInformation (String filter) {
+    private void setTableOfTeachersInformation (String filter) {
         String[][] data = null;
         if (filter == null) {
             data = UserController.seeListOfTeachersByStudent();
@@ -105,9 +110,9 @@ public class SeeLessonsAndTeachers implements ActionListener {
         panelOfTable.add(scrollPane);
         panelOfTable.repaint();
         panelOfTable.revalidate();
-        list.add(panelOfTable,BorderLayout.CENTER);
-        list.repaint();
-        list.revalidate();
+        listFrame.add(panelOfTable,BorderLayout.CENTER);
+        listFrame.repaint();
+        listFrame.revalidate();
     }
 
     private void setButtonsFeatures () {
@@ -142,8 +147,9 @@ public class SeeLessonsAndTeachers implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
-            list.dispose();
+            listFrame.dispose();
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username,password);
+            consideredFilter.setText("");
         } else if (e.getSource() == filterButton) {
             if (wantListOfLessons) {
                 if (!consideredFilter.getText().equals("")) {

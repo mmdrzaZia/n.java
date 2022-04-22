@@ -4,7 +4,7 @@
   "entryYear": 1400,
   "totalAverage": 0.0,
   "studentCondition": "STUDYING",
-  "scores": {},
+  "scores": {"Riazi2" : 19.5},
   "temporaryScores": {},
   "username": "mammad",
   "password": "1123",
@@ -15,7 +15,7 @@
     "Riazi2",
     "Physic1"
   ],
-  "departmentName": "Mathematica",
+  "departmentName": "Mathematics",
   "nationalCode": "1273897315",
   "phoneNumber": "09139342159",
   "universityName": "Sharif"

@@ -8,46 +8,51 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-public class GeneralFormOfPag extends JFrame implements ActionListener {
+public class GeneralFormOfPag implements ActionListener {
     static String username;
     static String password;
-    static GeneralFormOfPag mainFrame;
-    static JPanel topOfPage = new JPanel();
-    static JPanel informationPanel = new JPanel();
-    static JPanel centerInformationPanel = new JPanel();
-    static JButton currentTime = new JButton();
-    static JButton exitButton = new JButton("exit");
-    static JButton backToMainPage = new JButton("Back");
-    static JLabel currentTimeText = new JLabel("current time : ");
-    static JLabel lastEntryTime = new JLabel();
-    static JLabel profilePicture = new JLabel();
-    static JLabel completeName = new JLabel();
-    static JLabel email = new JLabel();
-    static JMenuBar menuBar = new JMenuBar();
-
-
-    public static GeneralFormOfPag getInstance(String userUsername, String userPassword){
-        if (mainFrame == null) {
-            mainFrame = new GeneralFormOfPag(userUsername,userPassword);
-        }
-        return mainFrame;
-    }
+    static JFrame mainFrame;
+    static JPanel topOfPage;
+    static JPanel informationPanel;
+    static JPanel centerInformationPanel;
+    static JButton currentTime;
+    static JButton exitButton;
+    static JButton backToMainPage;
+    static JLabel currentTimeText;
+    static JLabel lastEntryTime;
+    static JLabel profilePicture;
+    static JLabel completeName;
+    static JLabel email;
+    static JMenuBar menuBar;
 
     public GeneralFormOfPag(String userUsername, String userPassword) {
         username = userUsername;
         password = userPassword;
+        topOfPage = new JPanel();
+        informationPanel = new JPanel();
+        centerInformationPanel = new JPanel();
+        currentTime = new JButton();
+        exitButton = new JButton("exit");
+        backToMainPage = new JButton("Back");
+        currentTimeText = new JLabel("current time : ");
+        lastEntryTime = new JLabel();
+        profilePicture = new JLabel();
+        completeName = new JLabel();
+        menuBar = new JMenuBar();
+        email = new JLabel();
+        mainFrame = new JFrame();
         setPanelsFeatures();
         setLabelsFeatures();
         setButtonsFeatures();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(750,750);
-        setLayout(new BorderLayout());
-        setLocationRelativeTo(null);
-        add(topOfPage,BorderLayout.NORTH);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setSize(750,750);
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.add(topOfPage,BorderLayout.NORTH);
         UserMainPage.fillMainPage();
         informationPanel.add(menuBar,BorderLayout.NORTH);
-        add(informationPanel,BorderLayout.CENTER);
-        setVisible(true);
+        mainFrame.add(informationPanel,BorderLayout.CENTER);
+        mainFrame.setVisible(true);
     }
 
     private void setPanelsFeatures () {

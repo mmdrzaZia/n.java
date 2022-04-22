@@ -1,5 +1,5 @@
 {
-  "name": "MechanicalEngineering",
+  "name": "Mechanical Engineering",
   "haveAnEducationalAssistant": false,
   "lessons": [
     "Sayalat",

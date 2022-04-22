@@ -29,12 +29,15 @@ public class Students extends Users {
     }*/
 
     static Students findStudentFromCompleteNameAndStudentNumber (String studentNameOrStudentNumber) {
-        File[] studentFiles = new File("UserFiles").listFiles();
+        File[] studentFiles = new File("src/UserFiles").listFiles();
         for (int i = 0; i < studentFiles.length; i++) {
             String information = FilesAndGsonBuilderMethods.getStringJson(studentFiles[i]);
-            Students student = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Students.class);
-            if (student.completeName.equals(studentNameOrStudentNumber) | student.studentNumber.equals(studentNameOrStudentNumber)) {
-                return student;
+            Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
+            if (user.position.equals(positions.MASTER) | user.position.equals(positions.MSC) | user.position.equals(positions.PHD)) {
+                Students student = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Students.class);
+                if (student.completeName.equals(studentNameOrStudentNumber) | student.studentNumber.equals(studentNameOrStudentNumber)) {
+                    return student;
+                }
             }
         }
         return null;

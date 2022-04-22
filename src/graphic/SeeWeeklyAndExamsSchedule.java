@@ -12,14 +12,16 @@ public class SeeWeeklyAndExamsSchedule implements ActionListener {
     static String password;
     static JFrame list;
     static JTable information;
-    static JPanel topOfPageInformation = new JPanel();
-    static JPanel panelOfTable = new JPanel();
+    static JPanel topOfPageInformation;
+    static JPanel panelOfTable;
     static JScrollPane scrollPane;
 
     public SeeWeeklyAndExamsSchedule(boolean isStudent,boolean seeWeeklySchedule, String userUsername, String userPassword) {
         username = userUsername;
         password = userPassword;
         list = new JFrame();
+        topOfPageInformation = new JPanel();
+        panelOfTable  = new JPanel();
         list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         list.setSize(750,750);
         list.setLayout(new BorderLayout());

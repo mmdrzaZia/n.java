@@ -125,6 +125,12 @@ public class FilesAndGsonBuilderMethods {
         return getClassJson().fromJson(requestInformation,ThesisDefenceRequest.class);
     }
 
+    static Requests convertFileToRequests (String fileName) {
+        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        String requestInformation = getStringJson(requestFile);
+        return getClassJson().fromJson(requestInformation,Requests.class);
+    }
+
     static ObjectionToTheTemporaryScore convertFileToObjectionToTheTemporaryScore (String fileName) {
         File requestFile = findFileWhitName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);

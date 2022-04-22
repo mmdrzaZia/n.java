@@ -127,7 +127,7 @@ public class LoginPage extends JFrame implements ActionListener {
             if (securityCode == kapchaHandler.correctEntry(addressNumberOfKapcha)) {
                 if (UserController.login(username,password)) {
                     mainFrame.dispose();
-                    GeneralFormOfPag generalFormOfPag = GeneralFormOfPag.getInstance(username,password);
+                    GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username,password);
                 } else {
                     errors.setText("username or password is incorrect,try again!");
                     changingKapchaCode();

@@ -12,71 +12,87 @@ public class Requests {
     positions studentPosition;
 
 
-    static void addARecommendationRequest (String studentUsername, String teacherName, TypeOfRequest typeOfRequest) {
+    static int addARecommendationRequest (String studentUsername, String teacherName, TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         if (!existARequest(student.completeName,teacherName,typeOfRequest)) {
-            RecommendationRequest recommendationRequest = new RecommendationRequest(student.completeName, teacherName, typeOfRequest,student.position);
-            createANewFile(recommendationRequest);
+            if (Teachers.findTeacherFromCompleteName(teacherName) != null) {
+                RecommendationRequest recommendationRequest = new RecommendationRequest(student.completeName, teacherName, typeOfRequest, student.position);
+                createANewFile(recommendationRequest);
+                return 1;
+            } else {
+                return 2;
+            }
         } else {
+            return 3;
             //TODO
             //ADD AN ERROR
         }
     }
 
-    static void addACertificateStudentRequest (String studentUsername,TypeOfRequest typeOfRequest) {
+    static boolean addACertificateStudentRequest (String studentUsername,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         if (!existARequest(student.completeName,"headOfEducationalAssistants",typeOfRequest)) {
             CertificateStudentRequest certificateStudentRequest = new CertificateStudentRequest("headOfEducationalAssistants", typeOfRequest, student);
             createANewFile(certificateStudentRequest);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }
     }
 
-    static void addAMinorRequest (String studentUsername,String destinationDepartmentName,TypeOfRequest typeOfRequest) {
+    static boolean addAMinorRequest (String studentUsername,String destinationDepartmentName,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         Department originDepartment = FilesAndGsonBuilderMethods.convertFileToDepartment(student.departmentName);
         Department destinationDepartment = FilesAndGsonBuilderMethods.convertFileToDepartment(destinationDepartmentName);
         if (!existARequest(student.completeName,originDepartment.educationalAssistantName,typeOfRequest)) {
             MinorRequest minorRequest = new MinorRequest(student,originDepartment,destinationDepartment,typeOfRequest);
             createANewFile(minorRequest);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }
     }
 
-    static void addAWithdrawalFromEducationRequest (String studentUsername,TypeOfRequest typeOfRequest) {
+    static boolean addAWithdrawalFromEducationRequest (String studentUsername,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(student.departmentName);
         if (!existARequest(student.completeName,department.educationalAssistantName,typeOfRequest)) {
             WithdrawalFromEducationRequest withdrawalFromEducationRequest = new WithdrawalFromEducationRequest(student,department.educationalAssistantName,typeOfRequest);
             createANewFile(withdrawalFromEducationRequest);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }
     }
 
-    static void addADormRequest (String studentUsername,TypeOfRequest typeOfRequest) {
+    static boolean addADormRequest (String studentUsername,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         if (!existARequest(student.completeName,"headOfEducationalAssistants",typeOfRequest)) {
             DormRequest dormRequest = new DormRequest("headOfEducationalAssistants", typeOfRequest, student);
             createANewFile(dormRequest);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }
     }
 
-    static void addAThesisDefenceRequest (String studentUsername,TypeOfRequest typeOfRequest) {
+    static boolean addAThesisDefenceRequest (String studentUsername,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(student.departmentName);
         if (!existARequest(student.completeName,department.educationalAssistantName,typeOfRequest)) {
             ThesisDefenceRequest thesisDefenceRequest = new ThesisDefenceRequest(student,department.educationalAssistantName,typeOfRequest);
             createANewFile(thesisDefenceRequest);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }

@@ -11,6 +11,7 @@ public class WithdrawalFromEducationRequest extends Requests{
         this.typeOfRequest = typeOfRequest;
         this.studentPosition = student.position;
         this.teacherName = teacherName;
+        responseText = "Your request has not been answered yet!";
     }
 
     static void acceptOrReject (String studentName,String teacherUsername,TypeOfRequest typeOfRequest,boolean isAccepted) {
