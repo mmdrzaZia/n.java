@@ -9,7 +9,7 @@ public class Requests {
     String teacherName;
     TypeOfRequest typeOfRequest;
     String responseText;
-    positions studentPosition;
+    Positions studentPosition;
 
 
     static int addARecommendationRequest (String studentUsername, String teacherName, TypeOfRequest typeOfRequest) {
@@ -128,7 +128,7 @@ public class Requests {
 
     private static boolean existARequest (String studentName,String teacherName,TypeOfRequest typeOfRequest) {
         String fileName = typeOfRequest.toString() + "." + studentName + "." + teacherName;
-        if (FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",fileName) == null) {
+        if (FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",fileName) == null) {
             return false;
         }
         return true;

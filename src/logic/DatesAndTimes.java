@@ -10,7 +10,7 @@ public class DatesAndTimes {
         ArrayList<Lessons> lessons = new ArrayList<>();
         int[] examsDays = new int[lessonsName.size()];
         for (int i = 0; i < examsDays.length; i++) {
-            File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonsName.get(i));
+            File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonsName.get(i));
             String lessonInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFile);
             Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonInformation,Lessons.class);
             examsDays[i] = Integer.parseInt(lesson.examDate.substring(8));
@@ -18,7 +18,7 @@ public class DatesAndTimes {
         Arrays.sort(examsDays);
         for (int i = 0; i < examsDays.length; i++) {
             for (int j = 0; j < lessonsName.size(); j++) {
-                File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonsName.get(j));
+                File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonsName.get(j));
                 String lessonInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFile);
                 Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonInformation,Lessons.class);
                 if (Integer.parseInt(lesson.examDate.substring(8)) == examsDays[i]) {

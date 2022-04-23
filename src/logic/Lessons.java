@@ -23,6 +23,7 @@ public class Lessons {
         this.numberOfLesson = numberOfLesson;
         this.numberOfUnitsOfLesson = numberOfUnitsOfLesson;
         this.teacherName = teacherName;
+        haveTeacher = true;
         this.departmentName = departmentName;
         this.levelOfEducation = levelOfEducation;
         this.classDay = classDay;
@@ -37,7 +38,7 @@ public class Lessons {
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(Username);
         for (int i = 0; i < user.lessons.size(); i++) {
             Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(user.lessons.get(i));
-            if (user.position.equals(positions.PROFESSOR) | user.position.equals(positions.EDUCATIONAL_ASSISTANT) | user.position.equals(positions.BOSS_OF_DEPARTMENT)) {
+            if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
                 classInformation = "name: " + lesson.name + " - " + "classDay: " + lesson.classDay + " - " + "classTime: " + lesson.classTime;
             } else {
                 classInformation = "name: " + lesson.name + " - " + "classDay: " + lesson.classDay + " - " + "classTime: " + lesson.classTime + " - " + "teacherName: " + lesson.teacherName;
@@ -136,7 +137,7 @@ public class Lessons {
         for (int i = 0; i < studentsFiles.length; i++) {
             String information = FilesAndGsonBuilderMethods.getStringJson(studentsFiles[i]);
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
-            if ((user.position.equals(positions.MASTER)) | (user.position.equals(positions.MSC)) | (user.position.equals(positions.PHD))) {
+            if ((user.position.equals(Positions.MASTER)) | (user.position.equals(Positions.MSC)) | (user.position.equals(Positions.PHD))) {
                 for (int j = 0; j < user.lessons.size(); j++) {
                     if (user.lessons.get(j).equals(lessonName)) {
                         studentsNames.add(user.completeName);

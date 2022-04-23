@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main {
@@ -23,13 +24,14 @@ public class Main {
         ArrayList<String> lessons = new ArrayList<>();
         lessons.add("riazi2");
         lessons.add("physic2");
-        Users.addAStudent("mammad","1123",positions.MASTER,"mammadrza zia","zia.mohammadreza.mz@gmail.com",lessons,"Mathematica","1273897315","09139342159","Sharif","mir","400108871",1400,StudentCondition.STUDYING);
+        //Users.addAStudent("mammad","1123", Positions.MASTER,"mammadrza zia","zia.mohammadreza.mz@gmail.com",lessons,"Mathematica","1273897315","09139342159","Sharif","mir","400108871",1400,StudentCondition.STUDYING);
         //System.out.println(Users.checkUsernameForLogin("BossOfComputerEngineering","1111"));
         //System.out.println(19.5 > 18);
         //System.out.println(TypeOfRequest.CERTIFICATE_STUDENT.toString());
         //Students student = FilesAndGsonBuilderMethods.convertFileToStudent("mammad");
         //System.out.println(student.username);
-        System.out.println("Sa" + "\n" + "dk");
-
+        //System.out.println("Sa" + "\n" + "dk");
+        File user = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles","mammad");
+        user.delete();
     }
 }

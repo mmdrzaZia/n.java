@@ -35,7 +35,7 @@ public class MinorRequest extends Requests{
         Department originDepartment = FilesAndGsonBuilderMethods.convertFileToDepartment(student.departmentName);
         EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(educationalAssistantUsername);
         String requestFileName = "MINOR" + "." + studentName + "." + originDepartment.educationalAssistantName;
-        File minorRequestFile = FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",requestFileName);
+        File minorRequestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",requestFileName);
         MinorRequest minorRequest = FilesAndGsonBuilderMethods.convertFileToMinorRequest(requestFileName);
         if (originDepartment.educationalAssistantName.equals(educationalAssistant.completeName)) {
             if (isAccepted) {

@@ -16,10 +16,10 @@ public class WithdrawalFromEducationRequest extends Requests{
 
     static void acceptOrReject (String studentName,String teacherUsername,TypeOfRequest typeOfRequest,boolean isAccepted) {
         Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
-        File studentFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles",student.username);
+        File studentFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",student.username);
         EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(teacherUsername);
         String fileName = typeOfRequest.toString() + "." + studentName + "." + educationalAssistant.completeName;
-        File requestFile = FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",fileName);
         WithdrawalFromEducationRequest withdrawalFromEducationRequest = FilesAndGsonBuilderMethods.convertFileToWithdrawalFromEducationRequest(fileName);
         withdrawalFromEducationRequest.hasBeenAnswered = true;
         if (isAccepted) {

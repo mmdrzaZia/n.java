@@ -20,7 +20,7 @@ public class ObjectionToTheTemporaryScore extends Requests{
         Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(teacherUsername);
         Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
         String fileName = typeOfRequest.toString() + "." + studentName + "." + teacher.completeName;
-        File objectionFile = FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",fileName);
+        File objectionFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",fileName);
         ObjectionToTheTemporaryScore objectionToTheTemporaryScore = FilesAndGsonBuilderMethods.convertFileToObjectionToTheTemporaryScore(fileName);
         objectionToTheTemporaryScore.hasBeenAnswered = true;
         objectionToTheTemporaryScore.responseText = answer;

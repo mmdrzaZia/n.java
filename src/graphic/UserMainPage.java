@@ -44,10 +44,9 @@ public class UserMainPage extends GeneralFormOfPag{
         registrationMatters = new JMenu("Registration matters");
         educationalServices = new JMenu("Educational services");
         recordAffairs = new JMenu("Record affairs");
-        lessonsList = new JMenuItem("List of temporaryScoresTable");
         profile = new JMenuItem("Profile");
         setting = new JMenu("Setting");
-        lessonsList = new JMenuItem("List of temporaryScoresTable");
+        lessonsList = new JMenuItem("List of lessons");
         teachersList = new JMenuItem("List of teachers");
         weeklySchedule = new JMenuItem("Weekly schedule");
         examsList = new JMenuItem("List of exams");
@@ -73,7 +72,7 @@ public class UserMainPage extends GeneralFormOfPag{
         } else if (UserController.determineTheTypeOfUser() == 4) {
             professorAndBossOdDepartmentMenu();
         } else if (UserController.determineTheTypeOfUser() == 5) {
-
+            educationalAssistantMenu();
         } else if (UserController.determineTheTypeOfUser() == 6) {
             professorAndBossOdDepartmentMenu();
         }
@@ -125,7 +124,9 @@ public class UserMainPage extends GeneralFormOfPag{
     }
 
     private static void educationalAssistantMenu () {
-        //TODO
+        requests.add(minorRequest);
+        requests.add(withdrawalFromEducationRequest);
+        requests.add(thesisDefenceRequest);
         recordAffairs.add(educationalStatus);
         addJMenusForTeachers();
     }

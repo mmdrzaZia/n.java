@@ -5,17 +5,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class EducationalAssistant extends Teachers {
 
 
-    public EducationalAssistant(String username, String password, positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String universityName, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
-        super(username, password, position, completeName, email, lessons, departmentName, nationalCode, phoneNumber, universityName, teacherPosition, roomNumber, teacherNumber);
+    public EducationalAssistant(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
+        super(username, password, position, completeName, email, departmentName, nationalCode, phoneNumber,teacherPosition, roomNumber, teacherNumber);
     }
 
     static boolean addALesson (String name, int numberOfLesson, int numberOfUnitsOfLesson, String teacherName, String departmentName, LevelOfEducation levelOfEducation, String classDay, String classTime, String examDate, String examTime) {
-        if (FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",name) == null) {
+        if (FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",name) == null) {
+            Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
+            Teachers.addALesson(name,teacher.username);
             Lessons lesson = new Lessons(name, numberOfLesson, numberOfUnitsOfLesson, teacherName, departmentName, levelOfEducation,classDay,classTime,examDate,examTime);
             String information = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
             String pathLessonFile = "src/LessonsFiles/" + name + ".txt";
@@ -40,19 +41,21 @@ public class EducationalAssistant extends Teachers {
             String information = FilesAndGsonBuilderMethods.getStringJson(userFiles[i]);
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
             for (int j = 0; j < user.lessons.size(); j++) {
-                if (user.lessons.get(i).equals(lessonName)) {
-                    user.lessons.remove(i);
+                if (user.lessons.get(j).equals(lessonName)) {
+                    user.lessons.remove(j);
+                    String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(user);
+                    FilesAndGsonBuilderMethods.updateFile(userFiles[i],newUserInformation);
                     break;
                 }
             }
         }
-        File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonName);
+        File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
         lessonFile.delete();
     }
 
     static void editLessonInformation (int numberOfUnitsOfLesson,String lessonName) {
         Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
-        File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonName);
+        File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
         lesson.numberOfUnitsOfLesson = numberOfUnitsOfLesson;
         String newLessonInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);
@@ -60,7 +63,7 @@ public class EducationalAssistant extends Teachers {
 
     static void editLessonInformation (String teacherName,String lessonName) {
         Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
-        File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonName);
+        File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
         if (lesson.haveTeacher) {
             Teachers.removeALesson(lessonName, lesson.teacherName);
         } else {
@@ -72,13 +75,17 @@ public class EducationalAssistant extends Teachers {
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);
     }
 
-    static void editLessonInformation (String time,String lessonName,boolean isClassTime) {
+    static void editLessonInformation (String time,String lessonName,boolean isClassTime,boolean isTime) {
         Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
-        File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonName);
-        if (isClassTime) {
+        File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
+        if (isTime & isClassTime) {
             lesson.classTime = time;
-        } else {
+        } else if (isTime & !isClassTime) {
             lesson.examTime = time;
+        } else if (isClassTime) {
+            lesson.classDay = time;
+        } else {
+            lesson.examDate = time;
         }
         String newLessonInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);

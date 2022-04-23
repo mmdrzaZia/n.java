@@ -1,13 +1,14 @@
 {
   "name": "AP",
   "numberOfLesson": 1088,
-  "numberOfUnitsOfLesson": 4,
-  "departmentName": "Mathematics",
+  "numberOfUnitsOfLesson": 2,
+  "teacherName": "moj tefagh",
+  "departmentName": "Computer Engineering",
   "levelOfEducation": "MASTER",
-  "teacherName" : "felfi",
-  "departmentName" : "f;f",
-  "classDay" : "monday",
-  "classTime" : "12:40",
-  "examDate" : "gsj",
-  "examTime" : "grs"
+  "haveTeacher": false,
+  "classDay": "monday",
+  "classTime": "12:40",
+  "examDate": "gsj",
+  "examTime": "Exam time : ",
+  "isTemporaryRegistration": false
 }

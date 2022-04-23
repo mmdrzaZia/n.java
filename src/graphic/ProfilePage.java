@@ -118,7 +118,7 @@ public class ProfilePage implements ActionListener {
         panelOfProfile.add(educationalDegree);
 
         studentCondition.setBounds(450,340,290,25);
-        studentCondition.setText("Student condition : " + UserController.getStudentCondition());
+        studentCondition.setText("Student condition : " + UserController.getStudyingCondition());
         panelOfProfile.add(studentCondition);
 
         totalAverageScore.setBounds(25,400,400,25);

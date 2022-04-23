@@ -6,48 +6,46 @@ import java.util.ArrayList;
 public class Users {
     String username;
     String password;
-    positions position;
+    Positions position;
     String completeName;
     String email;
     ArrayList<String> lessons;
     String departmentName;
     String nationalCode;
     String phoneNumber;
-    String universityName;
 
-    public Users(String username, String password, positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String universityName) {
+    public Users(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.position = position;
         this.completeName = completeName;
         this.email = email;
-        this.lessons = lessons;
         this.departmentName = departmentName;
         this.nationalCode = nationalCode;
         this.phoneNumber = phoneNumber;
-        this.universityName = universityName;
         lessons = new ArrayList<>();
     }
 
-    public static void addAStudent (String username, String password, positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String universityName, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
-        Students student = new Students(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,universityName,supervisorName,studentNumber,entryYear,studentCondition);
+    public static void addAStudent (String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
+        Students student = new Students(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,entryYear,studentCondition);
         addAUser(student);
     }
 
-    static void addATeacher (String username, String password, positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String universityName, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
-        if (position.equals(positions.EDUCATIONAL_ASSISTANT)) {
-            EducationalAssistant educationalAssistant = new EducationalAssistant(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,universityName,teacherPosition,roomNumber,teacherNumber);
-            addAUser(educationalAssistant);
-        } else if (position.equals(positions.PROFESSOR)) {
-            Professors professors = new Professors(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,universityName,teacherPosition,roomNumber,teacherNumber);
-            addAUser(professors);
-        } else if (position.equals(positions.BOSS_OF_DEPARTMENT)) {
-            BossOfDepartment bossOfDepartment = new BossOfDepartment(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,universityName,teacherPosition,roomNumber,teacherNumber);
-            addAUser(bossOfDepartment);
+    static boolean addATeacher (String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
+        if (position.equals(Positions.EDUCATIONAL_ASSISTANT)) {
+            EducationalAssistant educationalAssistant = new EducationalAssistant(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            return addAUser(educationalAssistant);
+        } else if (position.equals(Positions.PROFESSOR)) {
+            Professors professors = new Professors(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            return addAUser(professors);
+        } else if (position.equals(Positions.BOSS_OF_DEPARTMENT)) {
+            BossOfDepartment bossOfDepartment = new BossOfDepartment(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            return addAUser(bossOfDepartment);
         }
+        return false;
     }
 
-    private static void addAUser(Users user) {
+    private static boolean addAUser(Users user) {
         if (checkUsernameForAddUser(user.username)) {
             String information = FilesAndGsonBuilderMethods.getClassJson().toJson(user);
             String pathOfFile = "src/UserFiles/" + user.username + ".txt";
@@ -60,11 +58,14 @@ public class Users {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
     private static boolean checkUsernameForAddUser (String username) {
-        File userFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles",username);
+        File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",username);
         if (userFile == null) {
             return true;
         }
@@ -73,8 +74,8 @@ public class Users {
 
     static void changeEmail (String username,String newEmail) {
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(username);
-        File userFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles",username);
-        if (user.position.equals(positions.PROFESSOR) | user.position.equals(positions.EDUCATIONAL_ASSISTANT) | user.position.equals(positions.BOSS_OF_DEPARTMENT)) {
+        File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",username);
+        if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
             Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
             teacher.email = newEmail;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
@@ -89,8 +90,8 @@ public class Users {
 
     static void changePhoneNumber (String username,String newPhoneNumber) {
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(username);
-        File userFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles",username);
-        if (user.position.equals(positions.PROFESSOR) | user.position.equals(positions.EDUCATIONAL_ASSISTANT) | user.position.equals(positions.BOSS_OF_DEPARTMENT)) {
+        File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",username);
+        if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
             Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
             teacher.phoneNumber = newPhoneNumber;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
@@ -106,8 +107,8 @@ public class Users {
     static void changePassword (String username,String oldPassword,String newPassword) {
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(username);
         if (user.password.equals(oldPassword)) {
-            File userFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles", username);
-            if (user.position.equals(positions.PROFESSOR) | user.position.equals(positions.EDUCATIONAL_ASSISTANT) | user.position.equals(positions.BOSS_OF_DEPARTMENT)) {
+            File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", username);
+            if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
                 Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
                 teacher.password = newPassword;
                 String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);

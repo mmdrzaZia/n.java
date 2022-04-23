@@ -29,7 +29,7 @@ public class FilesAndGsonBuilderMethods {
         return gson;
     }
 
-    static File findFileWhitName (String folderPath,String name) {
+    static File findFileWithName(String folderPath, String name) {
         File[] files = new File(folderPath).listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].getName().equals(name + ".txt")) {
@@ -60,79 +60,79 @@ public class FilesAndGsonBuilderMethods {
     }
 
     static Lessons convertFileToLesson (String name) {
-        File lessonFile = findFileWhitName("src/LessonsFiles",name);
+        File lessonFile = findFileWithName("src/LessonsFiles",name);
         String lessonInformation = getStringJson(lessonFile);
         return getClassJson().fromJson(lessonInformation,Lessons.class);
     }
 
     static Users convertFileToUsers (String name) {
-        File userFile = findFileWhitName("src/UserFiles",name);
+        File userFile = findFileWithName("src/UserFiles",name);
         String userInformation = getStringJson(userFile);
         return getClassJson().fromJson(userInformation,Users.class);
     }
 
     static Students convertFileToStudent(String name) {
-        File studentFile = findFileWhitName("src/UserFiles",name);
+        File studentFile = findFileWithName("src/UserFiles",name);
         String studentInformation = getStringJson(studentFile);
         return getClassJson().fromJson(studentInformation,Students.class);
     }
 
     static Teachers convertFileToTeachers (String name) {
-        File teacherFile = findFileWhitName("src/UserFiles",name);
+        File teacherFile = findFileWithName("src/UserFiles",name);
         String teacherInformation = getStringJson(teacherFile);
         return getClassJson().fromJson(teacherInformation,Teachers.class);
     }
 
     static EducationalAssistant convertFileToEducationalAssistant (String name) {
-        File newEducationalAssistantFile = findFileWhitName("src/UserFiles",name);
+        File newEducationalAssistantFile = findFileWithName("src/UserFiles",name);
         String newEducationalAssistantInformation = getStringJson(newEducationalAssistantFile);
         return getClassJson().fromJson(newEducationalAssistantInformation,EducationalAssistant.class);
     }
 
     static BossOfDepartment convertFileToBossOfDepartment (String name) {
-        File newBossOfDepartmentFile = findFileWhitName("src/UserFiles",name);
+        File newBossOfDepartmentFile = findFileWithName("src/UserFiles",name);
         String newBossOfDepartmentInformation = getStringJson(newBossOfDepartmentFile);
         return getClassJson().fromJson(newBossOfDepartmentInformation,BossOfDepartment.class);
     }
 
     static Department convertFileToDepartment (String name) {
-        File departmentFile = findFileWhitName("src/DepartmentsFiles",name);
+        File departmentFile = findFileWithName("src/DepartmentsFiles",name);
         String departmentInformation = getStringJson(departmentFile);
         return getClassJson().fromJson(departmentInformation,Department.class);
     }
 
     static RecommendationRequest convertFileToRecommendationRequest (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,RecommendationRequest.class);
     }
 
     static MinorRequest convertFileToMinorRequest (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,MinorRequest.class);
     }
 
     static WithdrawalFromEducationRequest convertFileToWithdrawalFromEducationRequest (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,WithdrawalFromEducationRequest.class);
     }
 
     static ThesisDefenceRequest convertFileToThesisDefenceRequest (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,ThesisDefenceRequest.class);
     }
 
     static Requests convertFileToRequests (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,Requests.class);
     }
 
     static ObjectionToTheTemporaryScore convertFileToObjectionToTheTemporaryScore (String fileName) {
-        File requestFile = findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = findFileWithName("src/RequestsFiles",fileName);
         String requestInformation = getStringJson(requestFile);
         return getClassJson().fromJson(requestInformation,ObjectionToTheTemporaryScore.class);
     }

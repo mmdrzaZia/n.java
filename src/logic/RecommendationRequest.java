@@ -6,7 +6,7 @@ public class RecommendationRequest extends Requests {
     boolean hasBeenAnswered;
 
 
-    public RecommendationRequest(String studentName, String teacherName, TypeOfRequest typeOfRequest,positions position) {
+    public RecommendationRequest(String studentName, String teacherName, TypeOfRequest typeOfRequest, Positions position) {
         this.studentName = studentName;
         this.teacherName = teacherName;
         this.typeOfRequest = typeOfRequest;
@@ -16,7 +16,7 @@ public class RecommendationRequest extends Requests {
 
     static void acceptOrReject (String studentName, String teacherName, TypeOfRequest typeOfRequest,boolean isAccepted) {
         String fileName = typeOfRequest.toString() + "." + studentName + "." + teacherName;
-        File requestFile = FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",fileName);
+        File requestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",fileName);
         RecommendationRequest recommendationRequest = FilesAndGsonBuilderMethods.convertFileToRecommendationRequest(fileName);
         Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
         if (isAccepted) {

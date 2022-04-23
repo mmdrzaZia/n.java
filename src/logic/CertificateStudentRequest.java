@@ -10,7 +10,7 @@ public class CertificateStudentRequest extends Requests{
         this.typeOfRequest = typeOfRequest;
         this.studentPosition = student.position;
         if (student.studentCondition.equals(StudentCondition.STUDYING)) {
-            responseText = "It is certified that Mr/Mrs " + student.completeName + " with student number " + student.studentNumber + " is studying in the field " + student.departmentName + " At university " + student.universityName + "." + " This certificate was issued on " + getCurrentTime() + " and is valid for up to 6 months!";
+            responseText = "It is certified that Mr/Mrs " + student.completeName + " with student number " + student.studentNumber + " is studying in the field " + student.departmentName + " At Sharif university " + "." + " This certificate was issued on " + getCurrentTime() + " and is valid for up to 6 months!";
         } else {
             responseText = "you can't have a certificate student!";
         }

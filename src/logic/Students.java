@@ -14,12 +14,13 @@ public class Students extends Users {
     HashMap<String,Double> scores;
     HashMap<String,Double> temporaryScores;
 
-    public Students(String username, String password, positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String universityName, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
-        super(username, password, position, completeName, email, lessons, departmentName, nationalCode, phoneNumber, universityName);
+    public Students(String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
+        super(username, password, position, completeName, email, departmentName, nationalCode, phoneNumber);
         this.supervisorName = supervisorName;
         this.studentNumber = studentNumber;
         this.entryYear = entryYear;
         this.studentCondition = studentCondition;
+        this.lessons = lessons;
         scores = new HashMap<>();
         temporaryScores = new HashMap<>();
     }
@@ -29,7 +30,7 @@ public class Students extends Users {
         for (int i = 0; i < studentFiles.length; i++) {
             String information = FilesAndGsonBuilderMethods.getStringJson(studentFiles[i]);
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
-            if (user.position.equals(positions.MASTER) | user.position.equals(positions.MSC) | user.position.equals(positions.PHD)) {
+            if (user.position.equals(Positions.MASTER) | user.position.equals(Positions.MSC) | user.position.equals(Positions.PHD)) {
                 Students student = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Students.class);
                 if (student.completeName.equals(studentNameOrStudentNumber) | student.studentNumber.equals(studentNameOrStudentNumber)) {
                     return student;

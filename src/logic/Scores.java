@@ -12,7 +12,7 @@ public class Scores {
             ArrayList<String> studentsNames = Lessons.seeStudentsOfALesson(lessonName);
             for (int i = 0; i < studentsNames.size(); i++) {
                 Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentsNames.get(i));
-                File studentFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles",student.username);
+                File studentFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",student.username);
                 for (Map.Entry<String, Double> entry : student.temporaryScores.entrySet()) {
                     if (entry.getKey().equals(lessonName)) {
                         student.scores.put(entry.getKey(), entry.getValue());
@@ -27,7 +27,7 @@ public class Scores {
             Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
             lesson.isTemporaryRegistration = false;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
-            File lessonFile = FilesAndGsonBuilderMethods.findFileWhitName("src/LessonsFiles",lessonName);
+            File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
             FilesAndGsonBuilderMethods.updateFile(lessonFile,newInformation);
             return true;
         } else {
@@ -59,7 +59,7 @@ public class Scores {
     static double setTemporaryScoreForStudent (String studentName, String lessonName, double score) {
         if (checkThePeriodOfScore(score)) {
             Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
-            File studentFile = FilesAndGsonBuilderMethods.findFileWhitName("src/UserFiles", student.username);
+            File studentFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", student.username);
             double rondScore = rondScore(score);
             student.temporaryScores.put(lessonName, rondScore);
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);

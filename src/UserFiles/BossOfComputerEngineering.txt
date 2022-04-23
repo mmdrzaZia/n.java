@@ -8,7 +8,7 @@
   "lessons": [
     "Riazi2"
   ],
-  "departmentName": "Computer engineering",
+  "departmentName": "Computer Engineering",
   "nationalCode": "123460440",
   "phoneNumber": "0913924829",
   "universityName": "Sharif",

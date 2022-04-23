@@ -16,7 +16,7 @@ public class ThesisDefenceRequest extends Requests{
     static void giveADate (String educationalAssistantUsername,String studentName,TypeOfRequest typeOfRequest,String date) {
         EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(educationalAssistantUsername);
         String requestFileName = typeOfRequest.toString() + "." + studentName + "." + educationalAssistant.completeName;
-        File requestFile = FilesAndGsonBuilderMethods.findFileWhitName("src/RequestsFiles",requestFileName);
+        File requestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",requestFileName);
         ThesisDefenceRequest thesisDefenceRequest = FilesAndGsonBuilderMethods.convertFileToThesisDefenceRequest(requestFileName);
         thesisDefenceRequest.hasBeenAnswered = true;
         thesisDefenceRequest.responseText = "On " + "'" + date + "'" + " you can defend your dissertation";
