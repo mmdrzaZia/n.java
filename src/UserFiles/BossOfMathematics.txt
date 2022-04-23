@@ -1,12 +1,12 @@
 {
   "roomNumber": 3333,
-  "username": "BossOfMthematics",
+  "username": "BossOfMathematics",
   "password": "3333",
   "position": "BOSS_OF_DEPARTMENT",
-  "completeName": "mammadzia",
+  "completeName": "mammad",
   "email": "vio",
   "lessons": [
-    "SakhtemanGosaste"
+    "Physic1"
   ],
   "departmentName": "Mathematics",
     "nationalCode": "123460440",

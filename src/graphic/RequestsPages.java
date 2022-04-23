@@ -1,11 +1,14 @@
 package graphic;
 
 import logic.RequestsController;
+import logic.UserController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RequestsPages implements ActionListener {
     static String username;
@@ -13,18 +16,18 @@ public class RequestsPages implements ActionListener {
     static JFrame requestsFrame;
     static JPanel panelOfRequests;
     static JTextField consideredTeacherName;
-    JTextField departmentName;
+    static JTextField departmentName;
     static JButton requestButton;
     static JLabel message;
-    static JTable receivedAnswers;
+    static JTable receivedAnswersAndRequests;
     static JScrollPane scrollPane;
-    static boolean isStudent;
     static int typeOfRequest;
+    static int typeOfUser;
 
-    public RequestsPages(int userTypeOfRequest,boolean userIsStudent,String userUsername,String userPassword) {
+    public RequestsPages(int userTypeOfRequest,int determineTypeOfUser,String userUsername,String userPassword) {
         username = userUsername;
         password = userPassword;
-        isStudent = userIsStudent;
+        typeOfUser = determineTypeOfUser;
         typeOfRequest = userTypeOfRequest;
         requestsFrame = new JFrame();
         panelOfRequests = new JPanel();
@@ -45,30 +48,27 @@ public class RequestsPages implements ActionListener {
     }
 
     private void determineTypeOfPage () {
-        if (typeOfRequest == 1 & isStudent) {
+        if (typeOfRequest == 1 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setTextFieldAndLabelFeaturesForRecommendation();
-            setTableForRecommendationAnswers();
-        } else if (typeOfRequest == 1 & !isStudent) {
-            //TODO
-        } else if (typeOfRequest == 2 & isStudent) {
+            setTableForRecommendationAnswersForStudents();
+        } else if (typeOfRequest == 1 & (typeOfUser == 4 | typeOfUser == 5 | typeOfUser == 6)) {
+            requestButton.setVisible(false);
+            setTableForRecommendationAnswersForTeachers();
+        } else if (typeOfRequest == 2 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setTableForCertificateStudentAnswer();
-        } else if (typeOfRequest == 3 & isStudent) {
+        } else if (typeOfRequest == 3 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setAnswerLabelForMinorRequest();
             setTextFieldAndLabelFeaturesForMinorRequest();
-        } else if (typeOfRequest == 3 & !isStudent) {
+        } else if (typeOfRequest == 3 & (typeOfUser == 5)) {
             //TODO
-        } else if (typeOfRequest == 4 & isStudent) {
+        } else if (typeOfRequest == 4 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForWithdrawalFromEducationRequest();
-        } else if (typeOfRequest == 4 & !isStudent) {
+        } else if (typeOfRequest == 4 & (typeOfUser == 5)) {
             //TODO
-        } else if (typeOfRequest == 5 & isStudent) {
+        } else if (typeOfRequest == 5 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForDormRequest();
-        } else if (typeOfRequest == 6 & isStudent) {
+        } else if (typeOfRequest == 6 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForThesisDefenceRequest();
-        } else if (typeOfRequest == 7 & isStudent) {
-
-        } else if (typeOfRequest == 7 & !isStudent) {
-
         }
     }
 
@@ -161,11 +161,43 @@ public class RequestsPages implements ActionListener {
         panelOfRequests.add(conditionOfRequest);
     }
 
-    private void setTableForRecommendationAnswers () {
+    private void setTableForRecommendationAnswersForStudents () {
         String[][] data = RequestsController.getAnswersOfRecommendationRequests(username);
         String[] column = {"Answers of requests"};
-        receivedAnswers = new JTable(data,column);
-        scrollPane = new JScrollPane(receivedAnswers);
+        receivedAnswersAndRequests = new JTable(data,column);
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
+        scrollPane.setBounds(0,150,730,300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfRequests.add(scrollPane);
+        panelOfRequests.repaint();
+        panelOfRequests.revalidate();
+        requestsFrame.repaint();
+        requestsFrame.revalidate();
+    }
+
+    private void setTableForRecommendationAnswersForTeachers () {
+        String[][] data = RequestsController.getListOfRecommendationsForATeacher(username);
+        String[] column = {"Student name","Student number","Accept","Reject"};
+        receivedAnswersAndRequests = new JTable(data,column);
+        receivedAnswersAndRequests.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    String studentName = (String) receivedAnswersAndRequests.getModel().getValueAt(row,0);
+                    if (column == 1) {
+                        RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),true);
+                        message.setText("You accepted the request successfully");
+                    } else if (column == 2) {
+                        RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),false);
+                        message.setText("You rejected the request successfully");
+                    }
+                }
+            }
+        });
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
         scrollPane.setBounds(0,150,730,300);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -179,8 +211,8 @@ public class RequestsPages implements ActionListener {
     private void setTableForCertificateStudentAnswer () {
         String[][] data = RequestsController.getAnswerOfCertificateStudentRequest(username);
         String[] column = {"Answers of request"};
-        receivedAnswers = new JTable(data,column);
-        scrollPane = new JScrollPane(receivedAnswers);
+        receivedAnswersAndRequests = new JTable(data,column);
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
         scrollPane.setBounds(0,150,730,100);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

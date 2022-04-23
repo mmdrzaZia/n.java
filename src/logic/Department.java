@@ -15,5 +15,17 @@ public class Department {
     String educationalAssistantName;
     ArrayList<String> lessons = new ArrayList<>();
 
+    static Department findDepartmentFromName (String name) {
+        File[] departmentsFiles = new File("src/DepartmentsFiles").listFiles();
+        for (int i = 0; i < departmentsFiles.length; i++) {
+            String information = FilesAndGsonBuilderMethods.getStringJson(departmentsFiles[i]);
+            Department department = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Department.class);
+            if (department.name.equalsIgnoreCase(name)) {
+                return department;
+            }
+        }
+        return null;
+    }
+
 
 }

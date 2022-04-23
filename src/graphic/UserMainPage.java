@@ -15,7 +15,8 @@ public class UserMainPage extends GeneralFormOfPag{
     static JMenu registrationMatters;
     static JMenu educationalServices;
     static JMenu recordAffairs;
-    static JMenu profile;
+    static JMenuItem profile;
+    static JMenu setting;
     static JMenuItem lessonsList;
     static JMenuItem teachersList;
     static JMenuItem weeklySchedule;
@@ -29,6 +30,7 @@ public class UserMainPage extends GeneralFormOfPag{
     static JMenuItem withdrawalFromEducationRequest;
     static JMenuItem dormRequest;
     static JMenuItem thesisDefenceRequest;
+    static int typeOfUser;
 
     public UserMainPage(String userUsername, String userPassword) {
         super(userUsername, userPassword);
@@ -42,9 +44,10 @@ public class UserMainPage extends GeneralFormOfPag{
         registrationMatters = new JMenu("Registration matters");
         educationalServices = new JMenu("Educational services");
         recordAffairs = new JMenu("Record affairs");
-        lessonsList = new JMenuItem("List of lessons");
-        profile = new JMenu("Profile");
-        lessonsList = new JMenuItem("List of lessons");
+        lessonsList = new JMenuItem("List of temporaryScoresTable");
+        profile = new JMenuItem("Profile");
+        setting = new JMenu("Setting");
+        lessonsList = new JMenuItem("List of temporaryScoresTable");
         teachersList = new JMenuItem("List of teachers");
         weeklySchedule = new JMenuItem("Weekly schedule");
         examsList = new JMenuItem("List of exams");
@@ -57,6 +60,7 @@ public class UserMainPage extends GeneralFormOfPag{
         withdrawalFromEducationRequest = new JMenuItem("Withdrawal from education request");
         dormRequest = new JMenuItem("Dorm request");
         thesisDefenceRequest = new JMenuItem("Thesis defence request");
+        typeOfUser = UserController.determineTheTypeOfUser();
         if (UserController.determineTheTypeOfUser() == 1) {
             setLabelsFeatures(username);
             masterStudentMenu();
@@ -67,11 +71,11 @@ public class UserMainPage extends GeneralFormOfPag{
             setLabelsFeatures(username);
             phdStudentMenu();
         } else if (UserController.determineTheTypeOfUser() == 4) {
-
+            professorAndBossOdDepartmentMenu();
         } else if (UserController.determineTheTypeOfUser() == 5) {
 
         } else if (UserController.determineTheTypeOfUser() == 6) {
-
+            professorAndBossOdDepartmentMenu();
         }
         informationPanel.add(centerInformationPanel,BorderLayout.CENTER);
         addActionListeners();
@@ -116,6 +120,35 @@ public class UserMainPage extends GeneralFormOfPag{
         addJMenusForStudents();
     }
 
+    private static void professorAndBossOdDepartmentMenu () {
+        addJMenusForTeachers();
+    }
+
+    private static void educationalAssistantMenu () {
+        //TODO
+        recordAffairs.add(educationalStatus);
+        addJMenusForTeachers();
+    }
+
+    private static void addJMenusForTeachers () {
+        registrationMatters.add(lessonsList);
+        registrationMatters.add(teachersList);
+
+        educationalServices.add(weeklySchedule);
+        educationalServices.add(examsList);
+        requests.add(recommendationRequest);
+        educationalServices.add(requests);
+
+        recordAffairs.add(temporaryScores);
+
+        setting.add(profile);
+
+        menuBar.add(registrationMatters);
+        menuBar.add(educationalServices);
+        menuBar.add(recordAffairs);
+        menuBar.add(setting);
+    }
+
     private static void addJMenusForStudents () {
         registrationMatters.add(lessonsList);
         registrationMatters.add(teachersList);
@@ -129,10 +162,12 @@ public class UserMainPage extends GeneralFormOfPag{
         recordAffairs.add(temporaryScores);
         recordAffairs.add(educationalStatus);
 
+        setting.add(profile);
+
         menuBar.add(registrationMatters);
         menuBar.add(educationalServices);
         menuBar.add(recordAffairs);
-        menuBar.add(profile);
+        menuBar.add(setting);
     }
 
     private static void addActionListeners () {
@@ -140,70 +175,91 @@ public class UserMainPage extends GeneralFormOfPag{
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                SeeLessonsAndTeachers seeLessonsAndTeachers = new SeeLessonsAndTeachers(username,password,true,true);
+                SeeLessonsAndTeachers seeLessonsAndTeachers = new SeeLessonsAndTeachers(username,password,true,typeOfUser);
             }
         });
         teachersList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                SeeLessonsAndTeachers seeLessonsAndTeachers = new SeeLessonsAndTeachers(username,password,false,true);
+                SeeLessonsAndTeachers seeLessonsAndTeachers = new SeeLessonsAndTeachers(username,password,false,typeOfUser);
             }
         });
         weeklySchedule.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                SeeWeeklyAndExamsSchedule seeWeeklyAndExamsSchedule = new SeeWeeklyAndExamsSchedule(true,true,username,password);
+                SeeWeeklyAndExamsSchedule seeWeeklyAndExamsSchedule = new SeeWeeklyAndExamsSchedule(typeOfUser,true,username,password);
+            }
+        });
+        examsList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                SeeWeeklyAndExamsSchedule seeWeeklyAndExamsSchedule = new SeeWeeklyAndExamsSchedule(typeOfUser,false,username,password);
             }
         });
         recommendationRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(1,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(1,typeOfUser,username,password);
             }
         });
         certificateStudentRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(2,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(2,typeOfUser,username,password);
             }
         });
         minorRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(3,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(3,typeOfUser,username,password);
             }
         });
         withdrawalFromEducationRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(4,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(4,typeOfUser,username,password);
             }
         });
         dormRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(5,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(5,typeOfUser,username,password);
             }
         });
         thesisDefenceRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                RequestsPages requestsPages = new RequestsPages(6,true,username,password);
+                RequestsPages requestsPages = new RequestsPages(6,typeOfUser,username,password);
             }
         });
         educationalStatus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                StudentEducationalStatus studentEducationalStatus = new StudentEducationalStatus(true,username,password);
+                StudentEducationalStatus studentEducationalStatus = new StudentEducationalStatus(typeOfUser,username,password);
+            }
+        });
+        temporaryScores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                TemporaryScoresPage temporaryScoresPage = new TemporaryScoresPage(typeOfUser,username,password);
+            }
+        });
+        profile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                ProfilePage profilePage = new ProfilePage(typeOfUser,username,password);
             }
         });
     }

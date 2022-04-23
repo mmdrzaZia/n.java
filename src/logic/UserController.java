@@ -43,6 +43,72 @@ public class UserController {
         return user.email;
     }
 
+    public static String getUserNationalCode () {
+        return user.nationalCode;
+    }
+
+    public static String getUserPhoneNumber () {
+        return user.phoneNumber;
+    }
+
+    public static String getUserDepartmentName () {
+        return user.departmentName;
+    }
+
+    public static String getStudentNumber() {
+        return student.studentNumber;
+    }
+
+    public static String getTeacherNumber () {
+        return teacher.teacherNumber;
+    }
+
+    public static String getTeacherRoomNumber () {
+        return String.valueOf(teacher.roomNumber);
+    }
+
+    public static String getUserEntryYear () {
+        return String.valueOf(student.entryYear);
+    }
+
+    public static String getUserSupervisorName () {
+        return student.supervisorName;
+    }
+
+    public static String getStudentTotalAverageScore () {
+        return String.valueOf(student.totalAverage);
+    }
+
+    public static String getUserEducationalDegree () {
+        if (student.position.equals(positions.MASTER)) {
+            return "Master";
+        } else if (student.position.equals(positions.MSC)) {
+            return "Msc";
+        } else {
+            return "PhD";
+        }
+    }
+
+    public static String getStudentCondition () {
+        if (student.studentCondition.equals(StudentCondition.STUDYING)) {
+            return "Studying";
+        } else if (student.studentCondition.equals(StudentCondition.GRADUATED)) {
+            return "Graduated";
+        } else {
+            return "Withdrawal from education";
+        }
+    }
+
+    public static String getTeacherPosition () {
+        if (teacher.teacherPosition.equals(TeacherPosition.FULL_PROFESSOR)) {
+            return "Full professor";
+        } else if (teacher.teacherPosition.equals(TeacherPosition.ASSISTANT_PROFESSOR)) {
+            return "Assistant professor";
+        } else {
+            return "Associate professor";
+        }
+    }
+
     public static String getStudyingCondition () {
         if (student.studentCondition.equals(StudentCondition.STUDYING)) {
             if (student.position.equals(positions.MASTER)) {
@@ -61,6 +127,10 @@ public class UserController {
 
     public static String getSupervisorName () {
         return student.supervisorName;
+    }
+
+    public static String[] getLessonsOfATeacher () {
+        return teacher.lessons.toArray(new String[0]);
     }
 
     public static String[][] seeListOfTeachersByStudent () {

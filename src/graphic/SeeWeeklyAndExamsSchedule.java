@@ -15,10 +15,13 @@ public class SeeWeeklyAndExamsSchedule implements ActionListener {
     static JPanel topOfPageInformation;
     static JPanel panelOfTable;
     static JScrollPane scrollPane;
+    static int typeOfUser;
+    static boolean isStudent;
 
-    public SeeWeeklyAndExamsSchedule(boolean isStudent,boolean seeWeeklySchedule, String userUsername, String userPassword) {
+    public SeeWeeklyAndExamsSchedule(int determineTypeOfUser,boolean seeWeeklySchedule, String userUsername, String userPassword) {
         username = userUsername;
         password = userPassword;
+        typeOfUser = determineTypeOfUser;
         list = new JFrame();
         topOfPageInformation = new JPanel();
         panelOfTable  = new JPanel();
@@ -29,10 +32,13 @@ public class SeeWeeklyAndExamsSchedule implements ActionListener {
         panelOfTable.removeAll();
         setButtonsFeatures();
         setPanelsFeatures();
+        if (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3) {
+            isStudent = true;
+        }
         if (seeWeeklySchedule) {
             seeWeeklyScheduleByUser(isStudent);
         } else {
-
+            setTableOfExamSchedule(isStudent);
         }
         panelOfTable.repaint();
         panelOfTable.revalidate();
@@ -53,6 +59,25 @@ public class SeeWeeklyAndExamsSchedule implements ActionListener {
             column = new String[]{"Name", "Lesson number", "Number of units", "Level of education", "Teacher name", "Department name", "Class time", "Exam time"};
         } else {
             data = LessonController.seeWeeklyScheduleByTeachers(username);
+            column = new String[]{"Name", "Lesson number", "Number of units", "Level of education", "Department name", "Class time", "Exam time"};
+        }
+        information = new JTable(data,column);
+        scrollPane = new JScrollPane(information);
+        scrollPane.setBounds(0,100,730,300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfTable.add(scrollPane);
+        list.add(panelOfTable,BorderLayout.CENTER);
+    }
+
+    private static void setTableOfExamSchedule (boolean isStudent) {
+        String[][] data = null;
+        String[] column = null;
+        if (isStudent) {
+            data = LessonController.seeExamScheduleByStudents(username);
+            column = new String[]{"Name", "Lesson number", "Number of units", "Level of education", "Teacher name", "Department name", "Class time", "Exam time"};
+        } else {
+            data = LessonController.seeExamScheduleByTeachers(username);
             column = new String[]{"Name", "Lesson number", "Number of units", "Level of education", "Department name", "Class time", "Exam time"};
         }
         information = new JTable(data,column);

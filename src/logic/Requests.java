@@ -45,7 +45,7 @@ public class Requests {
     static boolean addAMinorRequest (String studentUsername,String destinationDepartmentName,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         Department originDepartment = FilesAndGsonBuilderMethods.convertFileToDepartment(student.departmentName);
-        Department destinationDepartment = FilesAndGsonBuilderMethods.convertFileToDepartment(destinationDepartmentName);
+        Department destinationDepartment = Department.findDepartmentFromName(destinationDepartmentName);
         if (!existARequest(student.completeName,originDepartment.educationalAssistantName,typeOfRequest)) {
             MinorRequest minorRequest = new MinorRequest(student,originDepartment,destinationDepartment,typeOfRequest);
             createANewFile(minorRequest);
@@ -98,13 +98,15 @@ public class Requests {
         }
     }
 
-    static void addAnObjection (String studentUsername,String lessonName,String objection,TypeOfRequest typeOfRequest) {
+    static boolean addAnObjection (String studentUsername,String lessonName,String objection,TypeOfRequest typeOfRequest) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentUsername);
         Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
         if (!existARequest(student.completeName,lesson.teacherName,typeOfRequest)) {
             ObjectionToTheTemporaryScore objectionToTheTemporaryScore = new ObjectionToTheTemporaryScore(student,lesson,typeOfRequest,objection);
             createANewFile(objectionToTheTemporaryScore);
+            return true;
         } else {
+            return false;
             //TODO
             //ADD AN ERROR
         }

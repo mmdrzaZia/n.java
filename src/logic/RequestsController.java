@@ -14,7 +14,9 @@ public class RequestsController {
             String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
             Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Requests.class);
             if (request.typeOfRequest.equals(TypeOfRequest.RECOMMENDATION)) {
-                answers.add(request.responseText);
+                if (request.studentName.equals(user.completeName)) {
+                    answers.add(request.responseText);
+                }
             }
         }
         String[][] answersOfRequests = new String[answers.size()][1];
@@ -26,6 +28,34 @@ public class RequestsController {
 
     public static int addRecommendationRequest (String username,String teacherName) {
         return Requests.addARecommendationRequest(username,teacherName,TypeOfRequest.RECOMMENDATION);
+    }
+
+    public static String[][] getListOfRecommendationsForATeacher (String username) {
+        ArrayList<String> nameOfStudents = new ArrayList<>();
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        for (int i = 0; i < requestsFiles.length; i++) {
+            String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
+            Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Requests.class);
+            if (request.typeOfRequest.equals(TypeOfRequest.RECOMMENDATION)) {
+                RecommendationRequest recommendationRequest = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,RecommendationRequest.class);
+                if (recommendationRequest.teacherName.equals(teacher.completeName) & !recommendationRequest.hasBeenAnswered) {
+                    nameOfStudents.add(request.studentName);
+                }
+            }
+        }
+        String[][] listOfRecommendations = new String[nameOfStudents.size()][4];
+        for (int i = 0; i < nameOfStudents.size(); i++) {
+            listOfRecommendations[i][0] = nameOfStudents.get(i);
+            listOfRecommendations[i][1] = Students.findStudentFromCompleteNameAndStudentNumber(nameOfStudents.get(i)).studentNumber;
+            listOfRecommendations[i][2] = "Accept request";
+            listOfRecommendations[i][3] = "Reject request";
+        }
+        return listOfRecommendations;
+    }
+
+    public static void AcceptOrRejectRecommendationRequest (String studentName,String teacherName,boolean isAccepted) {
+        RecommendationRequest.acceptOrReject(studentName,teacherName,TypeOfRequest.RECOMMENDATION,isAccepted);
     }
 
     public static String[][] getAnswerOfCertificateStudentRequest (String username) {
@@ -113,5 +143,13 @@ public class RequestsController {
 
     public static boolean addThesisDefenceRequest (String username) {
         return Requests.addAThesisDefenceRequest(username,TypeOfRequest.THESIS_DEFENCE);
+    }
+
+    public static boolean addObjection (String username,String lessonName,String objection) {
+        return Requests.addAnObjection(username,lessonName,objection,TypeOfRequest.OBJECTION_TO_THE_TEMPORARY_SCORE);
+    }
+
+    public static void answerToAObjection (String teacherUsername,String studentName,String lessonName,String answer) {
+        ObjectionToTheTemporaryScore.answerToObjection(teacherUsername,studentName,lessonName,answer,TypeOfRequest.OBJECTION_TO_THE_TEMPORARY_SCORE);
     }
 }

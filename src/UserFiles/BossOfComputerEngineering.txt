@@ -6,7 +6,7 @@
   "completeName": "mammadzia",
   "email": "vio",
   "lessons": [
-    "MadarManteghi"
+    "Riazi2"
   ],
   "departmentName": "Computer engineering",
   "nationalCode": "123460440",

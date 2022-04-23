@@ -2,10 +2,14 @@
   "supervisorName": "mir",
   "studentNumber": "400108871",
   "entryYear": 1400,
-  "totalAverage": 0.0,
+  "totalAverage": 15.0,
   "studentCondition": "STUDYING",
-  "scores": {"Riazi2" : 19.5},
-  "temporaryScores": {},
+  "scores": {
+    "Physic1": 15.0
+  },
+  "temporaryScores": {
+    "Riazi2": 19.25
+  },
   "username": "mammad",
   "password": "1123",
   "position": "MASTER",

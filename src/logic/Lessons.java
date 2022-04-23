@@ -138,8 +138,9 @@ public class Lessons {
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
             if ((user.position.equals(positions.MASTER)) | (user.position.equals(positions.MSC)) | (user.position.equals(positions.PHD))) {
                 for (int j = 0; j < user.lessons.size(); j++) {
-                    if (user.lessons.get(i).equals(lessonName)) {
+                    if (user.lessons.get(j).equals(lessonName)) {
                         studentsNames.add(user.completeName);
+                        break;
                     }
                 }
             }

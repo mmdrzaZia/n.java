@@ -4,10 +4,11 @@
   "numberOfUnitsOfLesson": 4,
   "departmentName": "Mathematics",
   "levelOfEducation": "MASTER",
-  "teacherName" : "felfi",
+  "teacherName" : "mammadzia",
     "departmentName" : "f;f",
     "classDay" : "monday",
     "classTime" : "12:40",
-    "examDate" : "gsj",
-    "examTime" : "grs"
+    "examDate" : "1401/04/23",
+    "examTime" : "11:00",
+    "isTemporaryRegistration": true
 }

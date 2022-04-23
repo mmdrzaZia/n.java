@@ -18,12 +18,12 @@ public class StudentEducationalStatus implements ActionListener {
     static JLabel totalAverageScore;
     static JTable lessons;
     static JScrollPane scrollPane;
-    static boolean isStudent;
+    static int typeOfUser;
 
-    public StudentEducationalStatus(boolean userIsStudent,String userUsername,String userPassword) {
+    public StudentEducationalStatus(int determineTypeOfUser,String userUsername,String userPassword) {
         password = userPassword;
         username = userUsername;
-        isStudent = userIsStudent;
+        typeOfUser = determineTypeOfUser;
         numberOfPassedUnits = new JLabel();
         totalAverageScore = new JLabel();
         topOfThePageInformation = new JPanel();
@@ -35,10 +35,10 @@ public class StudentEducationalStatus implements ActionListener {
         frame.setLocationRelativeTo(null);
         setButtonFeatures();
         setPanelsFeatures();
-        if (isStudent) {
+        if (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3) {
             setLabelsForStudents();
             setTableOfLessons();
-        } else {
+        } else if (typeOfUser == 5) {
             //TODO
         }
         frame.add(panelOfEducationalStatus);

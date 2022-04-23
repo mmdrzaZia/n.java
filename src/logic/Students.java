@@ -24,10 +24,6 @@ public class Students extends Users {
         temporaryScores = new HashMap<>();
     }
 
-    /*static ArrayList<String> seeExamsSchedule (String studentUsername) {
-
-    }*/
-
     static Students findStudentFromCompleteNameAndStudentNumber (String studentNameOrStudentNumber) {
         File[] studentFiles = new File("src/UserFiles").listFiles();
         for (int i = 0; i < studentFiles.length; i++) {
@@ -79,7 +75,11 @@ public class Students extends Users {
             average += (entry.getValue() * lesson.numberOfUnitsOfLesson);
             numberOfUnits += lesson.numberOfUnitsOfLesson;
         }
-        return average/numberOfUnits;
+        if (numberOfUnits == 0) {
+            return 0;
+        } else {
+            return average / numberOfUnits;
+        }
     }
 
     static int seeNumberOfPassedUnits (String studentNameOrStudentNumber) {

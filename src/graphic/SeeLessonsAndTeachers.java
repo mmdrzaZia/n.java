@@ -20,11 +20,13 @@ public class SeeLessonsAndTeachers implements ActionListener {
     static JButton filterButton;
     static JComboBox listOfFilters;
     boolean wantListOfLessons;
+    static int typeOfUser;
 
 
-    public SeeLessonsAndTeachers(String userUsername, String userPassword, boolean wantListOfLessons, boolean isStudent) {
+    public SeeLessonsAndTeachers(String userUsername, String userPassword, boolean wantListOfLessons, int determineTypeOfUser) {
         username = userUsername;
         password = userPassword;
+        typeOfUser = determineTypeOfUser;
         topOfPageInformation = new JPanel();
         panelOfTable = new JPanel();
         consideredFilter = new JTextField();
@@ -39,12 +41,16 @@ public class SeeLessonsAndTeachers implements ActionListener {
         setButtonsFeatures();
         setFilterTextBox();
         setPanelsFeatures();
-        if (wantListOfLessons & isStudent) {
+        if (wantListOfLessons & typeOfUser != 5) {
             setComboBoxForLessons();
-            seeListOfLessonsByStudent();
-        } else if (!wantListOfLessons & isStudent) {
+            seeListOfLessonsByUser();
+        } else if (wantListOfLessons & typeOfUser == 5) {
+            //TODO
+        } else if (typeOfUser != 6) {
             setComboBoxForTeachers();
-            seeListOfTeachersByStudent();
+            seeListOfTeachersByUser();
+        }  else {
+            //TODO
         }
         panelOfTable.repaint();
         panelOfTable.revalidate();
@@ -53,11 +59,11 @@ public class SeeLessonsAndTeachers implements ActionListener {
         listFrame.revalidate();
     }
 
-    private void seeListOfLessonsByStudent () {
+    private void seeListOfLessonsByUser () {
         setTableOfLessonsInformation(null);
     }
 
-    private void seeListOfTeachersByStudent () {
+    private void seeListOfTeachersByUser() {
         setTableOfTeachersInformation(null);
     }
 
@@ -74,9 +80,9 @@ public class SeeLessonsAndTeachers implements ActionListener {
     private void setTableOfLessonsInformation (String filter) {
         String[][] data = null;
         if (filter == null) {
-            data = LessonController.seeLessonsByStudent();
+            data = LessonController.seeLessonsByUser();
         } else {
-            data = LessonController.seeLessonsByStudent(filter);
+            data = LessonController.seeLessonsByUser(filter);
             panelOfTable.remove(scrollPane);
         }
         String[] column = {"Name","Lesson number","Number of units","Level of education","Teacher name","Department name","Class time","Exam time"};

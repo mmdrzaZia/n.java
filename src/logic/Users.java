@@ -123,4 +123,40 @@ public class Users {
             //ADD AN ERROR
         }
     }
+
+    static ArrayList<Lessons> seeExamsSchedule (String userUsername) {
+        Users user = FilesAndGsonBuilderMethods.convertFileToUsers(userUsername);
+        ArrayList<Lessons> sortedListOfExams = new ArrayList<>();
+        String[] userLessons = user.lessons.toArray(new String[0]);
+        for (int j = 0; j < userLessons.length; j++) {
+            for (int i = 0; i < userLessons.length; i++) {
+                String helpingToSort;
+                if (i != user.lessons.size() - 1) {
+                    Lessons lessons1 = FilesAndGsonBuilderMethods.convertFileToLesson(user.lessons.get(i));
+                    Lessons lessons2 = FilesAndGsonBuilderMethods.convertFileToLesson(user.lessons.get(i + 1));
+                    if (Integer.parseInt(lessons1.examDate.substring(5, 7)) > Integer.parseInt(lessons2.examDate.substring(5, 7))) {
+                        helpingToSort = user.lessons.get(i);
+                        userLessons[i] = user.lessons.get(i + 1);
+                        userLessons[i + 1] = helpingToSort;
+                    } else if (Integer.parseInt(lessons1.examDate.substring(5, 7)) == Integer.parseInt(lessons2.examDate.substring(5, 7))) {
+                        if (Integer.parseInt(lessons1.examDate.substring(8)) > Integer.parseInt(lessons2.examDate.substring(8))) {
+                            helpingToSort = user.lessons.get(i);
+                            userLessons[i] = user.lessons.get(i + 1);
+                            userLessons[i + 1] = helpingToSort;
+                        } else if (Integer.parseInt(lessons1.examDate.substring(8)) == Integer.parseInt(lessons2.examDate.substring(8))) {
+                            if (Integer.parseInt(lessons1.examTime.substring(0,2)) > Integer.parseInt(lessons2.examTime.substring(0,2))) {
+                                helpingToSort = user.lessons.get(i);
+                                userLessons[i] = user.lessons.get(i + 1);
+                                userLessons[i + 1] = helpingToSort;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < userLessons.length; i++) {
+            sortedListOfExams.add(FilesAndGsonBuilderMethods.convertFileToLesson(userLessons[i]));
+        }
+        return sortedListOfExams;
+    }
 }
