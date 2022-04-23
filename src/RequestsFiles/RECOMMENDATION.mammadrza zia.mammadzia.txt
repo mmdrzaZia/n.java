@@ -1,0 +1,8 @@
+{
+  "hasBeenAnswered": true,
+  "studentName": "mammadrza zia",
+  "teacherName": "mammadzia",
+  "typeOfRequest": "RECOMMENDATION",
+  "responseText": "I mammadzia certify that Mr/Mrs mammadrza zia with student number 400108871 have passed \u0027nothing\u0027 with a grade \u0027under the 10\u0027",
+  "studentPosition": "MASTER"
+}
