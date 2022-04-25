@@ -66,7 +66,7 @@ public class Login {
             LocalDateTime timeOfLastEntry = LocalDateTime.parse(lastEntryTime, formatter);
             LocalDateTime timeOfNow = LocalDateTime.parse(currentTime, formatter);
             long diffInMinutes = java.time.Duration.between(timeOfLastEntry, timeOfNow).toMinutes();
-            if (diffInMinutes >= 1) {
+            if (diffInMinutes >= 10) {
                 return true;
             } else {
                 return false;

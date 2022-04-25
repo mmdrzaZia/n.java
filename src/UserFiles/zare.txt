@@ -1,0 +1,21 @@
+{
+  "supervisorName": "mirsadeghi",
+  "studentNumber": "1398726387",
+  "entryYear": 1396,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "zare",
+  "hashedPassword": "ee37c2f5b4fc7c885e9196245001fa6c130a92617012f40644cdbcb2605ee354",
+  "position": "MSC",
+  "completeName": "mehdi zare",
+  "email": "zare@gmail.com",
+  "lessons": [
+    ""
+  ],
+  "departmentName": "Mathematics",
+  "nationalCode": "1273894726",
+  "phoneNumber": "09142837436",
+  "isRemoved": false
+}

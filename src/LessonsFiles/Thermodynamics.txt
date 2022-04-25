@@ -2,12 +2,13 @@
   "name": "Thermodynamic",
   "numberOfLesson": 1097,
   "numberOfUnitsOfLesson": 3,
-  "departmentName": "MechanicalEngineering",
+  "departmentName": "Mechanical Engineering",
   "levelOfEducation": "MASTER",
-  "teacherName" : "felfi",
-    "departmentName" : "f;f",
-    "classDay" : "monday",
-    "classTime" : "12:40",
-    "examDate" : "gsj",
-    "examTime" : "grs"
+  "haveTeacher": false,
+  "classDay" : "saturday",
+  "classTime" : "12:30",
+  "examDate" : "1401/04/09",
+  "examTime" : "11:00",
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }

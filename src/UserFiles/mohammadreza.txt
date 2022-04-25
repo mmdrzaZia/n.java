@@ -1,0 +1,21 @@
+{
+  "supervisorName": "mirsadeghi",
+  "studentNumber": "400108871",
+  "entryYear": 1400,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "mohammadreza",
+  "hashedPassword": "7deef068fe937f6dcc2098c04bfea863983b6799a91010cde91a2d19eaa63ed1",
+  "position": "MASTER",
+  "completeName": "mohammadreza zia",
+  "email": "mohammadreza@gmail.com",
+  "lessons": [
+    "AP"
+  ],
+  "departmentName": "Mathematics",
+  "nationalCode": "1273897315",
+  "phoneNumber": "09133248179",
+  "isRemoved": false
+}

@@ -1,0 +1,15 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 5555,
+  "teacherNumber": "1748",
+  "username": "dr.taheri",
+  "hashedPassword": "c1f330d0aff31c1c87403f1e4347bcc21aff7c179908723535f2b31723702525",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "ebrahim taheri",
+  "email": "Taheri@gmail.com",
+  "lessons": [],
+  "departmentName": "Mechanical Engineering",
+  "nationalCode": "1278193724",
+  "phoneNumber": "09121847265",
+  "isRemoved": false
+}

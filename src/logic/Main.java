@@ -21,10 +21,15 @@ public class Main {
             System.out.println(Teachers.seeTeachers().get(i));
         }*/
         //EducationalAssistant.editLessonInformation(1,"AP");
-        ArrayList<String> lessons = new ArrayList<>();
-        lessons.add("riazi2");
-        lessons.add("physic2");
-        Users.addAStudent("mammad","1123", Positions.MASTER,"mammadrza zia","zia.mohammadreza.mz@gmail.com",lessons,"Mathematica","1273897315","09139342159","mir","400108871",1400,StudentCondition.STUDYING);
+        //ArrayList<String> lessons = new ArrayList<>();
+        //lessons.add("riazi2");
+        //lessons.add("physic2");
+        //Users.addAStudent("mammad","1123", Positions.MASTER,"mammadrza zia","zia.mohammadreza.mz@gmail.com",lessons,"Mathematica","1273897315","09139342159","mir","400108871",1400,StudentCondition.STUDYING);
+        Users.addATeacher("dr.Ardeshir","1111",Positions.BOSS_OF_DEPARTMENT,"mohammad ardeshir","Ardeshir@gmail.com","Mathematics","1273567843","09126573548",TeacherPosition.FULL_PROFESSOR,1111,"3232");
+        Users.addATeacher("dr.Zarabi","2222",Positions.BOSS_OF_DEPARTMENT,"ali zarabizade","Zarabi@gmail.com","Computer Engineering","1277863845","09128725920",TeacherPosition.FULL_PROFESSOR,2222,"5656");
+        Users.addATeacher("dr.Abam","3333",Positions.BOSS_OF_DEPARTMENT,"mohammad abam","Abam@gmail.com","Electrical Engineering","1270938475","09121842046",TeacherPosition.FULL_PROFESSOR,3333,"9087");
+        Users.addATeacher("dr.bahmanAbadi","4444",Positions.BOSS_OF_DEPARTMENT,"mahmood bahmanAbadi","BahmanAbadi@gmail.com","Physics","1275784723","091292664583",TeacherPosition.FULL_PROFESSOR,4444,"7635");
+        Users.addATeacher("dr.taheri","5555",Positions.BOSS_OF_DEPARTMENT,"ebrahim taheri","Taheri@gmail.com","Mechanical Engineering","1278193724","09121847265",TeacherPosition.FULL_PROFESSOR,5555,"1748");
         //System.out.println(Users.checkUsernameForLogin("BossOfComputerEngineering","1111"));
         //System.out.println(19.5 > 18);
         //System.out.println(TypeOfRequest.CERTIFICATE_STUDENT.toString());

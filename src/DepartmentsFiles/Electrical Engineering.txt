@@ -1,6 +1,7 @@
 {
   "name": "Electrical Engineering",
   "haveAnEducationalAssistant": false,
+  "bossOfDepartmentName": "mohammad abam",
   "lessons": [
     "MadarElectrici",
     "SignalsAndSystems"

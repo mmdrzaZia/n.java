@@ -1,0 +1,21 @@
+{
+  "supervisorName": "mirsadeghi",
+  "studentNumber": "1392348432",
+  "entryYear": 1394,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "mehdi",
+  "hashedPassword": "d9177ef7753cbfb6a68887bd91348ae937cf890f95ceae137bfd6f9063684148",
+  "position": "PHD",
+  "completeName": "mehdi poursoltani",
+  "email": "mehdi@gmail.com",
+  "lessons": [
+    ""
+  ],
+  "departmentName": "Mathematics",
+  "nationalCode": "1273648172",
+  "phoneNumber": "09148372490",
+  "isRemoved": false
+}

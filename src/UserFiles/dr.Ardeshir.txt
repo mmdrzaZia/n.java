@@ -1,0 +1,16 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 1111,
+  "teacherNumber": "3232",
+  "username": "dr.Ardeshir",
+  "hashedPassword": "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "mohammad ardeshir",
+  "email": "Ardeshir@gmail.com",
+  "lessons": [],
+  "departmentName": "Mathematics",
+  "nationalCode": "1273567843",
+  "phoneNumber": "09126573548",
+  "lastEntryTime": "25/04/2022 14:39:43",
+  "isRemoved": false
+}

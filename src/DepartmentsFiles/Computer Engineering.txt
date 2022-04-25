@@ -1,7 +1,8 @@
 {
   "name": "Computer Engineering",
   "haveAnEducationalAssistant": true,
-  "educationalAssistantName": "tefagh sag",
+  "bossOfDepartmentName": "ali zarabizade",
+  "educationalAssistantName": "alireza fazli",
   "lessons": [
     "SakhtemanGosaste",
     "MadarManteghi"

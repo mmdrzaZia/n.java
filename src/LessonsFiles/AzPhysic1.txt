@@ -4,10 +4,11 @@
   "numberOfUnitsOfLesson": 1,
   "departmentName": "Physics",
   "levelOfEducation": "MASTER",
-  "teacherName" : "felfi",
-  "departmentName" : "f;f",
+  "haveTeacher": false,
   "classDay" : "monday",
   "classTime" : "12:40",
-  "examDate" : "gsj",
-  "examTime" : "grs"
+  "examDate" : "1401/03/06",
+  "examTime" : "10:30",
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }

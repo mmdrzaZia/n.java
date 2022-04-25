@@ -1,16 +1,18 @@
 {
-  "teacherPosition": "ASSISTANT_PROFESSOR",
-  "roomNumber": 6473,
-  "teacherNumber": "674382",
+  "teacherPosition": "ASSOCIATE_PROFESSOR",
+  "roomNumber": 2635,
+  "teacherNumber": "6746",
   "username": "mani",
-  "password": "6666",
-  "position": "EDUCATIONAL_ASSISTANT",
-  "completeName": "mani reza",
-  "email": "vhdksj",
-  "lessons": [],
+  "hashedPassword": "38083c7ee9121e17401883566a148aa5c2e2d55dc53bc4a94a026517dbff3c6b",
+  "position": "PROFESSOR",
+  "completeName": "mani rezaei",
+  "email": "rezaei@gmail.com",
+  "lessons": [
+    "AP"
+  ],
   "departmentName": "Mathematics",
-  "nationalCode": "47823",
-  "phoneNumber": "48732",
-  "lastEntryTime": "yyyy-MM-dd HH:mm:ss",
+  "nationalCode": "12789632524",
+  "phoneNumber": "09149873745",
+  "lastEntryTime": "25/04/2022 16:43:20",
   "isRemoved": false
 }

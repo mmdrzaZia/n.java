@@ -1,0 +1,16 @@
+{
+  "teacherPosition": "ASSOCIATE_PROFESSOR",
+  "roomNumber": 2837,
+  "teacherNumber": "7847",
+  "username": "hesabi",
+  "hashedPassword": "ceaa28bba4caba687dc31b1bbe79eca3c70c33f871f1ce8f528cf9ab5cfd76dd",
+  "position": "PROFESSOR",
+  "completeName": "ali hesabi",
+  "email": "hesabi@gmail.com",
+  "lessons": [],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "1278973645",
+  "phoneNumber": "09128745623",
+  "lastEntryTime": "25/04/2022 16:43:37",
+  "isRemoved": false
+}

@@ -1,6 +1,7 @@
 {
   "name": "Mechanical Engineering",
   "haveAnEducationalAssistant": false,
+  "bossOfDepartmentName": "ebrahim taheri",
   "lessons": [
     "Sayalat",
     "Thermodynamics"

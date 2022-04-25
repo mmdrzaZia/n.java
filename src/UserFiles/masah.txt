@@ -1,0 +1,21 @@
+{
+  "supervisorName": "zarabizade",
+  "studentNumber": "1397564352",
+  "entryYear": 1396,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "masah",
+  "hashedPassword": "f3a7496649452449ba0e58d128faa70f072fb591a0726f722e9994c860ecf4eb",
+  "position": "MSC",
+  "completeName": "parsa masah",
+  "email": "masah@gmail.com",
+  "lessons": [
+    "MadarElectrici"
+  ],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "12734846352",
+  "phoneNumber": "09132847463",
+  "isRemoved": false
+}

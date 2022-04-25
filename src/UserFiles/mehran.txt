@@ -1,0 +1,21 @@
+{
+  "supervisorName": "mirsadeghi",
+  "studentNumber": "400109976",
+  "entryYear": 1400,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "mehran",
+  "hashedPassword": "c4876de490dcf38b74d6c0d4f120cf01126c3d6a3a49b93ec81caae38ea1497e",
+  "position": "MASTER",
+  "completeName": "mehran bakhtiari",
+  "email": "mehran@gmail.com",
+  "lessons": [
+    "SakhtemanGosaste"
+  ],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "1273846532",
+  "phoneNumber": "09137776352",
+  "isRemoved": false
+}

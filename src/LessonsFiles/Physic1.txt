@@ -2,13 +2,13 @@
   "name": "Physic1",
   "numberOfLesson": 1092,
   "numberOfUnitsOfLesson": 4,
-  "teacherName": "mammad",
-  "departmentName": "f;f",
+  "departmentName": "Physics",
   "levelOfEducation": "MASTER",
   "haveTeacher": false,
   "classDay": "monday",
   "classTime": "12:40",
   "examDate": "1401/04/23",
   "examTime": "12:30",
-  "isTemporaryRegistration": false
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }

@@ -1,0 +1,15 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 4444,
+  "teacherNumber": "7635",
+  "username": "dr.bahmanAbadi",
+  "hashedPassword": "79f06f8fde333461739f220090a23cb2a79f6d714bee100d0e4b4af249294619",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "mahmood bahmanAbadi",
+  "email": "BahmanAbadi@gmail.com",
+  "lessons": [],
+  "departmentName": "Physics",
+  "nationalCode": "1275784723",
+  "phoneNumber": "091292664583",
+  "isRemoved": false
+}

@@ -1,0 +1,21 @@
+{
+  "supervisorName": "zarabizade",
+  "studentNumber": "1396726284",
+  "entryYear": 1394,
+  "totalAverage": 0.0,
+  "studentCondition": "STUDYING",
+  "scores": {},
+  "temporaryScores": {},
+  "username": "jarahi",
+  "hashedPassword": "b2327bdfba5a1f757fe8ff14abfd3ebe9c30c4132de096be49dfb0696ce269aa",
+  "position": "PHD",
+  "completeName": "mehdi jarahi",
+  "email": "jarahi@gmail.com",
+  "lessons": [
+    "MadarManteghi"
+  ],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "1283736453",
+  "phoneNumber": "09132746352",
+  "isRemoved": false
+}

@@ -18,7 +18,7 @@ public class EducationalAssistant extends Teachers {
     static boolean addALesson (String name, int numberOfLesson, int numberOfUnitsOfLesson, String teacherName, String departmentName, LevelOfEducation levelOfEducation, String classDay, String classTime, String examDate, String examTime) {
         if (FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",name) == null) {
             Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
-            Teachers.addALesson(name,teacher.username);
+            Teachers.addALesson(name,teacherName);
             Lessons lesson = new Lessons(name, numberOfLesson, numberOfUnitsOfLesson, teacherName, departmentName, levelOfEducation,classDay,classTime,examDate,examTime);
             String information = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
             String pathLessonFile = "src/LessonsFiles/" + name + ".txt";

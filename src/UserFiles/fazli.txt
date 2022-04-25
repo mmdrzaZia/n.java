@@ -1,0 +1,16 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 1938,
+  "teacherNumber": "6374",
+  "username": "fazli",
+  "hashedPassword": "f8638b979b2f4f793ddb6dbd197e0ee25a7a6ea32b0ae22f5e3c5d119d839e75",
+  "position": "EDUCATIONAL_ASSISTANT",
+  "completeName": "alireza fazli",
+  "email": "fazli@gmail.com",
+  "lessons": [],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "1278924517",
+  "phoneNumber": "09128752635",
+  "lastEntryTime": "25/04/2022 15:57:27",
+  "isRemoved": false
+}

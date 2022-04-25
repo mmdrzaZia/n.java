@@ -2,12 +2,14 @@
   "name": "MadarManteghi",
   "numberOfLesson": 1091,
   "numberOfUnitsOfLesson": 3,
-  "departmentName": "ComputerEngineering",
+  "departmentName": "Computer Engineering",
   "levelOfEducation": "PHD",
-  "teacherName" : "felfi",
-    "departmentName" : "f;f",
-    "classDay" : "monday",
-    "classTime" : "12:40",
-    "examDate" : "gsj",
-    "examTime" : "grs"
+  "teacherName" : "ali zarabizade",
+  "haveTeacher": true,
+  "classDay" : "monday",
+  "classTime" : "15:00",
+  "examDate" : "1401/03/12",
+  "examTime" : "10:30",
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }

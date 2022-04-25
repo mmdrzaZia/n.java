@@ -1,6 +1,7 @@
 {
   "name": "Physics",
   "haveAnEducationalAssistant": false,
+  "bossOfDepartmentName": "mahmood bahmanAbadi",
   "lessons": [
     "Physic1",
     "AzPhysic1"

@@ -1,0 +1,15 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 3333,
+  "teacherNumber": "9087",
+  "username": "dr.Abam",
+  "hashedPassword": "318aee3fed8c9d040d35a7fc1fa776fb31303833aa2de885354ddf3d44d8fb69",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "mohammad abam",
+  "email": "Abam@gmail.com",
+  "lessons": [],
+  "departmentName": "Electrical Engineering",
+  "nationalCode": "1270938475",
+  "phoneNumber": "09121842046",
+  "isRemoved": false
+}

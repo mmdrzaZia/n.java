@@ -2,12 +2,13 @@
   "name": "MadarElectrici",
   "numberOfLesson": 1090,
   "numberOfUnitsOfLesson": 3,
-  "departmentName": "ElectricalEngineering",
+  "departmentName": "Electrical Engineering",
   "levelOfEducation": "MSC",
-  "teacherName" : "felfi",
-    "departmentName" : "f;f",
-    "classDay" : "monday",
-    "classTime" : "12:40",
-    "examDate" : "gsj",
-    "examTime" : "grs"
+  "haveTeacher": false,
+  "classDay" : "monday",
+  "classTime" : "12:40",
+  "examDate" : "1401/03/10",
+  "examTime" : "10:30",
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }

@@ -1,14 +1,16 @@
 {
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 7865,
+  "teacherNumber": "9090",
   "username": "tefagh",
-  "password": "5555",
+  "hashedPassword": "8c454536b6e2b8b29a1d839aa3c5ccf0ab57a590d619739b23a32d11585220c9",
   "position": "EDUCATIONAL_ASSISTANT",
-  "completeName": "tefagh sag",
-  "email": "jbdflsld",
-  "lessons": [
-    "AP"
-  ],
-  "departmentName": "Computer Engineering",
-  "nationalCode": "6538438",
-  "phoneNumber": "758353",
+  "completeName": "mojtaba tefagh",
+  "email": "tefagh@gmail.com",
+  "lessons": [],
+  "departmentName": "Mathematics",
+  "nationalCode": "1287645632",
+  "phoneNumber": "09128767652",
+  "lastEntryTime": "25/04/2022 16:26:25",
   "isRemoved": false
 }

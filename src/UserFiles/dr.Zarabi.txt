@@ -1,0 +1,18 @@
+{
+  "teacherPosition": "FULL_PROFESSOR",
+  "roomNumber": 2222,
+  "teacherNumber": "5656",
+  "username": "dr.Zarabi",
+  "hashedPassword": "edee29f882543b956620b26d0ee0e7e950399b1c4222f5de05e06425b4c995e9",
+  "position": "BOSS_OF_DEPARTMENT",
+  "completeName": "ali zarabizade",
+  "email": "Zarabi@gmail.com",
+  "lessons": [
+  "MadarManteghi"
+  ],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "1277863845",
+  "phoneNumber": "09128725920",
+  "lastEntryTime": "25/04/2022 14:42:05",
+  "isRemoved": false
+}

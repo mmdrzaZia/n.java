@@ -285,7 +285,11 @@ public class UserController {
             }
             previousIndex = newIndex;
         }
-        studentLessons.add(lessons.substring(previousIndex+1));
+        if (studentLessons.size() == 0) {
+            studentLessons.add(lessons.substring(previousIndex));
+        } else {
+            studentLessons.add(lessons.substring(previousIndex + 1));
+        }
         return Users.addAStudent(username,password,positions,completeName,email,studentLessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,Integer.parseInt(entryYear),studentEducationalCondition);
     }
 

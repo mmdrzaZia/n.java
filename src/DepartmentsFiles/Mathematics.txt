@@ -1,7 +1,8 @@
 {
   "name": "Mathematics",
   "haveAnEducationalAssistant": true,
-  "educationalAssistantName": "mani reza",
+  "bossOfDepartmentName": "mohammad ardeshir",
+  "educationalAssistantName": "mojtaba tefagh",
   "lessons": [
     "AP",
     "Riazi2"

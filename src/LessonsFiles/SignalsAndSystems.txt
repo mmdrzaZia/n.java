@@ -2,12 +2,13 @@
   "name": "SignalsAndSystems",
   "numberOfLesson": 1096,
   "numberOfUnitsOfLesson": 3,
-  "departmentName": "ElectricalEngineering",
+  "departmentName": "Electrical Engineering",
   "levelOfEducation": "PHD",
-  "teacherName" : "felfi",
-    "departmentName" : "f;f",
-    "classDay" : "monday",
-    "classTime" : "12:40",
-    "examDate" : "gsj",
-    "examTime" : "grs"
+  "haveTeacher": false,
+  "classDay" : "saturday",
+  "classTime" : "12:00",
+  "examDate" : "1401/04/14",
+  "examTime" : "11:00",
+  "isTemporaryRegistration": true,
+  "isRemoved": false
 }
