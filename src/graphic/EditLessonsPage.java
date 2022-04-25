@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.LessonController;
 import logic.UserController;
 
@@ -235,16 +236,20 @@ public class EditLessonsPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("EditLessonPage","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == registerNewInformation) {
             if (isEdit) {
                 LessonController.editLessonInformation(lessonName,entryNumberOfUnitsOfLesson.getText(),entryTeacherName.getText(),entryClassDay.getText(),entryClassTime.getText(),entryExamDate.getText(),examTime.getText());
                 message.setText("You edited successfully");
+                LogInformation.createLogStatement("EditLessonPage","clickOnchangeButton",username + "edited the lesson successfully","info");
             } else {
                 if (LessonController.addALesson(entryCompleteName.getText(),entryNumberOfLesson.getText(),entryNumberOfUnitsOfLesson.getText(),entryTeacherName.getText(),UserController.getUserDepartmentName(),entryLevelOfEducation.getSelectedItem().toString(),entryClassDay.getText(),entryClassTime.getText(),entryExamDate.getText(),entryExamTime.getText())) {
                     message.setText("Lesson added successfully");
+                    LogInformation.createLogStatement("EditLessonPage","clickOnAddButton",username + "added the lesson successfully","info");
                 } else {
                     message.setText("A lesson with this name exist");
+                    LogInformation.createLogStatement("EditLessonPage","clickOnchangeButton","A lesson with this name exist","error");
                 }
             }
         }

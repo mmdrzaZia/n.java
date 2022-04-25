@@ -8,7 +8,7 @@ public class Lessons {
     String name;
     int numberOfLesson;
     int numberOfUnitsOfLesson;
-    String teacherName; //Add to file after adding teachers
+    String teacherName;
     String departmentName;
     LevelOfEducation levelOfEducation;
     boolean haveTeacher;
@@ -35,15 +35,9 @@ public class Lessons {
 
     static ArrayList<Lessons> seeWeeklySchedule (String Username) {
         ArrayList<Lessons> weeklySchedule = new ArrayList<>();
-        String classInformation = "";
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(Username);
         for (int i = 0; i < user.lessons.size(); i++) {
             Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(user.lessons.get(i));
-            if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-                classInformation = "name: " + lesson.name + " - " + "classDay: " + lesson.classDay + " - " + "classTime: " + lesson.classTime;
-            } else {
-                classInformation = "name: " + lesson.name + " - " + "classDay: " + lesson.classDay + " - " + "classTime: " + lesson.classTime + " - " + "teacherName: " + lesson.teacherName;
-            }
             weeklySchedule.add(lesson);
         }
         return weeklySchedule;

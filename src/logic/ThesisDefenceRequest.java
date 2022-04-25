@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 
 public class ThesisDefenceRequest extends Requests{
@@ -22,5 +24,6 @@ public class ThesisDefenceRequest extends Requests{
         thesisDefenceRequest.responseText = "On " + "'" + date + "'" + " you can defend your dissertation";
         String newRequestInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(thesisDefenceRequest);
         FilesAndGsonBuilderMethods.updateFile(requestFile,newRequestInformation);
+        LogInformation.createLogStatement("ThesisDefenceRequest","giveADate","the condition of thesis defense request have been updated successfully","info");
     }
 }

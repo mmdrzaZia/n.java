@@ -1,7 +1,0 @@
-{
-  "studentName": "mammadrza zia",
-  "teacherName": "headOfEducationalAssistants",
-  "typeOfRequest": "CERTIFICATE_STUDENT",
-  "responseText": "It is certified that Mr/Mrs mammadrza zia with student number 400108871 is studying in the field Mathematica At university Sharif. This certificate was issued on Fri Apr 22 02:45:22 IRDT 2022 and is valid for up to 6 months!",
-  "studentPosition": "MASTER"
-}

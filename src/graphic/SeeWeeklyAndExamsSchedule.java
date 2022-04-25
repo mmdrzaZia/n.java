@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.LessonController;
 
 import javax.swing.*;
@@ -108,6 +109,7 @@ public class SeeWeeklyAndExamsSchedule implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             list.dispose();
+            LogInformation.createLogStatement("SeeWeeklyAndExamsSchedule","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         }
     }

@@ -130,28 +130,6 @@ public class UserController {
         }
     }
 
-    public static String getTeacherPosition (String teacherName) {
-        Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
-        if (teacher.teacherPosition.equals(TeacherPosition.FULL_PROFESSOR)) {
-            return "Full professor";
-        } else if (teacher.teacherPosition.equals(TeacherPosition.ASSISTANT_PROFESSOR)) {
-            return "Assistant professor";
-        } else {
-            return "Associate professor";
-        }
-    }
-
-    public static String getTeacherGeneralPosition (String teacherName) {
-        Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
-        if (teacher.position.equals(Positions.PROFESSOR)) {
-            return "professor";
-        } else if (teacher.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-            return "Boss of department";
-        } else {
-            return "Educational assistant";
-        }
-    }
-
     public static String getStudyingCondition () {
         if (student.studentCondition.equals(StudentCondition.STUDYING)) {
             if (student.position.equals(Positions.MASTER)) {
@@ -286,9 +264,12 @@ public class UserController {
             previousIndex = newIndex;
         }
         if (studentLessons.size() == 0) {
-            studentLessons.add(lessons.substring(previousIndex));
+            studentLessons.add(lessons.substring(newIndex));
         } else {
             studentLessons.add(lessons.substring(previousIndex + 1));
+        }
+        if (lessons.length() == 0) {
+            studentLessons.remove(0);
         }
         return Users.addAStudent(username,password,positions,completeName,email,studentLessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,Integer.parseInt(entryYear),studentEducationalCondition);
     }

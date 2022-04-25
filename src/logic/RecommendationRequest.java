@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 
 public class RecommendationRequest extends Requests {
@@ -27,5 +29,6 @@ public class RecommendationRequest extends Requests {
         recommendationRequest.hasBeenAnswered = true;
         String requestInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(recommendationRequest);
         FilesAndGsonBuilderMethods.updateFile(requestFile,requestInformation);
+        LogInformation.createLogStatement("RecommendationRequest","acceptOrReject","the condition of recommendation request have been updated","info");
     }
 }

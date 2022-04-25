@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.LessonController;
 import logic.RequestsController;
 import logic.ScoresAndReportCardController;
@@ -113,7 +114,7 @@ public class TemporaryScoresPage implements ActionListener {
         listOfLessonsForEducationalAssistant.setBounds(550,100,150,25);
         panelOfTemporaryScores.add(listOfLessonsForEducationalAssistant);
 
-        seeScoresOfALesson.setBounds(325,100,150,25);
+        seeScoresOfALesson.setBounds(300,100,175,25);
         seeScoresOfALesson.setBackground(Color.GRAY);
         seeScoresOfALesson.addActionListener(this);
         panelOfTemporaryScores.add(seeScoresOfALesson);
@@ -123,7 +124,7 @@ public class TemporaryScoresPage implements ActionListener {
         listOfStudentForEducationalAssistant.setBounds(550,175,150,25);
         panelOfTemporaryScores.add(listOfStudentForEducationalAssistant);
 
-        seeTemporaryScoresOfAStudent.setBounds(325,175,150,25);
+        seeTemporaryScoresOfAStudent.setBounds(300,175,175,25);
         seeTemporaryScoresOfAStudent.setBackground(Color.GRAY);
         seeTemporaryScoresOfAStudent.addActionListener(this);
         panelOfTemporaryScores.add(seeTemporaryScoresOfAStudent);
@@ -133,7 +134,7 @@ public class TemporaryScoresPage implements ActionListener {
         listOfTeachersForEducationalAssistant.setBounds(550,250,150,25);
         panelOfTemporaryScores.add(listOfTeachersForEducationalAssistant);
 
-        seeRegisteredScoresByTeacher.setBounds(325,250,150,25);
+        seeRegisteredScoresByTeacher.setBounds(300,250,175,25);
         seeRegisteredScoresByTeacher.setBackground(Color.GRAY);
         seeRegisteredScoresByTeacher.addActionListener(this);
         panelOfTemporaryScores.add(seeRegisteredScoresByTeacher);
@@ -143,7 +144,7 @@ public class TemporaryScoresPage implements ActionListener {
         listOfLessonsThatIsNotTemporaryRegistration.setBounds(550,325,150,25);
         panelOfTemporaryScores.add(listOfLessonsThatIsNotTemporaryRegistration);
 
-        seeInformationOfALesson.setBounds(325,325,150,25);
+        seeInformationOfALesson.setBounds(300,325,175,25);
         seeInformationOfALesson.setBackground(Color.GRAY);
         seeInformationOfALesson.addActionListener(this);
         panelOfTemporaryScores.add(seeInformationOfALesson);
@@ -193,6 +194,7 @@ public class TemporaryScoresPage implements ActionListener {
                         if (answerOfObjection != null && !answerOfObjection.equals("")) {
                             RequestsController.answerToAObjection(username,studentName,lessonName,answerOfObjection);
                             message.setText("Your answered have been registered successfully");
+                            LogInformation.createLogStatement("TemporaryScoresPage","setTableOfTemporaryScoreForTeachers",username + " answered recommendation request to " + studentName,"info");
                         }
                     } else if (column == 6) {
                         double entryScore = Double.parseDouble((String) temporaryScoresTable.getModel().getValueAt(row, 2));
@@ -200,6 +202,7 @@ public class TemporaryScoresPage implements ActionListener {
                             double rondScore = ScoresAndReportCardController.setTemporaryScoreForAStudent(studentName, lessonName, entryScore);
                             temporaryScoresTable.setValueAt(String.valueOf(rondScore), row, 2);
                             message.setText("You have been registered score successfully");
+                            LogInformation.createLogStatement("TemporaryScoresPage","setTableOfTemporaryScoreForTeachers",username + " have been registered score successfully" ,"info");
                         } else {
                             message.setText("Period of your entry score is incorrect");
                         }
@@ -250,9 +253,11 @@ public class TemporaryScoresPage implements ActionListener {
                         String lessonName = (String) temporaryScoresTable.getModel().getValueAt(row,0);
                         if (objection != null && !objection.equals("")) {
                             if (RequestsController.addObjection(username,lessonName,objection)) {
-                                message.setText("You have objected successfully");
+                                message.setText("You have been objected successfully");
+                                LogInformation.createLogStatement("TemporaryScoresPage","setTableOfLessonsScoresForStudent",username + " have been objected successfully for " + lessonName,"info");
                             } else {
                                 message.setText("You have already objected");
+                                LogInformation.createLogStatement("TemporaryScoresPage","setTableOfLessonsScoresForStudent",username + " have already objected for " + lessonName,"error");
                             }
                         }
                     }
@@ -301,14 +306,17 @@ public class TemporaryScoresPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("TemporaryScoresPage","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == filterLessons) {
             determineTemporaryOrFinalScoreTableForTeachers(listOfTeacherLessons.getSelectedItem().toString());
         } else if (e.getSource() == registerAsFinalScore) {
             if (ScoresAndReportCardController.registerFinalScoresForALesson(listOfTeacherLessons.getSelectedItem().toString())) {
                 message.setText("You have been registered scores as final scores successfully");
+                LogInformation.createLogStatement("TemporaryScoresPage","clickOnRegisterScoreAsFinalScore",username + " have been registered scores as final scores successfully for " + listOfTeacherLessons.getSelectedItem().toString(),"info");
             } else {
                 message.setText("You don't complete the temporary scores");
+                LogInformation.createLogStatement("TemporaryScoresPage","clickOnRegisterScoreAsFinalScore",username + " don't complete the temporary scores for " + listOfTeacherLessons.getSelectedItem().toString(),"error");
             }
         } else if (e.getSource() == seeScoresOfALesson) {
             hideComboBoxesAndButtons();

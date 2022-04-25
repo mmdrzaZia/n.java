@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,14 +20,15 @@ public class Requests {
             if (Teachers.findTeacherFromCompleteName(teacherName) != null) {
                 RecommendationRequest recommendationRequest = new RecommendationRequest(student.completeName, teacherName, typeOfRequest, student.position);
                 createANewFile(recommendationRequest);
+                LogInformation.createLogStatement("Requests","addARecommendationRequest","the request have been added","info");
                 return 1;
             } else {
+                LogInformation.createLogStatement("Requests","addARecommendationRequest","the considered teacher is not exist","error");
                 return 2;
             }
         } else {
+            LogInformation.createLogStatement("Requests","addARecommendationRequest","the request is already exist","error");
             return 3;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -34,11 +37,11 @@ public class Requests {
         if (!existARequest(student.completeName,"headOfEducationalAssistants",typeOfRequest)) {
             CertificateStudentRequest certificateStudentRequest = new CertificateStudentRequest("headOfEducationalAssistants", typeOfRequest, student);
             createANewFile(certificateStudentRequest);
+            LogInformation.createLogStatement("Requests","addACertificateStudentRequest","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addACertificateStudentRequest","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -49,11 +52,11 @@ public class Requests {
         if (!existARequest(student.completeName,originDepartment.educationalAssistantName,typeOfRequest)) {
             MinorRequest minorRequest = new MinorRequest(student,originDepartment,destinationDepartment,typeOfRequest);
             createANewFile(minorRequest);
+            LogInformation.createLogStatement("Requests","addAMinorRequest","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addAMinorRequest","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -63,11 +66,11 @@ public class Requests {
         if (!existARequest(student.completeName,department.educationalAssistantName,typeOfRequest)) {
             WithdrawalFromEducationRequest withdrawalFromEducationRequest = new WithdrawalFromEducationRequest(student,department.educationalAssistantName,typeOfRequest);
             createANewFile(withdrawalFromEducationRequest);
+            LogInformation.createLogStatement("Requests","addAWithdrawalFromEducationRequest","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addAWithdrawalFromEducationRequest","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -76,11 +79,11 @@ public class Requests {
         if (!existARequest(student.completeName,"headOfEducationalAssistants",typeOfRequest)) {
             DormRequest dormRequest = new DormRequest("headOfEducationalAssistants", typeOfRequest, student);
             createANewFile(dormRequest);
+            LogInformation.createLogStatement("Requests","addADormRequest","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addADormRequest","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -90,11 +93,11 @@ public class Requests {
         if (!existARequest(student.completeName,department.educationalAssistantName,typeOfRequest)) {
             ThesisDefenceRequest thesisDefenceRequest = new ThesisDefenceRequest(student,department.educationalAssistantName,typeOfRequest);
             createANewFile(thesisDefenceRequest);
+            LogInformation.createLogStatement("Requests","addAThesisDefenceRequest","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addAThesisDefenceRequest","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -104,11 +107,11 @@ public class Requests {
         if (!existARequest(student.completeName,lesson.teacherName,typeOfRequest)) {
             ObjectionToTheTemporaryScore objectionToTheTemporaryScore = new ObjectionToTheTemporaryScore(student,lesson,typeOfRequest,objection);
             createANewFile(objectionToTheTemporaryScore);
+            LogInformation.createLogStatement("Requests","addAnObjection","the request have been added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Requests","addAnObjection","the request is already exist","error");
             return false;
-            //TODO
-            //ADD AN ERROR
         }
     }
 
@@ -121,7 +124,9 @@ public class Requests {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(information);
             fileWriter.close();
+            LogInformation.createLogStatement("Requests","createANewFile","the file of request have been created successfully","info");
         } catch (IOException e) {
+            LogInformation.createLogStatement("Requests","createANewFile","can't create a file for request","info");
             e.printStackTrace();
         }
     }

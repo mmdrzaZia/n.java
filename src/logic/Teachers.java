@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class Teachers extends Users {
         }
         String newTeacherInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
         FilesAndGsonBuilderMethods.updateFile(teacherFile,newTeacherInformation);
+        LogInformation.createLogStatement("Teachers","removeALesson","the lesson was removed from lesson list of teacher","info");
     }
 
     static void addALesson (String lessonName,String teacherName) {
@@ -67,6 +70,7 @@ public class Teachers extends Users {
         teacher.lessons.add(lessonName);
         String newTeacherInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
         FilesAndGsonBuilderMethods.updateFile(teacherFile,newTeacherInformation);
+        LogInformation.createLogStatement("Teachers","addALesson","the lesson was added to lesson list of teacher","info");
     }
 
     static Teachers findTeacherFromCompleteName (String name) {

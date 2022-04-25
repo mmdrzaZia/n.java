@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -35,7 +37,9 @@ public class Users {
         Students student = null;
         try {
             student = new Students(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,entryYear,studentCondition);
+            LogInformation.createLogStatement("Users","addAStudent","the student was registered successfully","info");
         } catch (NoSuchAlgorithmException e) {
+            LogInformation.createLogStatement("Users","addAStudent","the student can not be registered successfully","error");
             e.printStackTrace();
         }
         return addAUser(student);
@@ -46,7 +50,9 @@ public class Users {
             EducationalAssistant educationalAssistant = null;
             try {
                 educationalAssistant = new EducationalAssistant(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+                LogInformation.createLogStatement("Users","addATeacher","the teacher was registered successfully","info");
             } catch (NoSuchAlgorithmException e) {
+                LogInformation.createLogStatement("Users","addATeacher","the teacher can not be registered successfully","error");
                 e.printStackTrace();
             }
             return addAUser(educationalAssistant);
@@ -54,7 +60,9 @@ public class Users {
             Professors professors = null;
             try {
                 professors = new Professors(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+                LogInformation.createLogStatement("Users","addATeacher","the teacher was registered successfully","info");
             } catch (NoSuchAlgorithmException e) {
+                LogInformation.createLogStatement("Users","addATeacher","the teacher can not be registered successfully","error");
                 e.printStackTrace();
             }
             return addAUser(professors);
@@ -62,7 +70,9 @@ public class Users {
             BossOfDepartment bossOfDepartment = null;
             try {
                 bossOfDepartment = new BossOfDepartment(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+                LogInformation.createLogStatement("Users","addATeacher","the teacher was registered successfully","info");
             } catch (NoSuchAlgorithmException e) {
+                LogInformation.createLogStatement("Users","addATeacher","the teacher can not be registered successfully","error");
                 e.printStackTrace();
             }
             return addAUser(bossOfDepartment);
@@ -80,7 +90,9 @@ public class Users {
                 FileWriter fileWriter = new FileWriter(file);
                 fileWriter.write(information);
                 fileWriter.close();
+                LogInformation.createLogStatement("Users","addAUser","the file of user created successfully","info");
             } catch (IOException e) {
+                LogInformation.createLogStatement("Users","addAUser","the file of user can not be created successfully","error");
                 e.printStackTrace();
             }
             return true;
@@ -105,11 +117,13 @@ public class Users {
             teacher.email = newEmail;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
             FilesAndGsonBuilderMethods.updateFile(userFile,newInformation);
+            LogInformation.createLogStatement("Users","changeEmail","the email of teacher was changed successfully","info");
         } else {
             Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
             student.email = newEmail;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
             FilesAndGsonBuilderMethods.updateFile(userFile,newInformation);
+            LogInformation.createLogStatement("Users","changeEmail","the email of student was changed successfully","info");
         }
     }
 
@@ -121,11 +135,13 @@ public class Users {
             teacher.phoneNumber = newPhoneNumber;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
             FilesAndGsonBuilderMethods.updateFile(userFile,newInformation);
+            LogInformation.createLogStatement("Users","changePhoneNumber","the phoneNumber of teacher was changed successfully","info");
         } else {
             Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
             student.phoneNumber = newPhoneNumber;
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
             FilesAndGsonBuilderMethods.updateFile(userFile,newInformation);
+            LogInformation.createLogStatement("Users","changePhoneNumber","the phoneNumber of student was changed successfully","info");
         }
     }
 
@@ -140,22 +156,25 @@ public class Users {
                         teacher.hashedPassword = hashPassword(newPassword);
                         String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
                         FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+                        LogInformation.createLogStatement("Users","changePassword","the password of teacher was changed successfully","info");
                     } else {
                         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
                         student.hashedPassword = hashPassword(newPassword);
                         String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
                         FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+                        LogInformation.createLogStatement("Users","changePassword","the password of student was changed successfully","info");
                     }
                     return 1;
                 } else {
+                    LogInformation.createLogStatement("Users","changePassword","the old password and new password are the same","error");
                     return 2;
                 }
             } else {
+                LogInformation.createLogStatement("Users","changePassword","the old password is not exist","error");
                 return 3;
-                //TODO
-                //ADD AN ERROR
             }
         } catch (NoSuchAlgorithmException e) {
+            LogInformation.createLogStatement("Users","changePassword","can not change the password","error");
             e.printStackTrace();
         }
         return 0;

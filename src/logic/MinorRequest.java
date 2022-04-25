@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 
 public class MinorRequest extends Requests{
@@ -24,8 +26,7 @@ public class MinorRequest extends Requests{
             this.minorRequestResult = MinorRequestResult.REJECTED;
             this.responseText = minorRequestResult.toString();
             this.hasBeenAnswered = true;
-            //TODO
-            //ADD AN ERROR
+            LogInformation.createLogStatement("MinorRequest","MinorRequest","rejected for student average","info");
             this.educationalAssistantOfDestinationDepartment = "-";
             this.educationalAssistantOfOriginDepartment = "-";
         }
@@ -76,5 +77,6 @@ public class MinorRequest extends Requests{
         minorRequest.responseText = minorRequest.minorRequestResult.toString();
         String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(minorRequest);
         FilesAndGsonBuilderMethods.updateFile(minorRequestFile,newInformation);
+        LogInformation.createLogStatement("MinorRequest","acceptOrReject","the condition of minor request have been updated","info");
     }
 }

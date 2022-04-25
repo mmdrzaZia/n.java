@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.LessonController;
 import logic.UserController;
 
@@ -166,13 +167,16 @@ public class SeeLessonsAndTeachers implements ActionListener {
                             editTeachersPage.setPageOfEditTeachers(username,password,teacherName);
                         } else {
                             message.setText("You can't edit this user");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfTeachersForBoss",username + " can't edit this user","error");
                         }
                     } else if (column == 7) {
                         if (UserController.canEditATeacher(username,teacherName)) {
                             UserController.removeATeacher(teacherName);
                             message.setText("The teacher removed successfully");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfTeachersForBoss",teacherName + " removed successfully","info");
                         } else {
                             message.setText("You can't remove this user");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfTeachersForBoss",username + " can't edit this user","error");
                         }
                     }
                 }
@@ -223,13 +227,16 @@ public class SeeLessonsAndTeachers implements ActionListener {
                             editLessonsPage.setPageOfEditLessons(username,password, lessonName);
                         } else {
                             message.setText("You can't edit this lesson");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfLessonsForEducationalAssistant",username + " can't edit this lesson","error");
                         }
                     } else if (column == 9) {
                         if (LessonController.canEditOrRemoveALesson(username,lessonName)) {
                             LessonController.removeALesson(lessonName);
                             message.setText("The lesson removed successfully");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfLessonsForEducationalAssistant",lessonName + " removed successfully","info");
                         } else {
                             message.setText("You can't remove this lesson");
+                            LogInformation.createLogStatement("SeeLessonsAndTeachers","setTableOfLessonsForEducationalAssistant",username + " can't edit this lesson","error");
                         }
                     }
                 }
@@ -280,6 +287,7 @@ public class SeeLessonsAndTeachers implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("SeeLessonsAndTeachers","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username,password);
             consideredFilter.setText("");
         } else if (e.getSource() == filterButton) {

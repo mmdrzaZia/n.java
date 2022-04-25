@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -72,6 +73,7 @@ public class ChangingPasswordPage implements ActionListener {
             int result = UserController.correctChangePassword(username,password,entryNewPassword.getText());
             if (result == 1) {
                 frame.dispose();
+                LogInformation.createLogStatement("ChangingPasswordPage","clickOnChangePasswordButton","password changed successfully for " + username,"info");
                 LoginPage loginPage = new LoginPage(true);
             } else if (result == 2) {
                 message.setText("Your new password and old password are the same!");

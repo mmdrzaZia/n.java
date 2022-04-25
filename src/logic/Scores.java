@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class Scores {
                         student.totalAverage = student.calculateTotalAverage();
                         String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
                         FilesAndGsonBuilderMethods.updateFile(studentFile,newInformation);
+                        LogInformation.createLogStatement("Scores","changeToConstantScore","the scores of student have been updated","info");
                         break;
                     }
                 }
@@ -29,30 +32,11 @@ public class Scores {
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
             File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
             FilesAndGsonBuilderMethods.updateFile(lessonFile,newInformation);
+            LogInformation.createLogStatement("Scores","changeToConstantScore","the lesson have been updated","info");
             return true;
         } else {
+            LogInformation.createLogStatement("Scores","changeToConstantScore","can't final the scores for this lesson","error");
             return false;
-        }
-    }
-
-
-    static String seeStudentsScoresOfALesson (String studentName,String lessonName) {
-        Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
-        Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
-        if (lesson.isTemporaryRegistration) {
-            for (Map.Entry<String, Double> entry : student.temporaryScores.entrySet()) {
-                if (entry.getKey().equals(lessonName)) {
-                    return String.valueOf(entry.getValue());
-                }
-            }
-            return "N/A";
-        } else {
-            for (Map.Entry<String, Double> entry : student.scores.entrySet()) {
-                if (entry.getKey().equals(lessonName)) {
-                    return String.valueOf(entry.getValue());
-                }
-            }
-            return "N/A";
         }
     }
 
@@ -64,8 +48,10 @@ public class Scores {
             student.temporaryScores.put(lessonName, rondScore);
             String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
             FilesAndGsonBuilderMethods.updateFile(studentFile, newInformation);
+            LogInformation.createLogStatement("Scores","setTemporaryScoreForStudent","the lesson have been updated","info");
             return rondScore;
         } else {
+            LogInformation.createLogStatement("Scores","setTemporaryScoreForStudent","the period of score is incorrect","error");
             return -1;
         }
     }
@@ -87,11 +73,6 @@ public class Scores {
             }
         }
         return result;
-    }
-
-    static HashMap<String,Double> seeScoresOfASpecificStudent (String studentName) {
-        Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
-        return student.temporaryScores;
     }
 
     static boolean checkThePeriodOfScore (double score) {

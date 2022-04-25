@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 
 public class WithdrawalFromEducationRequest extends Requests{
@@ -30,6 +32,8 @@ public class WithdrawalFromEducationRequest extends Requests{
         String newInformationOfStudent = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
         String newInformationOfRequest = FilesAndGsonBuilderMethods.getClassJson().toJson(withdrawalFromEducationRequest);
         FilesAndGsonBuilderMethods.updateFile(studentFile,newInformationOfStudent);
+        LogInformation.createLogStatement("WithdrawalFromEducationRequest","acceptOrReject","the situation of student was updated","info");
         FilesAndGsonBuilderMethods.updateFile(requestFile,newInformationOfRequest);
+        LogInformation.createLogStatement("WithdrawalFromEducationRequest","acceptOrReject","the situation of withdrawal from education request was updated","info");
     }
 }

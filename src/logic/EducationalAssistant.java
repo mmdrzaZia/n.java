@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,8 +33,10 @@ public class EducationalAssistant extends Teachers {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            LogInformation.createLogStatement("EducationalAssistant","addALesson","lesson with name " + "'" + name + "'" + "have added","info");
             return true;
         } else {
+            LogInformation.createLogStatement("EducationalAssistant","addALesson","lesson with name " + "'" + name + "'" + "is already exist","error");
             return false;
         }
     }
@@ -65,6 +69,7 @@ public class EducationalAssistant extends Teachers {
                     }
                     String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
                     FilesAndGsonBuilderMethods.updateFile(userFiles[i], newUserInformation);
+                    LogInformation.createLogStatement("EducationalAssistant","removeALesson","student of lesson have been updated","info");
                 } else {
                     Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(user.username);
                     for (int j = 0; j < teacher.lessons.size(); j++) {
@@ -75,6 +80,7 @@ public class EducationalAssistant extends Teachers {
                     }
                     String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
                     FilesAndGsonBuilderMethods.updateFile(userFiles[i], newUserInformation);
+                    LogInformation.createLogStatement("EducationalAssistant","removeALesson","teacher of lesson have been updated","info");
                 }
             }
         }
@@ -83,6 +89,8 @@ public class EducationalAssistant extends Teachers {
         lesson.isRemoved = true;
         String newInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFile);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newInformation);
+        LogInformation.createLogStatement("EducationalAssistant","removeALesson","lesson have been updated","info");
+        LogInformation.createLogStatement("EducationalAssistant","removeALesson","lesson have been removed successfully","info");
     }
 
     static void editLessonInformation (int numberOfUnitsOfLesson,String lessonName) {
@@ -91,6 +99,7 @@ public class EducationalAssistant extends Teachers {
         lesson.numberOfUnitsOfLesson = numberOfUnitsOfLesson;
         String newLessonInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);
+        LogInformation.createLogStatement("EducationalAssistant","editLessonInformation","lesson have been updated","info");
     }
 
     static void editLessonInformation (String teacherName,String lessonName) {
@@ -105,6 +114,7 @@ public class EducationalAssistant extends Teachers {
         Teachers.addALesson(lessonName,teacherName);
         String newLessonInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);
+        LogInformation.createLogStatement("EducationalAssistant","editLessonInformation","lesson have been updated","info");
     }
 
     static void editLessonInformation (String time,String lessonName,boolean isClassTime,boolean isTime) {
@@ -121,6 +131,7 @@ public class EducationalAssistant extends Teachers {
         }
         String newLessonInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
         FilesAndGsonBuilderMethods.updateFile(lessonFile,newLessonInformation);
+        LogInformation.createLogStatement("EducationalAssistant","editLessonInformation","lesson have been updated","info");
     }
 
     static boolean canEditALesson (String educationAssistantUsername,String lessonName) {
@@ -131,22 +142,4 @@ public class EducationalAssistant extends Teachers {
         }
         return false;
     }
-
-    static ArrayList<String> seeLessonsOfADepartment (String educationalAssistantUsername) {
-        EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(educationalAssistantUsername);
-        Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(educationalAssistant.departmentName);
-        return department.lessons;
-    }
-
-    static HashMap<String,Double> seeScoresOfAStudent (String studentNameOrStudentNumber) {
-        Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentNameOrStudentNumber);
-        return student.scores;
-    }
-
-    static double seeTotalAverageOfAStudent (String studentNameOrStudentNumber) {
-        Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentNameOrStudentNumber);
-        return student.totalAverage;
-    }
-
-
 }

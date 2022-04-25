@@ -1,7 +1,0 @@
-{
-  "studentName": "mammadrza zia",
-  "teacherName": "headOfEducationalAssistants",
-  "typeOfRequest": "DORM",
-  "responseText": "Fortunately,Your request for dorm has been approved!",
-  "studentPosition": "MSC"
-}

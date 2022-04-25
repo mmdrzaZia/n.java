@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -115,6 +116,7 @@ public class GeneralFormOfPag implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exitButton) {
+            LogInformation.createLogStatement("GeneralFormOfPage","clickOnExiteButton","the application finished","info");
             System.exit(0);
         }
     }

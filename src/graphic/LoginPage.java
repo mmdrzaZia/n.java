@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -67,7 +68,7 @@ public class LoginPage implements ActionListener {
         kapchaPictureLabel.setIcon(kapchaPicture);
         mainFrame.add(kapchaPictureLabel);
 
-        errors.setBounds(300,550,250,50);
+        errors.setBounds(300,550,350,50);
         mainFrame.add(errors);
     }
 
@@ -118,6 +119,7 @@ public class LoginPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == changeKapcha) {
+            LogInformation.createLogStatement("LoginPage","clickOnChangeKapcha","kapcha changed","info");
             changingKapchaCode();
         } else if (e.getSource() == hideOrShowPassword) {
             if (hideOrShowPassword.getIcon() != null) {
@@ -148,14 +150,12 @@ public class LoginPage implements ActionListener {
                     } else {
                         errors.setText("username or password is incorrect,try again!");
                         changingKapchaCode();
-                        //TODO
-                        //ADD AN ERROR
+                        LogInformation.createLogStatement("LoginPage","clickOnLogin","username or password is incorrect","error");
                     }
                 } else {
                     errors.setText("security code is incorrect,try again!");
                     changingKapchaCode();
-                    //TODO
-                    //ADD AN ERROR
+                    LogInformation.createLogStatement("LoginPage","clickOnLogin","security code is incorrect","error");
                 }
             }
         }

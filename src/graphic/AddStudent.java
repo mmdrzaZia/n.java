@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -196,12 +197,15 @@ public class AddStudent implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("AddStudent","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == registerNewInformation) {
             if (UserController.addAStudent(entryUsername.getText(),entryPassword.getText(),entryStudentPosition.getSelectedItem().toString(),userCompleteName.getText(),userEmailAddress.getText(),entryLessons.getText(),UserController.getUserDepartmentName(),userNationalCode.getText(),userPhoneNumber.getText(),entrySupervisorName.getText(),userStudentNumber.getText(),entryEntryYear.getText(),entryStudentCondition.getSelectedItem().toString())) {
                 message.setText("User added successfully");
+                LogInformation.createLogStatement("AddStudent","clickOnRegisterStudentButton","User added successfully","info");
             } else {
                 message.setText("A user with this username exist");
+                LogInformation.createLogStatement("AddStudent","clickOnRegisterStudentButton","A user with this username exist","error");
             }
         }
     }

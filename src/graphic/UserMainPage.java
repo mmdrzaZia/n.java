@@ -213,6 +213,9 @@ public class UserMainPage extends GeneralFormOfPag{
                 SeeWeeklyAndExamsSchedule seeWeeklyAndExamsSchedule = new SeeWeeklyAndExamsSchedule(typeOfUser,false,username,password);
             }
         });
+
+        // recommendation = 1 , certificateStudent = 2 , minor = 3 , withdrawalFromEducation = 4 , dormRequest = 5 ,  thesisDefence = 6
+
         recommendationRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

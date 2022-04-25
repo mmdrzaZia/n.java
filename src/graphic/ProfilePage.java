@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.LessonController;
 import logic.UserController;
 
@@ -178,6 +179,7 @@ public class ProfilePage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("ProfilePage","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         }
     }

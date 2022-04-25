@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -81,6 +82,7 @@ public class ChangingEmailAndPhoneNumber implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("ChangingEmailAndPhoneNumber","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == registerChanges) {
             UserController.changeEmailAndPhoneNumber(username,newEmailAddress.getText(),newPhoneNumber.getText());

@@ -1,8 +1,0 @@
-{
-  "hasBeenAnswered": false,
-  "studentName": "mammadrza zia",
-  "teacherName": "mammad",
-  "typeOfRequest": "RECOMMENDATION",
-  "responseText": "Your request of recommendation to the mammad has not been answered yet!",
-  "studentPosition": "MASTER"
-}

@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -11,13 +13,15 @@ public class Login {
         File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", username);
         if (userFile != null) {
             if (canEnter(username)) {
-                if (userFile != null) {
-                    if (checkPassword(username, password)) {
-                        return true;
-                    }
+                if (checkPassword(username, password)) {
+                    LogInformation.createLogStatement("Login","checkUsernameForLogin","user with username " + "'" + username + "' " + "enter","info");
+                    return true;
                 }
+                LogInformation.createLogStatement("Login","checkUsernameForLogin","the password is wrong","error");
             }
+            LogInformation.createLogStatement("Login","checkUsernameForLogin","the user can't enter","error");
         }
+        LogInformation.createLogStatement("Login","checkUsernameForLogin","the user is not exist","error");
         return false;
     }
 

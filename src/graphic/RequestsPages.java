@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.RequestsController;
 import logic.UserController;
 
@@ -195,9 +196,11 @@ public class RequestsPages implements ActionListener {
                     if (column == 2) {
                         RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),true);
                         message.setText("You accepted the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForRecommendationAnswersForTeachers",username + " accepted the request of " + studentName + " successfully","info");
                     } else if (column == 3) {
                         RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),false);
                         message.setText("You rejected the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForRecommendationAnswersForTeachers",username + " rejected the request of " + studentName + " successfully","info");
                     }
                 }
             }
@@ -227,9 +230,11 @@ public class RequestsPages implements ActionListener {
                     if (column == 4) {
                         RequestsController.AcceptOrRejectMinorRequest(studentName,username,true);
                         message.setText("You accepted the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForMinorRequestsForTeachers",username + " accepted the request of " + studentName + " successfully","info");
                     } else if (column == 5) {
                         RequestsController.AcceptOrRejectMinorRequest(studentName,username,false);
                         message.setText("You rejected the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForMinorRequestsForTeachers",username + " rejected the request of " + studentName + " successfully","info");
                     }
                 }
             }
@@ -259,9 +264,11 @@ public class RequestsPages implements ActionListener {
                     if (column == 2) {
                         RequestsController.acceptOrRejectWithdrawalFromEducationRequest(studentName,username,true);
                         message.setText("You accepted the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForWithdrawalFromEducationForTeachers",username + " accepted the request of " + studentName + " successfully","info");
                     } else if (column == 3) {
                         RequestsController.acceptOrRejectWithdrawalFromEducationRequest(studentName,username,false);
                         message.setText("You rejected the request successfully");
+                        LogInformation.createLogStatement("RequestsPages","setTableForWithdrawalFromEducationForTeachers",username + " rejected the request of " + studentName + " successfully","info");
                     }
                 }
             }
@@ -293,9 +300,11 @@ public class RequestsPages implements ActionListener {
                         if (date != null && !date.equals("")) {
                             if ((!(date.length() == 10)) | (date.charAt(4) != '/') | (date.charAt(7) != '/')) {
                                 message.setText("Format of date is incorrect");
+                                LogInformation.createLogStatement("RequestsPages","setTableForThesisDefenceForTeachers",username + " entry the wrong format of date","info");
                             } else {
                                 RequestsController.giveADateForThesisDefence(username,studentName,date);
                                 message.setText("You register date successfully");
+                                LogInformation.createLogStatement("RequestsPages","setTableForThesisDefenceForTeachers",username + " registered a date","info");
                             }
                         }
                     }
@@ -333,51 +342,65 @@ public class RequestsPages implements ActionListener {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             requestsFrame.dispose();
             consideredTeacherName.setText("");
+            LogInformation.createLogStatement("EditTeacherPage","RequestsPages","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == requestButton) {
             if (typeOfRequest == 1) {
                 int result = RequestsController.addRecommendationRequest(username,consideredTeacherName.getText());
                 if (result == 1) {
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnRecommendationRequest",username + " have requested successfully","info");
                 } else if (result == 2) {
                     message.setText("You can't request,because the teacher is not exist");
+                    LogInformation.createLogStatement("RequestsPages","clickOnRecommendationRequest",username + " can't request,because the teacher is not exist","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnRecommendationRequest",username + " have already requested","info");
                 }
             } else if (typeOfRequest == 2) {
                 if (RequestsController.addCertificateRequest(username)) {
                     setTableForCertificateStudentAnswer();
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnCertificateStudentRequest",username + " have requested successfully","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnCertificateStudentRequest",username + " have already requested","info");
                 }
             } else if (typeOfRequest == 3) {
                 if (RequestsController.addMinorRequest(username,departmentName.getText())) {
                     setTextFieldAndLabelFeaturesForMinorRequest();
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnMinorRequest",username + " have requested successfully","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnMinorRequest",username + " have already requested","info");
                 }
             } else if (typeOfRequest == 4) {
                 if (RequestsController.addWithdrawalFromEducationRequest(username)) {
                     setLabelsForWithdrawalFromEducationRequest();
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnWithdrawalFromEducationRequest",username + " have requested successfully","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnWithdrawalFromEducationRequest",username + " have already requested","info");
                 }
             } else if (typeOfRequest == 5) {
                 if (RequestsController.addDormRequest(username)) {
                     setLabelsForDormRequest();
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnDormRequest",username + " have requested successfully","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnDormRequest",username + " have already requested","info");
                 }
             } else if (typeOfRequest == 6) {
                 if (RequestsController.addThesisDefenceRequest(username)) {
                     setLabelsForThesisDefenceRequest();
                     message.setText("You have requested successfully");
+                    LogInformation.createLogStatement("RequestsPages","clickOnThesisDefenceRequest",username + " have requested successfully","info");
                 } else {
                     message.setText("You have already requested");
+                    LogInformation.createLogStatement("RequestsPages","clickOnThesisDefenceRequest",username + " have already requested","info");
                 }
             }
         }

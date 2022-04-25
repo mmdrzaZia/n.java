@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.ScoresAndReportCardController;
 import logic.UserController;
 
@@ -116,6 +117,7 @@ public class StudentEducationalStatus implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("StudentEducationalStatus","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == filterByStudentName) {
             String[] studentUsernameAndPassword = UserController.getStudentUsernameAndPassword(listOfStudent.getSelectedItem().toString());

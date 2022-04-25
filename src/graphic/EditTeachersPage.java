@@ -1,5 +1,6 @@
 package graphic;
 
+import Log.LogInformation;
 import logic.UserController;
 
 import javax.swing.*;
@@ -239,16 +240,20 @@ public class EditTeachersPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
+            LogInformation.createLogStatement("EditTeacherPage","clickOnBackButton","Back to main page","info");
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == registerNewInformation) {
             if (isEdit) {
                 UserController.editATeacher(teacherName, entryRoomNumber.getText(), entryTeacherPosition.getSelectedItem().toString(), entryGeneralPosition.getSelectedItem().toString());
                 message.setText("You edited successfully");
+                LogInformation.createLogStatement("EditTeacherPage","clickOnchangeButton",username + "edited the teacher successfully","info");
             } else {
                 if (UserController.addATeacher(entryUsername.getText(),entryPassword.getText(), entryGeneralPosition.getSelectedItem().toString(),userCompleteName.getText(),userEmailAddress.getText(),UserController.getUserDepartmentName(),userNationalCode.getText(),userPhoneNumber.getText(), entryTeacherPosition.getSelectedItem().toString(),Integer.parseInt(entryRoomNumber.getText()),userTeacherNumber.getText())) {
                     message.setText("User added successfully");
+                    LogInformation.createLogStatement("EditLessonPage","clickOnchangeButton",username + "added the teacher successfully","info");
                 } else {
                     message.setText("A user with this username exist");
+                    LogInformation.createLogStatement("EditLessonPage","clickOnchangeButton","A user with this username exist","error");
                 }
             }
         }

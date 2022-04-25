@@ -1,5 +1,7 @@
 package logic;
 
+import Log.LogInformation;
+
 import java.io.File;
 
 public class ObjectionToTheTemporaryScore extends Requests{
@@ -26,5 +28,6 @@ public class ObjectionToTheTemporaryScore extends Requests{
         objectionToTheTemporaryScore.responseText = answer;
         String newObjectionInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(objectionToTheTemporaryScore);
         FilesAndGsonBuilderMethods.updateFile(objectionFile,newObjectionInformation);
+        LogInformation.createLogStatement("ObjectionToTheTemporaryScore","answerToObjection","the condition of objection by " + studentName + " to " + lessonName + "have been updated","info");
     }
 }
