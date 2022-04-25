@@ -11,9 +11,7 @@
   "position": "PHD",
   "completeName": "mehdi poursoltani",
   "email": "mehdi@gmail.com",
-  "lessons": [
-    ""
-  ],
+  "lessons": [],
   "departmentName": "Mathematics",
   "nationalCode": "1273648172",
   "phoneNumber": "09148372490",

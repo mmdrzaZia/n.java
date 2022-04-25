@@ -11,11 +11,10 @@
   "position": "MSC",
   "completeName": "mehdi zare",
   "email": "zare@gmail.com",
-  "lessons": [
-    ""
-  ],
+  "lessons": [],
   "departmentName": "Mathematics",
   "nationalCode": "1273894726",
   "phoneNumber": "09142837436",
+  "lastEntryTime": "25/04/2022 16:51:27",
   "isRemoved": false
 }

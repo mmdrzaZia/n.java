@@ -9,6 +9,6 @@
   "classTime" : "17:30",
   "examDate" : "1401/04/20",
   "examTime" : "11:00",
-  "isTemporaryRegistration": true
+  "isTemporaryRegistration": true,
   "isRemoved": false
 }
