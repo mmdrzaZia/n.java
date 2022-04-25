@@ -1,0 +1,8 @@
+{
+  "hasBeenAnswered": true,
+  "studentName": "meh",
+  "teacherName": "tefagh sag",
+  "typeOfRequest": "WITHDRAWAL_FROM_EDUCATION",
+  "responseText": "Your request has not been approved!",
+  "studentPosition": "MASTER"
+}

@@ -1,0 +1,8 @@
+{
+  "hasBeenAnswered": true,
+  "studentName": "meh",
+  "teacherName": "tefagh sag",
+  "typeOfRequest": "THESIS_DEFENCE",
+  "responseText": "On \u00271401/03/21\u0027 you can defend your dissertation",
+  "studentPosition": "PHD"
+}

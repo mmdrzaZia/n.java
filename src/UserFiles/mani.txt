@@ -1,0 +1,16 @@
+{
+  "teacherPosition": "ASSISTANT_PROFESSOR",
+  "roomNumber": 6473,
+  "teacherNumber": "674382",
+  "username": "mani",
+  "password": "6666",
+  "position": "EDUCATIONAL_ASSISTANT",
+  "completeName": "mani reza",
+  "email": "vhdksj",
+  "lessons": [],
+  "departmentName": "Mathematics",
+  "nationalCode": "47823",
+  "phoneNumber": "48732",
+  "lastEntryTime": "yyyy-MM-dd HH:mm:ss",
+  "isRemoved": false
+}

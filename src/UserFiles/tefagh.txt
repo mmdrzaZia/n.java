@@ -1,0 +1,14 @@
+{
+  "username": "tefagh",
+  "password": "5555",
+  "position": "EDUCATIONAL_ASSISTANT",
+  "completeName": "tefagh sag",
+  "email": "jbdflsld",
+  "lessons": [
+    "AP"
+  ],
+  "departmentName": "Computer Engineering",
+  "nationalCode": "6538438",
+  "phoneNumber": "758353",
+  "isRemoved": false
+}
