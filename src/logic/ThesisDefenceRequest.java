@@ -13,9 +13,9 @@ public class ThesisDefenceRequest extends Requests{
         responseText = "Your request has not been answered yet!";
     }
 
-    static void giveADate (String educationalAssistantUsername,String studentName,TypeOfRequest typeOfRequest,String date) {
+    static void giveADate (String educationalAssistantUsername,String studentName,String date) {
         EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(educationalAssistantUsername);
-        String requestFileName = typeOfRequest.toString() + "." + studentName + "." + educationalAssistant.completeName;
+        String requestFileName = "THESIS_DEFENCE" + "." + studentName + "." + educationalAssistant.completeName;
         File requestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",requestFileName);
         ThesisDefenceRequest thesisDefenceRequest = FilesAndGsonBuilderMethods.convertFileToThesisDefenceRequest(requestFileName);
         thesisDefenceRequest.hasBeenAnswered = true;

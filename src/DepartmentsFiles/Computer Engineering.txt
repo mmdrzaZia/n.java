@@ -1,7 +1,7 @@
 {
   "name": "Computer Engineering",
   "haveAnEducationalAssistant": true,
-  "educationalAssistantName": "moj tefagh",
+  "educationalAssistantName": "tefagh sag",
   "lessons": [
     "SakhtemanGosaste",
     "MadarManteghi"

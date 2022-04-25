@@ -2,6 +2,7 @@ package logic;
 
 import graphic.EditLessonsPage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class LessonController {
@@ -167,5 +168,53 @@ public class LessonController {
             lessonLevelOfEducation = LevelOfEducation.PHD;
         }
         return EducationalAssistant.addALesson(name,Integer.parseInt(numberOfLesson),Integer.parseInt(numberOfUnitsOfLesson),teacherName,departmentName,lessonLevelOfEducation,classDay,classTime,examDate,examTime);
+    }
+
+    public static String[] seeLessonsOfADepartment (String educationalAssistantUsername) {
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(educationalAssistantUsername);
+        ArrayList<String> lessonsNames = new ArrayList<>();
+        File[] lessonFiles = new File("src/LessonsFiles").listFiles();
+        for (int i = 0; i < lessonFiles.length; i++) {
+            String lessonInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFiles[i]);
+            Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonInformation,Lessons.class);
+            if (!lesson.isRemoved) {
+                if (lesson.departmentName.equals(teacher.departmentName)) {
+                    lessonsNames.add(lesson.name);
+                }
+            }
+        }
+        return lessonsNames.toArray(new String[0]);
+    }
+
+    public static String[] seeLessonsOfADepartmentThatIsNotTemporaryRegistration (String educationalAssistantUsername) {
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(educationalAssistantUsername);
+        ArrayList<String> lessonsNames = new ArrayList<>();
+        File[] lessonFiles = new File("src/LessonsFiles").listFiles();
+        for (int i = 0; i < lessonFiles.length; i++) {
+            String lessonInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFiles[i]);
+            Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonInformation,Lessons.class);
+            if (!lesson.isRemoved) {
+                if (lesson.departmentName.equals(teacher.departmentName) & !lesson.isTemporaryRegistration) {
+                    lessonsNames.add(lesson.name);
+                }
+            }
+        }
+        return lessonsNames.toArray(new String[0]);
+    }
+
+    public static String getGeneralAverageOfLesson (String lessonName) {
+        return String.valueOf(Lessons.averageOfLesson(lessonName));
+    }
+
+    public static String getNumberOfFailedStudents (String lessonName) {
+        return String.valueOf(Lessons.numberOfFailedStudents(lessonName,true));
+    }
+
+    public static String getNumberOfSuccessfulStudents (String lessonName) {
+        return String.valueOf(Lessons.numberOfFailedStudents(lessonName,false));
+    }
+
+    public static String getAverageWithoutFailedStudents (String lessonName) {
+        return String.valueOf(Lessons.averageOfLessonWithoutFailedStudents(lessonName));
     }
 }

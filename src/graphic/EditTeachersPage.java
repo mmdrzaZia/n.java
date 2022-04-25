@@ -85,7 +85,9 @@ public class EditTeachersPage implements ActionListener {
         setPanelsFeatures();
     }
 
-    void setPageForAddATeacher() {
+    void setPageForAddATeacher(String userUsername, String userPassword) {
+        username = userUsername;
+        password = userPassword;
         setGeneralFeaturesOfPage();
         setLabelsAndTextFieldsFeaturesForAddATeacher();
         isEdit = false;

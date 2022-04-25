@@ -51,18 +51,21 @@ public class SeeLessonsAndTeachers implements ActionListener {
         message.setBounds(100,500,600,50);
         panelOfTable.add(message);
         setPanelsFeatures();
-        setComboBoxForLessons();
         if (wantListOfLessons & typeOfUser != 5) {
+            setComboBoxForLessons();
             setTableOfLessonsInformation(null);
         } else if (wantListOfLessons & typeOfUser == 5) {
+            setComboBoxForLessons();
             addALesson.setBounds(20,25,135,25);
             addALesson.setBackground(Color.GRAY);
             addALesson.addActionListener(this);
             panelOfTable.add(addALesson);
             setTableOfLessonsForEducationalAssistant(null);
         } else if (typeOfUser != 6) {
+            setComboBoxForTeachers();
             setTableOfTeachersInformation(null);
         }  else {
+            setComboBoxForTeachers();
             addATeacher.setBounds(20,25,135,25);
             addATeacher.setBackground(Color.GRAY);
             addATeacher.addActionListener(this);
@@ -300,7 +303,7 @@ public class SeeLessonsAndTeachers implements ActionListener {
         } else if (e.getSource() == addATeacher) {
             frame.dispose();
             EditTeachersPage editTeachersPage = new EditTeachersPage();
-            editTeachersPage.setPageForAddATeacher();
+            editTeachersPage.setPageForAddATeacher(username,password);
         } else if (e.getSource() == addALesson) {
             frame.dispose();
             EditLessonsPage editLessonsPage = new EditLessonsPage();

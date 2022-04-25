@@ -1,7 +1,7 @@
 package graphic;
 
-import logic.RequestsController;
 import logic.ScoresAndReportCardController;
+import logic.UserController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,10 @@ public class StudentEducationalStatus implements ActionListener {
     static JLabel totalAverageScore;
     static JTable lessons;
     static JScrollPane scrollPane;
+    static JComboBox listOfStudent;
+    static JButton filterByStudentName;
+    static JComboBox listOfStudentNumber;
+    static JButton filterByStudentNumber;
     static int typeOfUser;
 
     public StudentEducationalStatus(int determineTypeOfUser,String userUsername,String userPassword) {
@@ -28,6 +32,8 @@ public class StudentEducationalStatus implements ActionListener {
         totalAverageScore = new JLabel();
         topOfThePageInformation = new JPanel();
         panelOfEducationalStatus = new JPanel();
+        filterByStudentName = new JButton("Filter");
+        filterByStudentNumber = new JButton("Filter");
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(750,750);
@@ -39,7 +45,7 @@ public class StudentEducationalStatus implements ActionListener {
             setLabelsForStudents();
             setTableOfLessons();
         } else if (typeOfUser == 5) {
-            //TODO
+            setComboBoxesAndButtonsForEducationalAssistant();
         }
         frame.add(panelOfEducationalStatus);
         frame.setVisible(true);
@@ -55,6 +61,28 @@ public class StudentEducationalStatus implements ActionListener {
 
         panelOfEducationalStatus.setPreferredSize(new Dimension(750,639));
         panelOfEducationalStatus.setLayout(null);
+    }
+
+    private void setComboBoxesAndButtonsForEducationalAssistant () {
+        String[] listOfDepartmentStudents = UserController.seeStudentOfADepartment(username);
+        listOfStudent = new JComboBox(listOfDepartmentStudents);
+        listOfStudent.setBounds(550,100,150,25);
+        panelOfEducationalStatus.add(listOfStudent);
+
+        filterByStudentName.setBounds(325,100,150,25);
+        filterByStudentName.setBackground(Color.GRAY);
+        filterByStudentName.addActionListener(this);
+        panelOfEducationalStatus.add(filterByStudentName);
+
+        String[] listOfDepartmentStudentNumbers = UserController.seeStudentNumbersOfADepartment(username);
+        listOfStudentNumber = new JComboBox(listOfDepartmentStudentNumbers);
+        listOfStudentNumber.setBounds(550,150,150,25);
+        panelOfEducationalStatus.add(listOfStudentNumber);
+
+        filterByStudentNumber.setBounds(325,150,150,25);
+        filterByStudentNumber.setBackground(Color.GRAY);
+        filterByStudentNumber.addActionListener(this);
+        panelOfEducationalStatus.add(filterByStudentNumber);
     }
 
     private void setLabelsForStudents () {
@@ -89,6 +117,14 @@ public class StudentEducationalStatus implements ActionListener {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
+        } else if (e.getSource() == filterByStudentName) {
+            String[] studentUsernameAndPassword = UserController.getStudentUsernameAndPassword(listOfStudent.getSelectedItem().toString());
+            frame.dispose();
+            StudentEducationalStatus studentEducationalStatus = new StudentEducationalStatus(1,studentUsernameAndPassword[0],studentUsernameAndPassword[1]);
+        } else if (e.getSource() == filterByStudentNumber) {
+            String[] studentUsernameAndPassword = UserController.getStudentUsernameAndPassword(listOfStudentNumber.getSelectedItem().toString());
+            frame.dispose();
+            StudentEducationalStatus studentEducationalStatus = new StudentEducationalStatus(1,studentUsernameAndPassword[0],studentUsernameAndPassword[1]);
         }
     }
 }

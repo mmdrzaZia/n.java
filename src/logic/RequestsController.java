@@ -94,6 +94,37 @@ public class RequestsController {
         return Requests.addAMinorRequest(username,departmentName,TypeOfRequest.MINOR);
     }
 
+    public static String[][] getListOfMinorRequestsForATeacher (String username) {
+        ArrayList<String> nameOfStudents = new ArrayList<>();
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        MinorRequest minorRequest = null;
+        for (int i = 0; i < requestsFiles.length; i++) {
+            String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
+            Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Requests.class);
+            if (request.typeOfRequest.equals(TypeOfRequest.MINOR)) {
+                minorRequest = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,MinorRequest.class);
+                if ((minorRequest.educationalAssistantOfOriginDepartment.equals(teacher.completeName) | minorRequest.educationalAssistantOfDestinationDepartment.equals(teacher.completeName)) & !minorRequest.hasBeenAnswered) {
+                    nameOfStudents.add(request.studentName);
+                }
+            }
+        }
+        String[][] listOfMinorRequests = new String[nameOfStudents.size()][6];
+        for (int i = 0; i < nameOfStudents.size(); i++) {
+            listOfMinorRequests[i][0] = nameOfStudents.get(i);
+            listOfMinorRequests[i][1] = Students.findStudentFromCompleteNameAndStudentNumber(nameOfStudents.get(i)).studentNumber;
+            listOfMinorRequests[i][2] = Teachers.findTeacherFromCompleteName(minorRequest.educationalAssistantOfOriginDepartment).departmentName;
+            listOfMinorRequests[i][3] = Teachers.findTeacherFromCompleteName(minorRequest.educationalAssistantOfDestinationDepartment).departmentName;
+            listOfMinorRequests[i][4] = "Accept request";
+            listOfMinorRequests[i][5] = "Reject request";
+        }
+        return listOfMinorRequests;
+    }
+
+    public static void AcceptOrRejectMinorRequest (String studentName,String educationalAssistantUsername,boolean isAccepted) {
+        MinorRequest.acceptOrReject(studentName,educationalAssistantUsername,isAccepted);
+    }
+
     public static String getAnswerOfWithdrawalFromEducationRequest (String username) {
         Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
         File[] requestsFiles = new File("src/RequestsFiles").listFiles();
@@ -109,6 +140,34 @@ public class RequestsController {
 
     public static boolean addWithdrawalFromEducationRequest (String username) {
         return Requests.addAWithdrawalFromEducationRequest(username,TypeOfRequest.WITHDRAWAL_FROM_EDUCATION);
+    }
+
+    public static String[][] getListOfWithdrawalFromEducationForATeacher (String username) {
+        ArrayList<String> nameOfStudents = new ArrayList<>();
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        for (int i = 0; i < requestsFiles.length; i++) {
+            String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
+            Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Requests.class);
+            if (request.typeOfRequest.equals(TypeOfRequest.WITHDRAWAL_FROM_EDUCATION)) {
+                WithdrawalFromEducationRequest withdrawalFromEducationRequest = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,WithdrawalFromEducationRequest.class);
+                if (withdrawalFromEducationRequest.teacherName.equals(teacher.completeName) & !withdrawalFromEducationRequest.hasBeenAnswered) {
+                    nameOfStudents.add(request.studentName);
+                }
+            }
+        }
+        String[][] listOfRecommendations = new String[nameOfStudents.size()][4];
+        for (int i = 0; i < nameOfStudents.size(); i++) {
+            listOfRecommendations[i][0] = nameOfStudents.get(i);
+            listOfRecommendations[i][1] = Students.findStudentFromCompleteNameAndStudentNumber(nameOfStudents.get(i)).studentNumber;
+            listOfRecommendations[i][2] = "Accept request";
+            listOfRecommendations[i][3] = "Reject request";
+        }
+        return listOfRecommendations;
+    }
+
+    public static void acceptOrRejectWithdrawalFromEducationRequest (String studentName,String teacherUsername,boolean isAccepted) {
+        WithdrawalFromEducationRequest.acceptOrReject(studentName,teacherUsername,isAccepted);
     }
 
     public static String getAnswerOfDormRequest (String username) {
@@ -143,6 +202,34 @@ public class RequestsController {
 
     public static boolean addThesisDefenceRequest (String username) {
         return Requests.addAThesisDefenceRequest(username,TypeOfRequest.THESIS_DEFENCE);
+    }
+
+    public static String[][] getListOfThesisDefenceForATeacher (String username) {
+        ArrayList<String> nameOfStudents = new ArrayList<>();
+        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        for (int i = 0; i < requestsFiles.length; i++) {
+            String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
+            Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Requests.class);
+            if (request.typeOfRequest.equals(TypeOfRequest.THESIS_DEFENCE)) {
+                ThesisDefenceRequest thesisDefenceRequest = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,ThesisDefenceRequest.class);
+                if (thesisDefenceRequest.teacherName.equals(teacher.completeName) & !thesisDefenceRequest.hasBeenAnswered) {
+                    nameOfStudents.add(request.studentName);
+                }
+            }
+        }
+        String[][] listOfRecommendations = new String[nameOfStudents.size()][4];
+        for (int i = 0; i < nameOfStudents.size(); i++) {
+            listOfRecommendations[i][0] = nameOfStudents.get(i);
+            listOfRecommendations[i][1] = Students.findStudentFromCompleteNameAndStudentNumber(nameOfStudents.get(i)).studentNumber;
+            listOfRecommendations[i][2] = "";
+            listOfRecommendations[i][3] = "Register date";
+        }
+        return listOfRecommendations;
+    }
+
+    public static void giveADateForThesisDefence (String educationalAssistantUsername,String studentName,String date) {
+        ThesisDefenceRequest.giveADate(educationalAssistantUsername,studentName,date);
     }
 
     public static boolean addObjection (String username,String lessonName,String objection) {

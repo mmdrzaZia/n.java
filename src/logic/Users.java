@@ -1,11 +1,14 @@
 package logic;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Users {
     String username;
-    String password;
+    String hashedPassword;
     Positions position;
     String completeName;
     String email;
@@ -13,10 +16,12 @@ public class Users {
     String departmentName;
     String nationalCode;
     String phoneNumber;
+    String lastEntryTime;
+    boolean isRemoved = false;
 
-    public Users(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber) {
+    public Users(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber) throws NoSuchAlgorithmException {
         this.username = username;
-        this.password = password;
+        this.hashedPassword = hashPassword(password);
         this.position = position;
         this.completeName = completeName;
         this.email = email;
@@ -26,20 +31,40 @@ public class Users {
         lessons = new ArrayList<>();
     }
 
-    public static void addAStudent (String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
-        Students student = new Students(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,entryYear,studentCondition);
-        addAUser(student);
+    public static boolean addAStudent (String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
+        Students student = null;
+        try {
+            student = new Students(username,password,position,completeName,email,lessons,departmentName,nationalCode,phoneNumber,supervisorName,studentNumber,entryYear,studentCondition);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return addAUser(student);
     }
 
     static boolean addATeacher (String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
         if (position.equals(Positions.EDUCATIONAL_ASSISTANT)) {
-            EducationalAssistant educationalAssistant = new EducationalAssistant(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            EducationalAssistant educationalAssistant = null;
+            try {
+                educationalAssistant = new EducationalAssistant(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             return addAUser(educationalAssistant);
         } else if (position.equals(Positions.PROFESSOR)) {
-            Professors professors = new Professors(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            Professors professors = null;
+            try {
+                professors = new Professors(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             return addAUser(professors);
         } else if (position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-            BossOfDepartment bossOfDepartment = new BossOfDepartment(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            BossOfDepartment bossOfDepartment = null;
+            try {
+                bossOfDepartment = new BossOfDepartment(username,password,position,completeName,email,departmentName,nationalCode,phoneNumber,teacherPosition,roomNumber,teacherNumber);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             return addAUser(bossOfDepartment);
         }
         return false;
@@ -104,25 +129,36 @@ public class Users {
         }
     }
 
-    static void changePassword (String username,String oldPassword,String newPassword) {
+    static int changePassword (String username,String oldPassword,String newPassword) {
         Users user = FilesAndGsonBuilderMethods.convertFileToUsers(username);
-        if (user.password.equals(oldPassword)) {
-            File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", username);
-            if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-                Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
-                teacher.password = newPassword;
-                String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
-                FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+        try {
+            if (user.hashedPassword.equals(hashPassword(oldPassword))) {
+                if (!newPassword.equals(oldPassword)) {
+                    File userFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", username);
+                    if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
+                        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(username);
+                        teacher.hashedPassword = hashPassword(newPassword);
+                        String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
+                        FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+                    } else {
+                        Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
+                        student.hashedPassword = hashPassword(newPassword);
+                        String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
+                        FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+                    }
+                    return 1;
+                } else {
+                    return 2;
+                }
             } else {
-                Students student = FilesAndGsonBuilderMethods.convertFileToStudent(username);
-                student.password = newPassword;
-                String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
-                FilesAndGsonBuilderMethods.updateFile(userFile, newInformation);
+                return 3;
+                //TODO
+                //ADD AN ERROR
             }
-        } else {
-            //TODO
-            //ADD AN ERROR
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     static ArrayList<Lessons> seeExamsSchedule (String userUsername) {
@@ -159,5 +195,23 @@ public class Users {
             sortedListOfExams.add(FilesAndGsonBuilderMethods.convertFileToLesson(userLessons[i]));
         }
         return sortedListOfExams;
+    }
+
+    public static String hashPassword (String password) throws NoSuchAlgorithmException {
+        MessageDigest digest =MessageDigest.getInstance("SHA-256");
+        byte[] encodeHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        return bytesToHex(encodeHash);
+    }
+
+    private static String bytesToHex (byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

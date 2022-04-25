@@ -17,6 +17,7 @@ public class Lessons {
     String examDate;
     String examTime;
     boolean isTemporaryRegistration = true;
+    boolean isRemoved = false;
 
     public Lessons(String name, int numberOfLesson, int numberOfUnitsOfLesson, String teacherName, String departmentName, LevelOfEducation levelOfEducation, String classDay, String classTime, String examDate, String examTime) {
         this.name = name;
@@ -54,7 +55,9 @@ public class Lessons {
         for (int i = 0; i < lessons.length; i++) {
             String lessonJson = FilesAndGsonBuilderMethods.getStringJson(lessons[i]);
             Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonJson,Lessons.class);
-            lessonsInformation.add(lesson);
+            if (!lesson.isRemoved) {
+                lessonsInformation.add(lesson);
+            }
         }
         return lessonsInformation;
     }
@@ -65,8 +68,10 @@ public class Lessons {
         for (int i = 0; i < lessons.length; i++) {
             String lessonJson = FilesAndGsonBuilderMethods.getStringJson(lessons[i]);
             Lessons lesson = FilesAndGsonBuilderMethods.getClassJson().fromJson(lessonJson,Lessons.class);
-            if (lesson.departmentName.equalsIgnoreCase(filter) || lesson.teacherName.equalsIgnoreCase(filter) || lesson.classTime.equals(filter) || lesson.examTime.equals(filter) || lesson.classDay.equalsIgnoreCase(filter) || lesson.examDate.equalsIgnoreCase(filter) || lesson.levelOfEducation.toString().equalsIgnoreCase(filter) || String.valueOf(lesson.numberOfUnitsOfLesson).equals(filter)) {
-                lessonsInformation.add(lesson);
+            if (!lesson.isRemoved) {
+                if (lesson.departmentName.equalsIgnoreCase(filter) || lesson.teacherName.equalsIgnoreCase(filter) || lesson.classTime.equals(filter) || lesson.examTime.equals(filter) || lesson.classDay.equalsIgnoreCase(filter) || lesson.examDate.equalsIgnoreCase(filter) || lesson.levelOfEducation.toString().equalsIgnoreCase(filter) || String.valueOf(lesson.numberOfUnitsOfLesson).equals(filter)) {
+                    lessonsInformation.add(lesson);
+                }
             }
         }
         return lessonsInformation;
@@ -76,7 +81,7 @@ public class Lessons {
         double average = 0;
         ArrayList<String> studentsNames = seeStudentsOfALesson(lessonName);
         for (int i = 0; i < studentsNames.size(); i++) {
-            Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentsNames.get(i));
+            Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentsNames.get(i));
             for (Map.Entry<String, Double> entry : student.scores.entrySet()) {
                 if (entry.getKey().equals(lessonName)) {
                     average += entry.getValue();
@@ -92,7 +97,7 @@ public class Lessons {
         ArrayList<String> studentsNames = seeStudentsOfALesson(lessonName);
         int numberOfPassedStudents = 0;
         for (int i = 0; i < studentsNames.size(); i++) {
-            Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentsNames.get(i));
+            Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentsNames.get(i));
             for (Map.Entry<String, Double> entry : student.scores.entrySet()) {
                 if (entry.getKey().equals(lessonName)) {
                     if (entry.getValue() >= 10) {
@@ -111,7 +116,7 @@ public class Lessons {
         int numberOfPassedStudents = 0;
         ArrayList<String> studentsNames = seeStudentsOfALesson(lessonName);
         for (int i = 0; i < studentsNames.size(); i++) {
-            Students student = FilesAndGsonBuilderMethods.convertFileToStudent(studentsNames.get(i));
+            Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentsNames.get(i));
             for (Map.Entry<String, Double> entry : student.scores.entrySet()) {
                 if (entry.getKey().equals(lessonName)) {
                     if (entry.getValue() < 10) {

@@ -62,6 +62,31 @@ public class ScoresAndReportCardController {
         return temporaryScores;
     }
 
+    public static String[][] seeTemporaryScoresOfAStudentsByEducationalAssistant (String studentName) {
+        Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        String[][] temporaryScores = new String[student.temporaryScores.size()][4];
+        int index = 0;
+        for (Map.Entry<String, Double> entry : student.temporaryScores.entrySet()) {
+            temporaryScores[index][0] = entry.getKey();
+            temporaryScores[index][1] = String.valueOf(entry.getValue());
+            for (int i = 0; i < requestsFiles.length; i++) {
+                String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[i]);
+                Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, Requests.class);
+                if (request.typeOfRequest.equals(TypeOfRequest.OBJECTION_TO_THE_TEMPORARY_SCORE)) {
+                    ObjectionToTheTemporaryScore objectionToTheTemporaryScore = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,ObjectionToTheTemporaryScore.class);
+                    if (objectionToTheTemporaryScore.studentName.equals(student.completeName) && objectionToTheTemporaryScore.lessonName.equals(entry.getKey())) {
+                        temporaryScores[index][2] = objectionToTheTemporaryScore.objection;
+                        temporaryScores[index][3] = objectionToTheTemporaryScore.responseText;
+                        break;
+                    }
+                }
+            }
+            ++index;
+        }
+        return temporaryScores;
+    }
+
     public static String[][] seeTemporaryScoresByTeachers (String lessonName) {
         ArrayList<String> studentsName = Lessons.seeStudentsOfALesson(lessonName);
         String[][] temporaryScores = new String[studentsName.size()][7];
@@ -89,6 +114,40 @@ public class ScoresAndReportCardController {
             }
             temporaryScores[i][5] = "Register answer";
             temporaryScores[i][6] = "Register score";
+        }
+        return temporaryScores;
+    }
+
+    public static String[][] seeTemporaryScoresOfALessonByEducationalAssistant(String lessonName) {
+        ArrayList<String> studentsName = Lessons.seeStudentsOfALesson(lessonName);
+        String[][] temporaryScores = new String[studentsName.size()][5];
+        File[] requestsFiles = new File("src/RequestsFiles").listFiles();
+        for (int i = 0; i < studentsName.size(); i++) {
+            Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentsName.get(i));
+            temporaryScores[i][0] = student.completeName;
+            temporaryScores[i][1] = student.studentNumber;
+            boolean existScore = false;
+            for (Map.Entry<String, Double> entry : student.temporaryScores.entrySet()) {
+                if (entry.getKey().equals(lessonName)) {
+                    existScore = true;
+                    temporaryScores[i][2] = String.valueOf(entry.getValue());
+                }
+            }
+            if (!existScore) {
+                temporaryScores[i][2] = "N/A";
+            }
+            for (int j = 0; j < requestsFiles.length; j++) {
+                String information = FilesAndGsonBuilderMethods.getStringJson(requestsFiles[j]);
+                Requests request = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, Requests.class);
+                if (request.typeOfRequest.equals(TypeOfRequest.OBJECTION_TO_THE_TEMPORARY_SCORE)) {
+                    ObjectionToTheTemporaryScore objectionToTheTemporaryScore = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, ObjectionToTheTemporaryScore.class);
+                    if (objectionToTheTemporaryScore.studentName.equals(student.completeName) && objectionToTheTemporaryScore.lessonName.equals(lessonName)) {
+                        temporaryScores[i][3] = objectionToTheTemporaryScore.objection;
+                        temporaryScores[i][4] = objectionToTheTemporaryScore.responseText;
+                        break;
+                    }
+                }
+            }
         }
         return temporaryScores;
     }

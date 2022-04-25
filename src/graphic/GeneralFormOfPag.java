@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class GeneralFormOfPag implements ActionListener {
     static String username;
     static String password;
+    static String lastEntryTimeStr;
     static JFrame mainFrame;
     static JPanel topOfPage;
     static JPanel informationPanel;
@@ -53,6 +53,7 @@ public class GeneralFormOfPag implements ActionListener {
         informationPanel.add(menuBar,BorderLayout.NORTH);
         mainFrame.add(informationPanel,BorderLayout.CENTER);
         mainFrame.setVisible(true);
+        UserController.saveLastEntryTime(username,lastEntryTimeStr);
     }
 
     private void setPanelsFeatures () {
@@ -91,7 +92,8 @@ public class GeneralFormOfPag implements ActionListener {
         topOfPage.add(currentTimeText);
 
         lastEntryTime.setBounds(125,50,500,50);
-        lastEntryTime.setText("last entry time : " + getLastTime());
+        lastEntryTime.setText("last entry time : " + UserController.getLastTimeEntry(username));
+        lastEntryTimeStr = UserController.getTimeOfNow();
         lastEntryTime.setBackground(Color.BLUE);
         lastEntryTime.setForeground(Color.LIGHT_GRAY);
         topOfPage.add(lastEntryTime);
@@ -109,13 +111,6 @@ public class GeneralFormOfPag implements ActionListener {
         email.setText("email address : " + UserController.getUserEmail());
         centerInformationPanel.add(email);
     }
-
-    private static String getLastTime () {
-        Date date = new Date();
-        String str = String.format("%tc", date );
-        return str;
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -26,7 +26,7 @@ public class ShowCurrentTime implements Runnable {
                 if (hours > 12) hours -= 12;
                 minutes = calender.get(Calendar.MINUTE);
                 seconds = calender.get(Calendar.SECOND);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = calender.getTime();
                 timeString = formatter.format(date);
                 printTime();

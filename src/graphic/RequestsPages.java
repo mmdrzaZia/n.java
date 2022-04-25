@@ -60,15 +60,20 @@ public class RequestsPages implements ActionListener {
             setAnswerLabelForMinorRequest();
             setTextFieldAndLabelFeaturesForMinorRequest();
         } else if (typeOfRequest == 3 & (typeOfUser == 5)) {
-            //TODO
+            requestButton.setVisible(false);
+            setTableForMinorRequestsForTeachers();
         } else if (typeOfRequest == 4 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForWithdrawalFromEducationRequest();
         } else if (typeOfRequest == 4 & (typeOfUser == 5)) {
-            //TODO
+            requestButton.setVisible(false);
+            setTableForWithdrawalFromEducationForTeachers();
         } else if (typeOfRequest == 5 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForDormRequest();
         } else if (typeOfRequest == 6 & (typeOfUser == 1 | typeOfUser == 2 | typeOfUser == 3)) {
             setLabelsForThesisDefenceRequest();
+        } else if (typeOfRequest == 6 & typeOfUser == 5) {
+            requestButton.setVisible(false);
+            setTableForThesisDefenceForTeachers();
         }
     }
 
@@ -187,12 +192,112 @@ public class RequestsPages implements ActionListener {
                     int row = target.getSelectedRow();
                     int column = target.getSelectedColumn();
                     String studentName = (String) receivedAnswersAndRequests.getModel().getValueAt(row,0);
-                    if (column == 1) {
+                    if (column == 2) {
                         RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),true);
                         message.setText("You accepted the request successfully");
-                    } else if (column == 2) {
+                    } else if (column == 3) {
                         RequestsController.AcceptOrRejectRecommendationRequest(studentName, UserController.getUserCompleteName(),false);
                         message.setText("You rejected the request successfully");
+                    }
+                }
+            }
+        });
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
+        scrollPane.setBounds(0,150,730,300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfRequests.add(scrollPane);
+        panelOfRequests.repaint();
+        panelOfRequests.revalidate();
+        requestsFrame.repaint();
+        requestsFrame.revalidate();
+    }
+
+    private void setTableForMinorRequestsForTeachers () {
+        String[][] data = RequestsController.getListOfMinorRequestsForATeacher(username);
+        String[] column = {"Student name","Student number","Origin department","Destination department","Accept","Reject"};
+        receivedAnswersAndRequests = new JTable(data,column);
+        receivedAnswersAndRequests.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    String studentName = (String) receivedAnswersAndRequests.getModel().getValueAt(row,0);
+                    if (column == 4) {
+                        RequestsController.AcceptOrRejectMinorRequest(studentName,username,true);
+                        message.setText("You accepted the request successfully");
+                    } else if (column == 5) {
+                        RequestsController.AcceptOrRejectMinorRequest(studentName,username,false);
+                        message.setText("You rejected the request successfully");
+                    }
+                }
+            }
+        });
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
+        scrollPane.setBounds(0,150,730,300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfRequests.add(scrollPane);
+        panelOfRequests.repaint();
+        panelOfRequests.revalidate();
+        requestsFrame.repaint();
+        requestsFrame.revalidate();
+    }
+
+    private void setTableForWithdrawalFromEducationForTeachers () {
+        String[][] data = RequestsController.getListOfWithdrawalFromEducationForATeacher(username);
+        String[] column = {"Student name","Student number","Accept","Reject"};
+        receivedAnswersAndRequests = new JTable(data,column);
+        receivedAnswersAndRequests.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    String studentName = (String) receivedAnswersAndRequests.getModel().getValueAt(row,0);
+                    if (column == 2) {
+                        RequestsController.acceptOrRejectWithdrawalFromEducationRequest(studentName,username,true);
+                        message.setText("You accepted the request successfully");
+                    } else if (column == 3) {
+                        RequestsController.acceptOrRejectWithdrawalFromEducationRequest(studentName,username,false);
+                        message.setText("You rejected the request successfully");
+                    }
+                }
+            }
+        });
+        scrollPane = new JScrollPane(receivedAnswersAndRequests);
+        scrollPane.setBounds(0,150,730,300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfRequests.add(scrollPane);
+        panelOfRequests.repaint();
+        panelOfRequests.revalidate();
+        requestsFrame.repaint();
+        requestsFrame.revalidate();
+    }
+
+    private void setTableForThesisDefenceForTeachers () {
+        String[][] data = RequestsController.getListOfThesisDefenceForATeacher(username);
+        String[] column = {"Student name","Student number","date","Register date"};
+        receivedAnswersAndRequests = new JTable(data,column);
+        receivedAnswersAndRequests.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    String studentName = (String) receivedAnswersAndRequests.getModel().getValueAt(row,0);
+                    if (column == 3) {
+                        String date = (String) receivedAnswersAndRequests.getModel().getValueAt(row,2);
+                        if (date != null && !date.equals("")) {
+                            if ((!(date.length() == 10)) | (date.charAt(4) != '/') | (date.charAt(7) != '/')) {
+                                message.setText("Format of date is incorrect");
+                            } else {
+                                RequestsController.giveADateForThesisDefence(username,studentName,date);
+                                message.setText("You register date successfully");
+                            }
+                        }
                     }
                 }
             }

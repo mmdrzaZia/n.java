@@ -83,7 +83,8 @@ public class EditLessonsPage implements ActionListener {
         frame.setVisible(true);
     }
 
-    void setPageForAddALesson(String username) {
+    void setPageForAddALesson(String userUsername) {
+        username = userUsername;
         setGeneralFeaturesOfPage();
         setLabelsAndTextFieldsFeaturesForAddALesson();
         isEdit = false;

@@ -7,81 +7,94 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class LoginPage extends JFrame implements ActionListener {
+public class LoginPage implements ActionListener {
     static String username;
     static String password;
     static int securityCode;
     static int addressNumberOfKapcha;
-    private static LoginPage mainFrame;
-    static JLabel usernameLabel = new JLabel("Username :");
-    static JLabel passwordLabel = new JLabel("Password :");
-    static JLabel securityPasswordLabel = new JLabel("security code : ");
-    static JLabel kapchaPictureLabel = new JLabel();
-    static JLabel errors = new JLabel();
-    static JTextField usernameText = new JTextField();
-    static JPasswordField passwordText = new JPasswordField();
-    static JTextField securityPasswordText = new JTextField();
+    static JFrame mainFrame;
+    static JLabel usernameLabel;
+    static JLabel passwordLabel;
+    static JLabel securityPasswordLabel;
+    static JLabel kapchaPictureLabel;
+    static JLabel errors;
+    static JTextField usernameText;
+    static JPasswordField passwordText;
+    static JTextField securityPasswordText;
     static ImageIcon kapcha;
-    static JButton changeKapcha = new JButton();
-    static JButton hideOrShowPassword = new JButton();
-    static JButton login = new JButton("Login");
+    static JButton changeKapcha;
+    static JButton hideOrShowPassword;
+    static JButton login;
+    boolean isChangedPassword;
 
-    public static LoginPage getInstance(){
-        if (mainFrame == null) {
-            mainFrame = new LoginPage();
-        }
-        return mainFrame;
-    }
-
-    public LoginPage() {
+    public LoginPage(boolean isChanged) {
+        isChangedPassword = isChanged;
+        usernameLabel = new JLabel("Username :");
+        passwordLabel = new JLabel("Password :");
+        securityPasswordLabel = new JLabel("security code : ");
+        kapchaPictureLabel = new JLabel();
+        usernameText = new JTextField();
+        errors = new JLabel();
+        passwordText = new JPasswordField();
+        securityPasswordText = new JTextField();
+        changeKapcha = new JButton();
+        hideOrShowPassword = new JButton();
+        login = new JButton("Login");
+        mainFrame = new JFrame();
         setLabelsFeatures();
         setButtonsFeatures();
         setTextFieldsFeatures();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(750,750);
-        setLayout(null);
-        setLocationRelativeTo(null);
-        add(usernameLabel);
-        add(passwordLabel);
-        add(securityPasswordLabel);
-        add(kapchaPictureLabel);
-        add(errors);
-        add(changeKapcha);
-        add(hideOrShowPassword);
-        add(login);
-        add(usernameText);
-        add(passwordText);
-        add(securityPasswordText);
-        setVisible(true);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setSize(750,750);
+        mainFrame.setLayout(null);
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
     }
 
     private void setLabelsFeatures () {
         usernameLabel.setBounds(100,100,100,100);
+        mainFrame.add(usernameLabel);
+
         passwordLabel.setBounds(100,200,100,100);
+        mainFrame.add(passwordLabel);
+
         securityPasswordLabel.setBounds(80,300,100,100);
+        mainFrame.add(securityPasswordLabel);
+
         kapchaPictureLabel.setBounds(200,350,200,200);
         addressNumberOfKapcha = generateRandomNumber();
         ImageIcon kapchaPicture = new ImageIcon(kapchaHandler.findAddressOfKapchaPictures(addressNumberOfKapcha));
         kapchaPictureLabel.setIcon(kapchaPicture);
+        mainFrame.add(kapchaPictureLabel);
+
         errors.setBounds(300,550,250,50);
+        mainFrame.add(errors);
     }
 
     private void setButtonsFeatures () {
         changeKapcha.setBounds(170,450,20,20);
         changeKapcha.setIcon(new ImageIcon("src/kapchasPictures/changeKapcha.jpg"));
         changeKapcha.addActionListener(this);
+        mainFrame.add(changeKapcha);
 
         hideOrShowPassword.setBounds(475,250,20,20);
         hideOrShowPassword.addActionListener(this);
+        mainFrame.add(hideOrShowPassword);
 
         login.setBounds(500,425,100,50);
         login.addActionListener(this);
+        mainFrame.add(login);
     }
 
     private void setTextFieldsFeatures () {
         usernameText.setBounds(250,130,200,50);
+        mainFrame.add(usernameText);
+
         passwordText.setBounds(250,230,200,50);
+        mainFrame.add(passwordText);
+
         securityPasswordText.setBounds(250,330,200,50);
+        mainFrame.add(securityPasswordText);
     }
 
     private static int generateRandomNumber () {
@@ -123,22 +136,27 @@ public class LoginPage extends JFrame implements ActionListener {
         } else if (e.getSource() == login) {
             username = usernameText.getText();
             password = passwordText.getText();
-            securityCode = Integer.parseInt(securityPasswordText.getText());
-            if (securityCode == kapchaHandler.correctEntry(addressNumberOfKapcha)) {
-                if (UserController.login(username,password)) {
-                    mainFrame.dispose();
-                    GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username,password);
+            if (!UserController.firstEntry(username) && !isChangedPassword && UserController.shouldChangePassword(username)) {
+                mainFrame.dispose();
+                ChangingPasswordPage changingPasswordPage = new ChangingPasswordPage(username,password);
+            } else {
+                securityCode = Integer.parseInt(securityPasswordText.getText());
+                if (securityCode == kapchaHandler.correctEntry(addressNumberOfKapcha)) {
+                    if (UserController.login(username, password)) {
+                        mainFrame.dispose();
+                        GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
+                    } else {
+                        errors.setText("username or password is incorrect,try again!");
+                        changingKapchaCode();
+                        //TODO
+                        //ADD AN ERROR
+                    }
                 } else {
-                    errors.setText("username or password is incorrect,try again!");
+                    errors.setText("security code is incorrect,try again!");
                     changingKapchaCode();
                     //TODO
                     //ADD AN ERROR
                 }
-            } else {
-                errors.setText("security code is incorrect,try again!");
-                changingKapchaCode();
-                //TODO
-                //ADD AN ERROR
             }
         }
     }

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GuiMain {
     public static void main(String[] args) {
-        LoginPage loginPage = LoginPage.getInstance();
+        LoginPage loginPage = new LoginPage(false);
         /*JFrame frame = new JFrame();
         JPanel panel1 = new JPanel();
         panel1.setPreferredSize(new Dimension(750,111));

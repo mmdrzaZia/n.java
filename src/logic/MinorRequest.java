@@ -19,6 +19,7 @@ public class MinorRequest extends Requests{
             this.responseText = minorRequestResult.toString();
             this.educationalAssistantOfOriginDepartment = originDepartment.educationalAssistantName;
             this.educationalAssistantOfDestinationDepartment = destinationDepartment.educationalAssistantName;
+            this.teacherName = educationalAssistantOfOriginDepartment;
         } else {
             this.minorRequestResult = MinorRequestResult.REJECTED;
             this.responseText = minorRequestResult.toString();

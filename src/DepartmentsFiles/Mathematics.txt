@@ -1,6 +1,7 @@
 {
   "name": "Mathematics",
-  "haveAnEducationalAssistant": false,
+  "haveAnEducationalAssistant": true,
+  "educationalAssistantName": "mani reza",
   "lessons": [
     "AP",
     "Riazi2"

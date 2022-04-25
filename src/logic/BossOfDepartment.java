@@ -1,11 +1,15 @@
 package logic;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 
 public class BossOfDepartment extends Teachers{
 
 
-    public BossOfDepartment(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
+    public BossOfDepartment(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) throws NoSuchAlgorithmException {
         super(username, password, position, completeName, email, departmentName, nationalCode, phoneNumber, teacherPosition, roomNumber, teacherNumber);
     }
 
@@ -19,54 +23,68 @@ public class BossOfDepartment extends Teachers{
             lesson.teacherName = "have not teacher";
             lesson.haveTeacher = false;
         }
-        String newInformationOfLesson = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
-        FilesAndGsonBuilderMethods.updateFile(lessonFile,newInformationOfLesson);
+        if (teacher.lessons.size() != 0) {
+            String newInformationOfLesson = FilesAndGsonBuilderMethods.getClassJson().toJson(lesson);
+            FilesAndGsonBuilderMethods.updateFile(lessonFile, newInformationOfLesson);
+        }
+        if (teacher.position.equals(Positions.EDUCATIONAL_ASSISTANT)) {
+            Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(teacher.departmentName);
+            department.educationalAssistantName = null;
+            department.haveAnEducationalAssistant = false;
+            File departmentFile = FilesAndGsonBuilderMethods.findFileWithName("src/DepartmentsFiles",department.name);
+            String newDepartmentInformation = FilesAndGsonBuilderMethods.getStringJson(departmentFile);
+            FilesAndGsonBuilderMethods.updateFile(departmentFile,newDepartmentInformation);
+        }
         File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", teacher.username);
-        teacherFile.delete();
+        teacher.isRemoved = true;
+        String newInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
+        FilesAndGsonBuilderMethods.updateFile(teacherFile,newInformation);
     }
 
     static void putOrRemoveEducationalAssistant (String teacherName,boolean wantToPut) {
         Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
-        File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",teacher.username);
-        if (wantToPut) {
-            File departmentFile = FilesAndGsonBuilderMethods.findFileWithName("src/DepartmentsFiles", teacher.departmentName);
-            Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(teacher.departmentName);
-            File previousEducationalAssistantFile = null;
-            if (department.haveAnEducationalAssistant) {
-                File[] users = new File("src/UserFiles").listFiles();
-                EducationalAssistant previousEducationalAssistant = null;
-                for (int i = 0; i < users.length; i++) {
-                    String information = FilesAndGsonBuilderMethods.getStringJson(users[i]);
-                    previousEducationalAssistant = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, EducationalAssistant.class);
-                    if (previousEducationalAssistant.position.equals(Positions.EDUCATIONAL_ASSISTANT)) {
-                        if (previousEducationalAssistant.departmentName.equals(department.name)) {
-                            previousEducationalAssistant.position = Positions.PROFESSOR;
-                            previousEducationalAssistantFile = users[i];
-                            break;
+        if (!teacher.isRemoved) {
+            File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", teacher.username);
+            if (wantToPut) {
+                File departmentFile = FilesAndGsonBuilderMethods.findFileWithName("src/DepartmentsFiles", teacher.departmentName);
+                Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(teacher.departmentName);
+                File previousEducationalAssistantFile = null;
+                if (department.haveAnEducationalAssistant) {
+                    File[] users = new File("src/UserFiles").listFiles();
+                    EducationalAssistant previousEducationalAssistant = null;
+                    for (int i = 0; i < users.length; i++) {
+                        String information = FilesAndGsonBuilderMethods.getStringJson(users[i]);
+                        previousEducationalAssistant = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, EducationalAssistant.class);
+                        if (previousEducationalAssistant.position.equals(Positions.EDUCATIONAL_ASSISTANT)) {
+                            if (previousEducationalAssistant.departmentName.equals(department.name)) {
+                                previousEducationalAssistant.position = Positions.PROFESSOR;
+                                previousEducationalAssistantFile = users[i];
+                                break;
+                            }
                         }
                     }
+                    String previousEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(previousEducationalAssistant);
+                    FilesAndGsonBuilderMethods.updateFile(previousEducationalAssistantFile, previousEducationalAssistantInformation);
+                } else {
+                    department.haveAnEducationalAssistant = true;
                 }
-                String previousEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(previousEducationalAssistant);
-                FilesAndGsonBuilderMethods.updateFile(previousEducationalAssistantFile, previousEducationalAssistantInformation);
+                teacher.position = Positions.EDUCATIONAL_ASSISTANT;
+                department.educationalAssistantName = teacher.completeName;
+                String departmentInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(department);
+                FilesAndGsonBuilderMethods.updateFile(departmentFile, departmentInformation);
+                String newEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
+                FilesAndGsonBuilderMethods.updateFile(teacherFile, newEducationalAssistantInformation);
             } else {
-                department.haveAnEducationalAssistant = true;
+                File departmentFile = FilesAndGsonBuilderMethods.findFileWithName("src/DepartmentsFiles", teacher.departmentName);
+                Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(teacher.departmentName);
+                teacher.position = Positions.PROFESSOR;
+                department.educationalAssistantName = null;
+                department.haveAnEducationalAssistant = false;
+                String departmentInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(department);
+                FilesAndGsonBuilderMethods.updateFile(departmentFile, departmentInformation);
+                String newEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
+                FilesAndGsonBuilderMethods.updateFile(teacherFile, newEducationalAssistantInformation);
             }
-            teacher.position = Positions.EDUCATIONAL_ASSISTANT;
-            department.educationalAssistantName = teacher.completeName;
-            String departmentInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(department);
-            FilesAndGsonBuilderMethods.updateFile(departmentFile, departmentInformation);
-            String newEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
-            FilesAndGsonBuilderMethods.updateFile(teacherFile, newEducationalAssistantInformation);
-        } else {
-            File departmentFile = FilesAndGsonBuilderMethods.findFileWithName("src/DepartmentsFiles", teacher.departmentName);
-            Department department = FilesAndGsonBuilderMethods.convertFileToDepartment(teacher.departmentName);
-            teacher.position = Positions.PROFESSOR;
-            department.educationalAssistantName = null;
-            department.haveAnEducationalAssistant = false;
-            String departmentInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(department);
-            FilesAndGsonBuilderMethods.updateFile(departmentFile, departmentInformation);
-            String newEducationalAssistantInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
-            FilesAndGsonBuilderMethods.updateFile(teacherFile, newEducationalAssistantInformation);
         }
     }
 

@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class Students extends Users {
     HashMap<String,Double> scores;
     HashMap<String,Double> temporaryScores;
 
-    public Students(String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) {
+    public Students(String username, String password, Positions position, String completeName, String email, ArrayList<String> lessons, String departmentName, String nationalCode, String phoneNumber, String supervisorName, String studentNumber, int entryYear, StudentCondition studentCondition) throws NoSuchAlgorithmException {
         super(username, password, position, completeName, email, departmentName, nationalCode, phoneNumber);
         this.supervisorName = supervisorName;
         this.studentNumber = studentNumber;

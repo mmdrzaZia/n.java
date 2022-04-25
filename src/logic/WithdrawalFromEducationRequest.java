@@ -14,11 +14,11 @@ public class WithdrawalFromEducationRequest extends Requests{
         responseText = "Your request has not been answered yet!";
     }
 
-    static void acceptOrReject (String studentName,String teacherUsername,TypeOfRequest typeOfRequest,boolean isAccepted) {
+    static void acceptOrReject (String studentName,String teacherUsername,boolean isAccepted) {
         Students student = Students.findStudentFromCompleteNameAndStudentNumber(studentName);
         File studentFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",student.username);
         EducationalAssistant educationalAssistant = FilesAndGsonBuilderMethods.convertFileToEducationalAssistant(teacherUsername);
-        String fileName = typeOfRequest.toString() + "." + studentName + "." + educationalAssistant.completeName;
+        String fileName = "WITHDRAWAL_FROM_EDUCATION" + "." + studentName + "." + educationalAssistant.completeName;
         File requestFile = FilesAndGsonBuilderMethods.findFileWithName("src/RequestsFiles",fileName);
         WithdrawalFromEducationRequest withdrawalFromEducationRequest = FilesAndGsonBuilderMethods.convertFileToWithdrawalFromEducationRequest(fileName);
         withdrawalFromEducationRequest.hasBeenAnswered = true;

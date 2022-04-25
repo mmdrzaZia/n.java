@@ -1,5 +1,6 @@
 package graphic;
 
+import logic.LessonController;
 import logic.RequestsController;
 import logic.ScoresAndReportCardController;
 import logic.UserController;
@@ -14,6 +15,7 @@ import java.awt.event.MouseEvent;
 public class TemporaryScoresPage implements ActionListener {
     static String password;
     static String username;
+    static String lessonNameForProfile;
     static JFrame frame;
     static JPanel topOfThePageInformation;
     static JPanel panelOfTemporaryScores;
@@ -24,6 +26,14 @@ public class TemporaryScoresPage implements ActionListener {
     static JTable temporaryScoresTable;
     static JScrollPane scrollPane;
     static JComboBox listOfTeacherLessons;
+    static JComboBox listOfLessonsForEducationalAssistant;
+    static JButton seeScoresOfALesson;
+    static JComboBox listOfStudentForEducationalAssistant;
+    static JButton seeTemporaryScoresOfAStudent;
+    static JComboBox listOfTeachersForEducationalAssistant;
+    static JButton seeRegisteredScoresByTeacher;
+    static JComboBox listOfLessonsThatIsNotTemporaryRegistration;
+    static JButton seeInformationOfALesson;
     static int typeOfUser;
 
     public TemporaryScoresPage(int determineTypeOfUser,String userUsername,String userPassword) {
@@ -36,6 +46,10 @@ public class TemporaryScoresPage implements ActionListener {
         titleOfTable = new JLabel();
         filterLessons = new JButton("Filter");
         registerAsFinalScore = new JButton("Register as final scores");
+        seeScoresOfALesson = new JButton("See scores");
+        seeTemporaryScoresOfAStudent = new JButton("See temporary scores");
+        seeRegisteredScoresByTeacher = new JButton("See registered scores");
+        seeInformationOfALesson = new JButton("See information");
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(750,750);
@@ -49,7 +63,7 @@ public class TemporaryScoresPage implements ActionListener {
         } else if (typeOfUser == 4 | typeOfUser == 6) {
             setComboBoxAndFilterButton();
         } else {
-            //TODO
+            setComboBoxesAndButtonsForEducationalAssistant();
         }
         frame.add(panelOfTemporaryScores);
         frame.setVisible(true);
@@ -93,12 +107,72 @@ public class TemporaryScoresPage implements ActionListener {
         panelOfTemporaryScores.add(filterLessons);
     }
 
-    private void determineTemporaryOrFinalScoreTable (String lessonName) {
-        if (ScoresAndReportCardController.isTemporaryOrFinal(lessonName)) {
+    private void setComboBoxesAndButtonsForEducationalAssistant () {
+        String[] listOfLessons = LessonController.seeLessonsOfADepartment(username);
+        listOfLessonsForEducationalAssistant = new JComboBox(listOfLessons);
+        listOfLessonsForEducationalAssistant.setBounds(550,100,150,25);
+        panelOfTemporaryScores.add(listOfLessonsForEducationalAssistant);
+
+        seeScoresOfALesson.setBounds(325,100,150,25);
+        seeScoresOfALesson.setBackground(Color.GRAY);
+        seeScoresOfALesson.addActionListener(this);
+        panelOfTemporaryScores.add(seeScoresOfALesson);
+
+        String[] listOfStudents = UserController.seeStudentOfADepartment(username);
+        listOfStudentForEducationalAssistant = new JComboBox(listOfStudents);
+        listOfStudentForEducationalAssistant.setBounds(550,175,150,25);
+        panelOfTemporaryScores.add(listOfStudentForEducationalAssistant);
+
+        seeTemporaryScoresOfAStudent.setBounds(325,175,150,25);
+        seeTemporaryScoresOfAStudent.setBackground(Color.GRAY);
+        seeTemporaryScoresOfAStudent.addActionListener(this);
+        panelOfTemporaryScores.add(seeTemporaryScoresOfAStudent);
+
+        String[] listOfTeachers = UserController.seeTeachersOfADepartment(username);
+        listOfTeachersForEducationalAssistant = new JComboBox(listOfTeachers);
+        listOfTeachersForEducationalAssistant.setBounds(550,250,150,25);
+        panelOfTemporaryScores.add(listOfTeachersForEducationalAssistant);
+
+        seeRegisteredScoresByTeacher.setBounds(325,250,150,25);
+        seeRegisteredScoresByTeacher.setBackground(Color.GRAY);
+        seeRegisteredScoresByTeacher.addActionListener(this);
+        panelOfTemporaryScores.add(seeRegisteredScoresByTeacher);
+
+        String[] listOfLessonsNotTemporaryRegistration = LessonController.seeLessonsOfADepartmentThatIsNotTemporaryRegistration(username);
+        listOfLessonsThatIsNotTemporaryRegistration = new JComboBox(listOfLessonsNotTemporaryRegistration);
+        listOfLessonsThatIsNotTemporaryRegistration.setBounds(550,325,150,25);
+        panelOfTemporaryScores.add(listOfLessonsThatIsNotTemporaryRegistration);
+
+        seeInformationOfALesson.setBounds(325,325,150,25);
+        seeInformationOfALesson.setBackground(Color.GRAY);
+        seeInformationOfALesson.addActionListener(this);
+        panelOfTemporaryScores.add(seeInformationOfALesson);
+    }
+
+    private void determineTemporaryOrFinalScoreTableForTeachers (String lessonName) {
+        if (ScoresAndReportCardController.isTemporaryOrFinal(lessonName) & typeOfUser != 5) {
             setTableOfTemporaryScoreForTeachers(lessonName);
+        } else if (ScoresAndReportCardController.isTemporaryOrFinal(lessonName) & typeOfUser == 5) {
+            setTableOfTemporaryScoreForEducationalAssistant(lessonName);
         } else {
             setTableForFinalScoresForTeachers(lessonName);
         }
+    }
+
+    private void setTableOfTemporaryScoreForEducationalAssistant (String lessonName) {
+        titleOfTable.setText("Temporary scores of " + lessonName);
+        String[][] data = ScoresAndReportCardController.seeTemporaryScoresOfALessonByEducationalAssistant(lessonName);
+        String[] column = {"Student name","Student number","Temporary score","Objection","Answer of Objection"};
+        temporaryScoresTable = new JTable(data,column);
+        scrollPane = new JScrollPane(temporaryScoresTable);
+        scrollPane.setBounds(0,200,730,100);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfTemporaryScores.add(scrollPane);
+        panelOfTemporaryScores.repaint();
+        panelOfTemporaryScores.revalidate();
+        frame.repaint();
+        frame.revalidate();
     }
 
     private void setTableOfTemporaryScoreForTeachers (String lessonName) {
@@ -147,7 +221,7 @@ public class TemporaryScoresPage implements ActionListener {
     private void setTableForFinalScoresForTeachers (String lessonName) {
         titleOfTable.setText("Final scores of " + lessonName);
         String[][] data = ScoresAndReportCardController.seeFinalScoresByTeachers(lessonName);
-        String[] column = {"Student name","Student number","Temporary score","Objection","Answer of Objection"};
+        String[] column = {"Student name","Student number","Final score","Objection","Answer of Objection"};
         temporaryScoresTable = new JTable(data,column);
         scrollPane = new JScrollPane(temporaryScoresTable);
         scrollPane.setBounds(0,200,730,100);
@@ -196,19 +270,59 @@ public class TemporaryScoresPage implements ActionListener {
         frame.revalidate();
     }
 
+    private void setTableOfTemporaryScoresOfAStudentForEducationalAssistant (String studentName) {
+        titleOfTable.setText("Temporary scores");
+        String[][] data = ScoresAndReportCardController.seeTemporaryScoresOfAStudentsByEducationalAssistant(studentName);
+        String[] column = {"Lesson name", "Temporary score", "Objection", "Answer of Objection"};
+        temporaryScoresTable = new JTable(data, column);
+        scrollPane = new JScrollPane(temporaryScoresTable);
+        scrollPane.setBounds(0, 200, 730, 100);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panelOfTemporaryScores.add(scrollPane);
+        panelOfTemporaryScores.repaint();
+        panelOfTemporaryScores.revalidate();
+        frame.repaint();
+        frame.revalidate();
+    }
+
+    private static void hideComboBoxesAndButtons () {
+        listOfLessonsForEducationalAssistant.setVisible(false);
+        seeScoresOfALesson.setVisible(false);
+        listOfStudentForEducationalAssistant.setVisible(false);
+        seeTemporaryScoresOfAStudent.setVisible(false);
+        listOfTeachersForEducationalAssistant.setVisible(false);
+        seeRegisteredScoresByTeacher.setVisible(false);
+        listOfLessonsThatIsNotTemporaryRegistration.setVisible(false);
+        seeInformationOfALesson.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GeneralFormOfPag.backToMainPage) {
             frame.dispose();
             GeneralFormOfPag generalFormOfPag = new GeneralFormOfPag(username, password);
         } else if (e.getSource() == filterLessons) {
-            determineTemporaryOrFinalScoreTable(listOfTeacherLessons.getSelectedItem().toString());
+            determineTemporaryOrFinalScoreTableForTeachers(listOfTeacherLessons.getSelectedItem().toString());
         } else if (e.getSource() == registerAsFinalScore) {
             if (ScoresAndReportCardController.registerFinalScoresForALesson(listOfTeacherLessons.getSelectedItem().toString())) {
                 message.setText("You have been registered scores as final scores successfully");
             } else {
                 message.setText("You don't complete the temporary scores");
             }
+        } else if (e.getSource() == seeScoresOfALesson) {
+            hideComboBoxesAndButtons();
+            determineTemporaryOrFinalScoreTableForTeachers(listOfLessonsForEducationalAssistant.getSelectedItem().toString());
+        } else if (e.getSource() == seeTemporaryScoresOfAStudent) {
+            hideComboBoxesAndButtons();
+            setTableOfTemporaryScoresOfAStudentForEducationalAssistant(listOfStudentForEducationalAssistant.getSelectedItem().toString());
+        } else if (e.getSource() == seeRegisteredScoresByTeacher) {
+            hideComboBoxesAndButtons();
+            setComboBoxAndFilterButton();
+        } else if (e.getSource() == seeInformationOfALesson) {
+            hideComboBoxesAndButtons();
+            lessonNameForProfile = listOfLessonsThatIsNotTemporaryRegistration.getSelectedItem().toString();
+            ProfilePage profilePage = new ProfilePage(-1,username,password);
         }
     }
 }

@@ -30,6 +30,10 @@ public class UserMainPage extends GeneralFormOfPag{
     static JMenuItem withdrawalFromEducationRequest;
     static JMenuItem dormRequest;
     static JMenuItem thesisDefenceRequest;
+    static JMenu registerAUser;
+    static JMenuItem registerAStudent;
+    static JMenuItem registerATeacher;
+    static JMenuItem changeEmailOrPhoneNumber;
     static int typeOfUser;
 
     public UserMainPage(String userUsername, String userPassword) {
@@ -59,6 +63,10 @@ public class UserMainPage extends GeneralFormOfPag{
         withdrawalFromEducationRequest = new JMenuItem("Withdrawal from education request");
         dormRequest = new JMenuItem("Dorm request");
         thesisDefenceRequest = new JMenuItem("Thesis defence request");
+        registerAUser = new JMenu("Register a user");
+        registerATeacher = new JMenuItem("Register a teacher");
+        registerAStudent = new JMenuItem("Register a student");
+        changeEmailOrPhoneNumber = new JMenuItem("Edit information");
         typeOfUser = UserController.determineTheTypeOfUser();
         if (UserController.determineTheTypeOfUser() == 1) {
             setLabelsFeatures(username);
@@ -70,11 +78,11 @@ public class UserMainPage extends GeneralFormOfPag{
             setLabelsFeatures(username);
             phdStudentMenu();
         } else if (UserController.determineTheTypeOfUser() == 4) {
-            professorAndBossOdDepartmentMenu();
+            professorAndBossOfDepartmentMenu();
         } else if (UserController.determineTheTypeOfUser() == 5) {
             educationalAssistantMenu();
         } else if (UserController.determineTheTypeOfUser() == 6) {
-            professorAndBossOdDepartmentMenu();
+            professorAndBossOfDepartmentMenu();
         }
         informationPanel.add(centerInformationPanel,BorderLayout.CENTER);
         addActionListeners();
@@ -119,11 +127,14 @@ public class UserMainPage extends GeneralFormOfPag{
         addJMenusForStudents();
     }
 
-    private static void professorAndBossOdDepartmentMenu () {
+    private static void professorAndBossOfDepartmentMenu() {
         addJMenusForTeachers();
     }
 
     private static void educationalAssistantMenu () {
+        registrationMatters.add(registerAUser);
+        registerAUser.add(registerAStudent);
+        registerAUser.add(registerATeacher);
         requests.add(minorRequest);
         requests.add(withdrawalFromEducationRequest);
         requests.add(thesisDefenceRequest);
@@ -143,6 +154,7 @@ public class UserMainPage extends GeneralFormOfPag{
         recordAffairs.add(temporaryScores);
 
         setting.add(profile);
+        setting.add(changeEmailOrPhoneNumber);
 
         menuBar.add(registrationMatters);
         menuBar.add(educationalServices);
@@ -164,6 +176,7 @@ public class UserMainPage extends GeneralFormOfPag{
         recordAffairs.add(educationalStatus);
 
         setting.add(profile);
+        setting.add(changeEmailOrPhoneNumber);
 
         menuBar.add(registrationMatters);
         menuBar.add(educationalServices);
@@ -261,6 +274,29 @@ public class UserMainPage extends GeneralFormOfPag{
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
                 ProfilePage profilePage = new ProfilePage(typeOfUser,username,password);
+            }
+        });
+        registerATeacher.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                EditTeachersPage editTeachersPage = new EditTeachersPage();
+                editTeachersPage.setPageForAddATeacher(username,password);
+            }
+        });
+        registerAStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                AddStudent addStudent = new AddStudent();
+                addStudent.setPageForAddAStudent(username,password);
+            }
+        });
+        changeEmailOrPhoneNumber.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                ChangingEmailAndPhoneNumber changingEmailAndPhoneNumber = new ChangingEmailAndPhoneNumber(username,password);
             }
         });
     }

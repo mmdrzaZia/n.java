@@ -3,13 +3,15 @@ package logic;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class EducationalAssistant extends Teachers {
 
 
-    public EducationalAssistant(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
+    public EducationalAssistant(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) throws NoSuchAlgorithmException {
         super(username, password, position, completeName, email, departmentName, nationalCode, phoneNumber,teacherPosition, roomNumber, teacherNumber);
     }
 
@@ -40,17 +42,47 @@ public class EducationalAssistant extends Teachers {
         for (int i = 0; i < userFiles.length; i++) {
             String information = FilesAndGsonBuilderMethods.getStringJson(userFiles[i]);
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
-            for (int j = 0; j < user.lessons.size(); j++) {
-                if (user.lessons.get(j).equals(lessonName)) {
-                    user.lessons.remove(j);
-                    String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(user);
-                    FilesAndGsonBuilderMethods.updateFile(userFiles[i],newUserInformation);
-                    break;
+            if (!user.isRemoved) {
+                if (user.position.equals(Positions.MASTER) | user.position.equals(Positions.MSC) | user.position.equals(Positions.PHD)) {
+                    Students student = FilesAndGsonBuilderMethods.convertFileToStudent(user.username);
+                    for (int j = 0; j < student.lessons.size(); j++) {
+                        if (student.lessons.get(j).equals(lessonName)) {
+                            student.lessons.remove(j);
+                            break;
+                        }
+                    }
+                    for (Map.Entry<String, Double> entry : student.temporaryScores.entrySet()) {
+                        if (entry.getKey().equals(lessonName)) {
+                            student.temporaryScores.remove(lessonName);
+                            break;
+                        }
+                    }
+                    for (Map.Entry<String, Double> entry : student.scores.entrySet()) {
+                        if (entry.getKey().equals(lessonName)) {
+                            student.scores.remove(lessonName);
+                            break;
+                        }
+                    }
+                    String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(student);
+                    FilesAndGsonBuilderMethods.updateFile(userFiles[i], newUserInformation);
+                } else {
+                    Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(user.username);
+                    for (int j = 0; j < teacher.lessons.size(); j++) {
+                        if (teacher.lessons.get(j).equals(lessonName)) {
+                            teacher.lessons.remove(j);
+                            break;
+                        }
+                    }
+                    String newUserInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
+                    FilesAndGsonBuilderMethods.updateFile(userFiles[i], newUserInformation);
                 }
             }
         }
         File lessonFile = FilesAndGsonBuilderMethods.findFileWithName("src/LessonsFiles",lessonName);
-        lessonFile.delete();
+        Lessons lesson = FilesAndGsonBuilderMethods.convertFileToLesson(lessonName);
+        lesson.isRemoved = true;
+        String newInformation = FilesAndGsonBuilderMethods.getStringJson(lessonFile);
+        FilesAndGsonBuilderMethods.updateFile(lessonFile,newInformation);
     }
 
     static void editLessonInformation (int numberOfUnitsOfLesson,String lessonName) {

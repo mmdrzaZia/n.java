@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Teachers extends Users {
@@ -8,7 +9,7 @@ public class Teachers extends Users {
     int roomNumber;
     String teacherNumber;
 
-    public Teachers(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) {
+    public Teachers(String username, String password, Positions position, String completeName, String email, String departmentName, String nationalCode, String phoneNumber, TeacherPosition teacherPosition, int roomNumber, String teacherNumber) throws NoSuchAlgorithmException {
         super(username, password, position, completeName, email,departmentName, nationalCode, phoneNumber);
         this.teacherPosition = teacherPosition;
         this.roomNumber = roomNumber;
@@ -21,8 +22,10 @@ public class Teachers extends Users {
         for (int i = 0; i < teachers.length; i++) {
             String teacherJson = FilesAndGsonBuilderMethods.getStringJson(teachers[i]);
             Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(teacherJson,Teachers.class);
-            if (teacher.position.equals(Positions.PROFESSOR) | teacher.position.equals(Positions.EDUCATIONAL_ASSISTANT) | teacher.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-                teachersInformation.add(teacher);
+            if (!teacher.isRemoved) {
+                if (teacher.position.equals(Positions.PROFESSOR) | teacher.position.equals(Positions.EDUCATIONAL_ASSISTANT) | teacher.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
+                    teachersInformation.add(teacher);
+                }
             }
         }
         return teachersInformation;
@@ -34,18 +37,20 @@ public class Teachers extends Users {
         for (int i = 0; i < teachers.length; i++) {
             String teacherJson = FilesAndGsonBuilderMethods.getStringJson(teachers[i]);
             Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(teacherJson,Teachers.class);
-            if (teacher.position.equals(Positions.PROFESSOR) | teacher.position.equals(Positions.EDUCATIONAL_ASSISTANT) | teacher.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-                if (teacher.completeName.equalsIgnoreCase(filter) | teacher.departmentName.equalsIgnoreCase(filter) | teacher.teacherPosition.toString().equalsIgnoreCase(filter)) {
-                    teachersInformation.add(teacher);
+            if (!teacher.isRemoved) {
+                if (teacher.position.equals(Positions.PROFESSOR) | teacher.position.equals(Positions.EDUCATIONAL_ASSISTANT) | teacher.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
+                    if (teacher.completeName.equalsIgnoreCase(filter) | teacher.departmentName.equalsIgnoreCase(filter) | teacher.teacherPosition.toString().equalsIgnoreCase(filter)) {
+                        teachersInformation.add(teacher);
+                    }
                 }
             }
         }
         return teachersInformation;
     }
 
-    static void removeALesson (String lessonName,String teacherUserName) {
-        File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",teacherUserName);
-        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(teacherUserName);
+    static void removeALesson (String lessonName,String teacherName) {
+        File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", teacherName);
+        Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
         for (int i = 0; i < teacher.lessons.size(); i++) {
             if (teacher.lessons.get(i).equals(lessonName)) {
                 teacher.lessons.remove(i);
@@ -56,9 +61,9 @@ public class Teachers extends Users {
         FilesAndGsonBuilderMethods.updateFile(teacherFile,newTeacherInformation);
     }
 
-    static void addALesson (String lessonName,String teacherUserName) {
-        File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles",teacherUserName);
-        Teachers teacher = FilesAndGsonBuilderMethods.convertFileToTeachers(teacherUserName);
+    static void addALesson (String lessonName,String teacherName) {
+        Teachers teacher = Teachers.findTeacherFromCompleteName(teacherName);
+        File teacherFile = FilesAndGsonBuilderMethods.findFileWithName("src/UserFiles", teacher.username);
         teacher.lessons.add(lessonName);
         String newTeacherInformation = FilesAndGsonBuilderMethods.getClassJson().toJson(teacher);
         FilesAndGsonBuilderMethods.updateFile(teacherFile,newTeacherInformation);
@@ -70,9 +75,11 @@ public class Teachers extends Users {
             String information = FilesAndGsonBuilderMethods.getStringJson(teacherFiles[i]);
             Users user = FilesAndGsonBuilderMethods.getClassJson().fromJson(information,Users.class);
             if (user.position.equals(Positions.PROFESSOR) | user.position.equals(Positions.EDUCATIONAL_ASSISTANT) | user.position.equals(Positions.BOSS_OF_DEPARTMENT)) {
-                if (user.completeName.equals(name)) {
-                    Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, Teachers.class);
-                    return teacher;
+                Teachers teacher = FilesAndGsonBuilderMethods.getClassJson().fromJson(information, Teachers.class);
+                if (!teacher.isRemoved) {
+                    if (user.completeName.equalsIgnoreCase(name)) {
+                        return teacher;
+                    }
                 }
             }
         }
